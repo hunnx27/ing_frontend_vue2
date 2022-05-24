@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/home/HomeView.vue'
+import LoginView from '../views/login/LoginView.vue'
 import MenuLayout from '../layouts/MenuLayout.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 
@@ -20,6 +21,17 @@ const routes = [
       {
         path: "",
         component: HomeView
+      }
+    ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: DefaultLayout,
+    children: [
+      {
+        path: "",
+        component: LoginView
       }
     ]
   },
