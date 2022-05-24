@@ -1,10 +1,8 @@
 <template>
-  <v-container fluid>
+  <v-container fluid fill-height>
     <v-row>
-      <v-col cols="12" sm="6" md="12">
+      <v-col cols="12" sm="12" md="12" class="text-center">
         <h3>함께 만드는 유아교사 필수앱</h3>
-      </v-col>
-      <v-col cols="12" sm="6" md="12">
         <h1>원앤집</h1>
       </v-col>
     </v-row>
@@ -15,24 +13,42 @@
       <v-col cols="12" sm="6" md="12">
         <v-text-field v-model="user.password" :rules="inputRules" label="비밀번호" outlined></v-text-field>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="6" md="12">
+      <v-col cols="12" sm="12" md="12">
         <v-btn block color="primary" @click="login">LOGIN</v-btn>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="6" md="12">
-      <ul>
-        <li v-for="social in socials" v-bind:key="social.socialType">
-          <button @click="socialLogin(social.socialType)"><img :src="social.src"/></button>
+
+      <v-col cols="12" sm="12" md="12">
+        <div class="caption text-center mt-6">또는 간편 로그인</div>
+        <v-divider></v-divider>
+      </v-col>
+
+      <v-col cols="12" sm="12" md="12" >
+      <ul class="text-center" style="padding-left:0">
+        <li v-for="social in socials" v-bind:key="social.socialType" style="">
+          <button @click="socialLogin(social.socialType)">
+            <img :src="social.src"/>
+          </button>
         </li>
       </ul>
       </v-col>
     </v-row>
+    <v-row>
+      
+    </v-row>
   </v-container>
 </template>
-
+<style lang="scss" scoped>
+  ul{
+    padding: 0;
+    li{
+      padding: 0 0.8rem;
+      img{
+        width: 2.2em;
+        height: 2.2em;
+      }
+    }
+  }
+</style>
 <script>
 /* eslint-disable */
 import CounterItem from '/src/components/moduleB/PreviewItem.vue'
