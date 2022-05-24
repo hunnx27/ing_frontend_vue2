@@ -52,7 +52,7 @@ const routes = [
     ]
   },
   {
-    path: '/login',
+    path: '/loginSample',
     component: IndexPage,
     children: [
       {
