@@ -11,6 +11,9 @@
         <li>
           <router-link to="/about2">About2</router-link>
         </li>
+        <li>
+          <router-link to="/login">Login</router-link>
+        </li>
       </ul>
     </nav>
 

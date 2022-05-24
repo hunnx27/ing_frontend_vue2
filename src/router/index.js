@@ -4,6 +4,11 @@ import HomeView from '../views/home/HomeView.vue'
 import MenuLayout from '../layouts/MenuLayout.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 
+// sample loginnpm 
+import Main from '@/components/loginExample/MainItem'
+import IndexPage from '@/components/loginExample/IndexItem'
+import OauthRedirect from '@/components/loginExample/oauth/RedirectItem'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,6 +48,22 @@ const routes = [
       {
         path: "",
         component: () => import(/* webpackChunkName: "about" */ '../views/about/About2View.vue') 
+      }
+    ]
+  },
+  {
+    path: '/login',
+    component: IndexPage,
+    children: [
+      {
+        path: '/',
+        name: 'Main',
+        component: Main
+      },
+      {
+        path: '/oauth/redirect',
+        name: 'OauthRedrect',
+        component: OauthRedirect
       }
     ]
   }
