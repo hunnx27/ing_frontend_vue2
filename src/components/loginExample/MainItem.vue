@@ -1,9 +1,11 @@
-<template lang="pug">
-.bp-main-continer
-  section.main-top-section
-    p Spring Social Login
-    p(v-if='isLoggedIn') username {{ username }}
-    p(v-if='isLoggedIn') role: {{ roleType }}
+<template>
+  <div class="bp-main-continer">
+      <section class="main-top-section">
+          <p>Spring Social Login</p>
+          <p v-if="isLoggedIn">username {{ username }}</p>
+          <p v-if="isLoggedIn">role: {{ roleType }}</p>
+      </section>
+  </div>
 </template>
 
 <script>

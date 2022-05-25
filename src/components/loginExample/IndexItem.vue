@@ -1,19 +1,13 @@
-<template lang="pug">
-.bp-content-container
-  nav-bar(
-    :stickyMode='stickyMode'
-    @onOpenLoginModal='openLoginModal'
-    @onLogout='logout'
-  )
-  router-view.router
-  login-modal(
-    v-if='isLoginModalOpen'
-    :isOpen='isLoginModalOpen'
-    @onCloseModal='isLoginModalOpen = false'
-  )
+<template>
+  <div class="bp-content-container">
+      <nav-bar :stickyMode="stickyMode" @onOpenLoginModal="openLoginModal" @onLogout="logout"></nav-bar>
+      <router-view class="router"></router-view>
+      <login-modal v-if="isLoginModalOpen" :isOpen="isLoginModalOpen" @onCloseModal="isLoginModalOpen = false"/>
+  </div>
 </template>
 
 <script>
+/* eslint-disable */
 import NavBar from './NavBar'
 import LoginModal from './LoginModal'
 import { mapGetters, mapMutations } from 'vuex'

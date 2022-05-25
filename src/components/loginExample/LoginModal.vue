@@ -1,52 +1,40 @@
-<template lang="pug">
-.modal-container
-  div(:class='{"modal-open": isOpen}')
-    .container
-      .modal(:class='{show: isOpen}')
-        .modal-dialog
-          .modal-content
-            .modal-header
-              h4.modal-title 로그인
-              button.close(@click='$emit("onCloseModal")') ×
-            .modal-body
-              .socal_login_container
-                template(v-for='social in socials')
-                  a.social_btn(:href='socialLoginUrl(social.socialType)')
-                    img.social_login(
-                      :src='social.src'
-                      :style='{width: social.width, height: social.height}'
-                    )
-                    | {{ social.comment }}
-              .or-separator
-                span.or-text OR
-              .form-warp
-                .form-item
-                  input.form-control(
-                    type='text'
-                    placeholder='아이디'
-                    v-model='id'
-                    @input='inputChanged'
-                    @keyup.enter='login'
-                  )
-                .form-item
-                  input.form-control(
-                    type='password'
-                    placeholder='비밀번호'
-                    v-model='password'
-                    @input='inputChanged'
-                    @keyup.enter='login'
-                  )
-                .form-item
-                  p.login-error(:class='{ show: cannotLogin }') 아이디 혹은 비밀번호가 입력되지 않았습니다.
-                  p.login-error(:class='{ show: isLoginFailed }') 아이디 혹은 비밀번호를 확인해주세요.
-                .form-item
-                  button.btn.btn-block.btn-primary(
-                    :class='{disabled: isProcess}'
-                    @click='login'
-                  ) 로그인
-            .modal-footer
-              button.btn.btn-danger(@click='$emit("onCloseModal")') 닫기
-  .modal-backdrop(:class='{show: isOpen}')
+<template>
+  <div class="modal-container">
+      <div :class="{'modal-open': isOpen}">
+          <div class="container">
+              <div class="modal" :class="{show: isOpen}">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title">로그인</h4><button class="close" @click="$emit('onCloseModal')">×</button>
+                          </div>
+                          <div class="modal-body">
+                              <div class="socal_login_container">
+                                <template v-for="social in socials">
+                                  <a class="social_btn" :href="socialLoginUrl(social.socialType)" :key="social.socialType">
+                                    <img class="social_login" :src="social.src" :style="{width: social.width, height: social.height}" />{{ social.comment }}
+                                  </a>
+                                </template>
+                              </div>
+                              <div class="or-separator"><span class="or-text">OR</span></div>
+                              <div class="form-warp">
+                                  <div class="form-item"><input class="form-control" type="text" placeholder="아이디" v-model="id" @input="inputChanged" @keyup.enter="login" /></div>
+                                  <div class="form-item"><input class="form-control" type="password" placeholder="비밀번호" v-model="password" @input="inputChanged" @keyup.enter="login" /></div>
+                                  <div class="form-item">
+                                      <p class="login-error" :class="{ show: cannotLogin }">아이디 혹은 비밀번호가 입력되지 않았습니다.</p>
+                                      <p class="login-error" :class="{ show: isLoginFailed }">아이디 혹은 비밀번호를 확인해주세요.</p>
+                                  </div>
+                                  <div class="form-item"><button class="btn btn-block btn-primary" :class="{disabled: isProcess}" @click="login">로그인</button></div>
+                              </div>
+                          </div>
+                          <div class="modal-footer"><button class="btn btn-danger" @click="$emit('onCloseModal')">닫기</button></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-backdrop" :class="{show: isOpen}"></div>
+  </div>
 </template>
 
 <script>

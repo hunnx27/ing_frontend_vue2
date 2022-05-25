@@ -1,22 +1,19 @@
-<template lang="pug">
-.bp-header-container(:class='{ sticky: stickyMode }')
-  header.bp-header
-    a.logo-link(@click='go("/")')
-    nav.bp-nav
-      ul.nav-list
-        li.nav-list-item(v-for='m in menu')
-          a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
-    .bp-account
-      button.account-button(
-        v-if='!isLoggedIn'
-        type='button'
-        @click='$emit("onOpenLoginModal")'
-      ) 로그인
-      button.account-button.loggedin(
-        v-else
-        type='button'
-        @click='logout'
-      ) 로그아웃
+<template>
+  <div class="bp-header-container" :class="{ sticky: stickyMode }">
+      <header class="bp-header"><a class="logo-link" @click="go(&quot;/&quot;)"></a>
+          <nav class="bp-nav">
+              <ul class="nav-list">
+                  <li class="nav-list-item" v-for="m in menu" :key="m.path">
+                    <a class="nav-list-item-link" @click="go(m.path)">{{ m.name }}</a>
+                  </li>
+              </ul>
+          </nav>
+          <div class="bp-account">
+            <button class="account-button" v-if="!isLoggedIn" type="button" @click="$emit(&quot;onOpenLoginModal&quot;)">로그인</button>
+            <button class="account-button loggedin" v-else type="button" @click="logout">로그아웃</button>
+          </div>
+      </header>
+  </div>
 </template>
 
 <script>
