@@ -51,22 +51,25 @@
 </style>
 <script>
 /* eslint-disable */
-import CounterItem from '/src/components/moduleB/PreviewItem.vue'
 import $ from '@/util/utils'
-
+import accountApi from '@/api/account'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'LoginItem',
   props: {
     msg: String
   },
   components:{
-    CounterItem
+    
   },
   data:()=>({
     user:{
       name: '',
       password: ''
     },
+    isProcess: false,
+    cannotLogin: false,
+    isLoginFailed: false,
     inputRules:[
       value => !!value || 'Required.',
       value => (value && value.length >= 3) || 'Min 3 characters'
@@ -103,11 +106,43 @@ export default {
       ]
   }),
   methods:{
+    ...mapActions(['fetchUser']),// TODO 확인필요
+    ...mapMutations(['setToken']),// TODO 확인필요
     login(){
-      alert(this.user.name);
+      if(this.isProcess) return
+      if (this.user.name.trim() === '' || this.user.password.trim() === '') {
+        this.cannotLogin = true
+        return
+      }
+      accountApi.login(
+        {
+          name: this.user.name,
+          password: this.user.password,
+          socialType: 'LOCAL'
+        },
+        body => {
+          this.setToken(body.token) // TODO 기능 확인 필요
+          this.user.name = this.user.password = ''
+          this.isProcess = false
+          this.fetchUser(() => { /*유저정보 다시 가져오기*/ }) // FIXME 구현해야함
+        },
+        err => {
+          if (err.response.data.status === 401) {
+            this.isLoginFailed = true
+          }
+          console.log(err);
+          alert(err);
+        }
+      )
     },
-    socialLogin(src){
-      alert(src)
+    inputChanged () {
+      if (!this.cannotLogin) return
+      if (this.user.name.trim() !== '' && this.user.password.trim() !== '') {
+        this.cannotLogin = false
+      }
+    },
+    socialLoginUrl (socialType) {
+      return $.getSocialLoginUrl(socialType)
     }
   }
 }
