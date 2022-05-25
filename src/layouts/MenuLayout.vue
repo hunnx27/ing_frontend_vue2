@@ -6,7 +6,7 @@
       color="deep-purple accent-4"
       dense
       dark
-      class="flex-grow-0"
+      app
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
