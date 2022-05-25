@@ -59,32 +59,47 @@
     </v-navigation-drawer>
 
     <!-- Main Section -->
-    <v-main class="pt-0">
+    <v-main>
       <!--<v-content>-->
         <router-view></router-view>
       <!--</v-content>-->
     </v-main>
     
-    <!-- Footer Section -->
-    <v-footer padless app >
-      <v-card
-        flat
-        tile
-        width="100%"
-        class="text-center"
+    <!-- Bottom Navigation -->
+    <v-bottom-navigation
+      background-color="deep-purple accent-4"
+      hide-on-scroll
+      horizontal
+      app
+      fixed
+      dark
+      style="color:white"
+    >
+      <v-btn
         color="deep-purple accent-4"
+        text
       >
-        <v-card-text>
-          
-        </v-card-text>
+        <span>상담</span>
+        <v-icon>mdi-comment-text-multiple-outline</v-icon>
+      </v-btn>
 
-        <v-divider></v-divider>
+      <v-btn
+        color="deep-purple accent-4"
+        text
+      >
+        <span>작성</span>
+        <v-icon>mdi-pencil-outline</v-icon>
+      </v-btn>
 
-        <v-card-text class="white--text">
-          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-        </v-card-text>
-      </v-card>
-    </v-footer>    
+      <v-btn
+        color="deep-purple accent-4"
+        text
+      >
+        <span>리뷰</span>
+        <v-icon>mdi-account-star-outline</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
+   
   </v-app>  
 </template>
 
@@ -103,7 +118,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 a {
   text-decoration: none;
 }
@@ -114,10 +129,19 @@ nav ul {
   padding-top: 1rem;
   padding-bottom: 1rem;
   color: #ffffff;
-}
-
-li {
+  li {
   display: inline;
   padding-left: 1.5rem;
+  }
+}
+
+.v-bottom-navigation button{
+  span{
+    color:white;
+  }
+  i{
+    color:white;
+  }
+  
 }
 </style>

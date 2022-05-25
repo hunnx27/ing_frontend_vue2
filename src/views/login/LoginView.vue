@@ -39,18 +39,7 @@
       </v-row>
     </v-container>
 </template>
-<style lang="scss" scoped>
-  ul{
-    padding: 0;
-    li{
-      padding: 0 0.8rem;
-      img{
-        width: 2.2em;
-        height: 2.2em;
-      }
-    }
-  }
-</style>
+
 <script>
 /* eslint-disable */
 import $ from '@/util/utils'
@@ -154,3 +143,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  ul{
+    padding: 0;
+    li{
+      padding: 0 0.8rem;
+      img{
+        width: 2.2em;
+        height: 2.2em;
+      }
+    }
+  }
+</style>

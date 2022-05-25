@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+  <v-app>
     <v-main>
       <!--<v-container fluid>-->
         <router-view></router-view>
@@ -14,5 +14,6 @@
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
 </style>
