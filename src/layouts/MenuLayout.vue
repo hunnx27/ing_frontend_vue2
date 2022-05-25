@@ -7,6 +7,7 @@
       dense
       dark
       app
+      class="flex-grow-0"
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -58,7 +59,7 @@
     </v-navigation-drawer>
 
     <!-- Main Section -->
-    <v-main>
+    <v-main class="pt-0">
       <!--<v-content>-->
         <router-view></router-view>
       <!--</v-content>-->
