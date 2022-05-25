@@ -27,6 +27,10 @@ export const Account = {
     },
     setUser (state, user) {
       state.user = user
+    },
+    testToken(state){
+      alert('TOKEN : ' + state.token);
     }
+
   }
 }

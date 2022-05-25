@@ -15,29 +15,28 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
     component: MenuLayout,
     children: [
       {
         path: "",
+        name: 'home',
         component: HomeView
       }
     ]
   },
   {
     path: '/login',
-    name: 'login',
     component: DefaultLayout,
     children: [
       {
         path: "",
+        name: 'login',
         component: LoginView
       }
     ]
   },
   {
     path: '/about',
-    name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -45,13 +44,13 @@ const routes = [
     children:[
       {
         path: "",
+        name: 'about',
         component: () => import(/* webpackChunkName: "about" */ '../views/about/AboutView.vue') 
       }
     ]
   },
   {
     path: '/about2',
-    name: 'about2',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -59,6 +58,7 @@ const routes = [
     children:[
       {
         path: "",
+        name: 'about2',
         component: () => import(/* webpackChunkName: "about" */ '../views/about/About2View.vue') 
       }
     ]
@@ -68,7 +68,7 @@ const routes = [
     component: IndexPage,
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Main',
         component: Main
       },

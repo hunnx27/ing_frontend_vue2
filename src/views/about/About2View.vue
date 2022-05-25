@@ -1,12 +1,10 @@
 <template>
-<v-container fluid>
   <div class="about">
     <h1>This is an about2 page</h1>
     <ModuleAItem/>
     <br/>
     <router-link to="/" tag="button">Home으로 ></router-link>
   </div>
-</v-container>
 </template>
 
 <script>

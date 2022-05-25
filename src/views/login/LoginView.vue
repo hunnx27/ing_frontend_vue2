@@ -1,41 +1,43 @@
 <template>
-  <v-container fluid fill-height>
-    <v-row>
-      <v-col cols="12" sm="12" md="12" class="text-center">
-        <h3>함께 만드는 유아교사 필수앱</h3>
-        <h1>원앤집</h1>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="6" md="12">
-        <v-text-field v-model="user.name" :rules="inputRules" label="이메일 주소" placeholder="Placeholder" outlined></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6" md="12">
-        <v-text-field v-model="user.password" :rules="inputRules" label="비밀번호" outlined></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="12" md="12">
-        <v-btn block color="primary" @click="login">LOGIN</v-btn>
-      </v-col>
+    <v-container fluid class="fill-height">
+      <v-row>
+        <v-col cols="12" sm="12" md="12" class="text-center">
+          <h3>함께 만드는 유아교사 필수앱</h3>
+          <h1>원앤집</h1>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" sm="6" md="12">
+          <v-text-field v-model="user.name" :rules="inputRules" label="이메일 주소" placeholder="Placeholder" outlined></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6" md="12">
+          <v-text-field v-model="user.password" :rules="inputRules" label="비밀번호" outlined></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="12" md="12">
+          <v-btn block color="primary" @click="login">LOGIN</v-btn>
+        </v-col>
 
-      <v-col cols="12" sm="12" md="12">
-        <div class="caption text-center mt-6">또는 간편 로그인</div>
-        <v-divider></v-divider>
-      </v-col>
+        <v-col cols="12" sm="12" md="12">
+          <div class="caption text-center mt-6">또는 간편 로그인</div>
+          <v-divider></v-divider>
+        </v-col>
 
-      <v-col cols="12" sm="12" md="12" >
-      <ul class="text-center" style="padding-left:0">
-        <li v-for="social in socials" v-bind:key="social.socialType" style="">
-          <button @click="socialLogin(social.socialType)">
-            <img :src="social.src"/>
-          </button>
-        </li>
-      </ul>
-      </v-col>
-    </v-row>
-    <v-row>
-      
-    </v-row>
-  </v-container>
+        <v-col cols="12" sm="12" md="12" >
+        <ul class="text-center" style="padding-left:0">
+          <li v-for="social in socials" v-bind:key="social.socialType" style="">
+            <button @click="socialLogin(social.socialType)">
+              <img :src="social.src"/>
+            </button>
+          </li>
+        </ul>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" sm="12" md="12" >
+          <v-btn @click="testTokenAlarm()">TEST</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
 </template>
 <style lang="scss" scoped>
   ul{
@@ -107,7 +109,7 @@ export default {
   }),
   methods:{
     ...mapActions(['fetchUser']),// TODO 확인필요
-    ...mapMutations(['setToken']),// TODO 확인필요
+    ...mapMutations(['setToken', 'testToken']),// TODO 확인필요
     login(){
       if(this.isProcess) return
       if (this.user.name.trim() === '' || this.user.password.trim() === '') {
@@ -121,7 +123,8 @@ export default {
           socialType: 'LOCAL'
         },
         body => {
-          this.setToken(body.token) // TODO 기능 확인 필요
+          const token = body;
+          this.setToken(token) // TODO 기능 확인 필요
           this.user.name = this.user.password = ''
           this.isProcess = false
           this.fetchUser(() => { /*유저정보 다시 가져오기*/ }) // FIXME 구현해야함
@@ -143,7 +146,11 @@ export default {
     },
     socialLoginUrl (socialType) {
       return $.getSocialLoginUrl(socialType)
-    }
+    },
+    testTokenAlarm(){
+//      this.testToken();
+      this.$router.push('/')
+    },
   }
 }
 </script>

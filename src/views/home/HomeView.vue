@@ -1,10 +1,10 @@
 <template>
-<v-container fluid>
+
   <div class="home">
     <img alt="Vue logo" src="@/assets/logo.png">
     <CounterItem/>
   </div>
-</v-container>
+
 </template>
 
 <script>
