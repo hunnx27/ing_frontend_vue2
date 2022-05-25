@@ -2,8 +2,8 @@
   <div>
     <h1>This is an ModuleA Component</h1>
     {{ counter }}
-    <button @click="inc">inc</button><br/>
-    <button @click="axios">axios</button>
+    <v-btn @click="inc">inc</v-btn><br/>
+    <v-btn @click="axios">axios</v-btn>
   </div>
 </template>
 <script>

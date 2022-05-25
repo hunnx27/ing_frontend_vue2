@@ -4,12 +4,12 @@
     단방향 bind :
     <input type="text" name="" id="" v-bind:value="state.cnt">
     {{state.cnt}}
-    <button @click="inc">+</button>
+    <v-btn @click="inc">+</v-btn>
     <br/>
     양방향 bind : 
     <input type="text" name="" id="" v-model="state.cnt2">
     {{state.cnt2}}
-    <button @click="inc2">+</button>
+    <v-btn @click="inc2">+</v-btn>
   </div>
 </template>
 <script>

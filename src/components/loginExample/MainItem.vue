@@ -4,6 +4,7 @@
           <p>Spring Social Login</p>
           <p v-if="isLoggedIn">username {{ username }}</p>
           <p v-if="isLoggedIn">role: {{ roleType }}</p>
+          <v-btn @click="goToMain()">메인으로</v-btn>
       </section>
   </div>
 </template>
@@ -29,6 +30,11 @@ export default {
       if (!this.user) return ''
       return this.user.roleType
     }
+  },
+  methods: {
+    goToMain(){
+      this.$router.push('/')
+    },
   }
 }
 </script>

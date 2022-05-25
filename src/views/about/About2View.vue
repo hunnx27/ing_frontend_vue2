@@ -3,7 +3,7 @@
     <h1>This is an about2 page</h1>
     <ModuleAItem/>
     <br/>
-    <router-link to="/" tag="button">Home으로 ></router-link>
+    <v-btn to="/" tag="button">Home으로 ></v-btn>
   </div>
 </template>
 

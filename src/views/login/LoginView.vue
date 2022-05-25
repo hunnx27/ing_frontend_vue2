@@ -116,7 +116,11 @@ export default {
           this.setToken(token) // TODO 기능 확인 필요
           this.user.name = this.user.password = ''
           this.isProcess = false
-          this.fetchUser(() => { /*유저정보 다시 가져오기*/ }) // FIXME 구현해야함
+          this.fetchUser(() => { 
+            /*유저정보 다시 가져오기*/ 
+            this.$router.push('/')
+          }) // FIXME 구현해야함
+          this.$router.push('/') //FIXME fetchUser 내부로 옮겨야함
         },
         err => {
           if (err.response.data.status === 401) {
