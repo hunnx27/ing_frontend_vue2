@@ -129,10 +129,10 @@ nav ul {
   padding-top: 1rem;
   padding-bottom: 1rem;
   color: #ffffff;
-  li {
+}
+li {
   display: inline;
   padding-left: 1.5rem;
-  }
 }
 
 .v-bottom-navigation button{
