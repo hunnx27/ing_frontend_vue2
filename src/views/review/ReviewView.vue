@@ -1,7 +1,6 @@
 <template>
   <!-- Wrap START -->
   <div class="review">
-
     <!-- 메인슬라이더 START -->
     <v-carousel
       :show-arrows="false"
@@ -80,9 +79,50 @@
         </v-btn>
       </v-col>
     </v-row>
+    <!-- 메뉴 1,2 END -->
 
+    <!-- -->
+    <v-row v-for="n in 20" :key="n">
+      <v-col class="mx-3">
+        <v-card
+          class="mx-auto"
+          width="100%"
+        >
+          <v-card-title>
+            열린어린이집
+          </v-card-title>
+          <v-card-subtitle>
+            > 가정 > 경기도 화성시
+          </v-card-subtitle>
+          <v-card-text>
+            <div class="text--primary">
+              애기 혼자놀다 다쳐도 교사탓 원장 참견심하고 교사컴퓨터1대로 3명돌아가면서 씀<br/>
+              원장이 기분파라 기분 맞추기 힘듬
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-card
+              class="mx-auto"
+              width="100%"
+            >
+              <v-card-text>
+                <v-row>
+                  <v-col>아이콘</v-col>
+                  <v-col>총 만족도</v-col>
+                  <v-col>업무량</v-col>
+                  <v-col>원내분위기</v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-card-actions>
+        </v-card>
+
+      </v-col>
+    </v-row>
+
+    <!-- dailog1 START -->
     <v-dialog
-      v-model="dialog2"
+      v-model="dialog1"
       max-width="500px"
     >
       <v-card>
@@ -125,22 +165,21 @@
           <v-btn
             color="primary"
             text
-            @click="dialog2 = false"
+            @click="dialog1 = false"
           >
             확인
           </v-btn>
           <v-btn
             color="primary"
             text
-            @click="dialog2 = false"
+            @click="dialog1 = false"
           >
             취소
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- 메뉴 1,2 END -->
-
+    <!-- dailog1 END -->
 
   </div>
   <!-- Wrap END -->
@@ -166,7 +205,7 @@ export default {
     return{
       selectedMenu1: '전체리뷰보기',
       selectedMenu2: '기관/지역순',
-      dialog2: false,
+      dialog1: false,
       sliedeitems: [
         {
           id: 1,
