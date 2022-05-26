@@ -36,7 +36,7 @@
       </v-carousel-item>
     </v-carousel>
     <!-- 메인슬라이더 END -->
-
+    
     <!-- 메뉴 1,2 START -->
     <v-row
       align="center"
@@ -73,7 +73,7 @@
         style='text-align:right'
       >
         <v-btn text
-          @click="dialog2 = true"
+          @click="dialog1 = true"
         >
           {{selectedMenu2}} <v-icon>mdi-menu-down</v-icon>
         </v-btn>
@@ -107,10 +107,10 @@
             >
               <v-card-text>
                 <v-row>
-                  <v-col>아이콘</v-col>
-                  <v-col>총 만족도</v-col>
-                  <v-col>업무량</v-col>
-                  <v-col>원내분위기</v-col>
+                  <v-col><v-icon>mdi-face-man</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon></v-col>
+                  <v-col>총 만족도 : 5</v-col>
+                  <v-col>업무량 : 4</v-col>
+                  <v-col>원내분위기 : 3</v-col>
                 </v-row>
               </v-card-text>
             </v-card>

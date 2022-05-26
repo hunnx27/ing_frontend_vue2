@@ -11,6 +11,9 @@ import Main from '@/components/loginExample/MainItem'
 import IndexPage from '@/components/loginExample/IndexItem'
 import OauthRedirect from '@/components/loginExample/oauth/RedirectItem'
 
+// test
+import Test1View from '@/views/sample/Test1View.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -90,7 +93,12 @@ const routes = [
         component: OauthRedirect
       }
     ]
-  }
+  },
+  {
+    path: '/test1',
+    component: Test1View
+  },
+  
 ]
 
 const router = new VueRouter({
