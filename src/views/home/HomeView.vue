@@ -1,51 +1,182 @@
 <template>
-
+  <!-- Wrap START -->
   <div class="home">
-      <v-carousel
-        :show-arrows="false"
-        cycle
-        height="250"
-        hide-delimiter-background
-        >
-        <v-carousel-item v-for="(item,i) in items" :key="i">
-          <v-sheet
-            height="100%"
-            color="black"
-            tile
-          >
-            <v-row
-              class="fill-height slide-row"
-              align="center"
-              justify="center"
-              :style="{backgroundImage:'url('+item.src+')'}"
-            >
-              <v-col cols="12" sm="12" md="12" class="text-center">
-                <h1>{{item.name}}</h1>
-                <div>
-                  <p>
-                    원앤집 지표점수는?
-                  </p>
-                  <p>
-                    {{item.score}}점
-                  </p>
-                </div>
+
+    <!-- section1 -->
+    <v-container class="lighten-5" style="background-color:#efefef">
+     <v-row no-gutters>
+        <v-col class="text-left">
+          <v-btn>
+            답변완료
+          </v-btn>
+        </v-col>
+        <v-col class="text-right">
+          <v-btn>
+            예비교사
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row class="text-center">
+        <v-col>
+          <v-container>
+            <v-row no-gutters>
+              <v-col>
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile
+                >
+                  #고민 #상담 #고민상담 #만3세지도
+                </v-card>
               </v-col>
             </v-row>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
+            <v-row no-gutters>
+              <v-col>
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile
+                >
+                  만 3세 부종교사입니다.
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col>
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile
+                >
+                  저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요. 반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col class="text-left">
+                2022.05.24 23:34
+              </v-col>
+              <v-col class="text-right">
+                답변(2) 포인트(답변10/채택100)
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
     
+    <!-- section2 -->
+    <v-container class="lighten-5 text-center">
+      <v-row no-gutters class="pa-3">
+        <v-col>
+          <v-btn>넘나 고민되는 것</v-btn>
+        </v-col>
+      </v-row>
+      <v-row no-gutters class="pa-3">
+        <v-col>
+          마음 속 이야기
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <!-- section3 -->
+    <v-container class="lighten-5 text-center">
+      <v-row no-gutters>
+        <v-col>
+          #고민
+        </v-col>
+        <v-col>
+          #휴가
+        </v-col>
+        <v-col>
+          #호봉
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          #임용
+        </v-col>
+        <v-col>
+          #보조
+        </v-col>
+        <v-col>
+          #평가인증
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <!-- section4 리스트 반복 -->
+    <v-container class="lighten-5" style="background-color:#efefef"
+                    v-for="n in 10" :key="n">
+     <v-row no-gutters>
+        <v-col class="text-left">
+          <v-btn>
+            답변완료
+          </v-btn>
+        </v-col>
+        <v-col class="text-right">
+          <v-btn>
+            예비교사
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row class="text-center">
+        <v-col>
+          <v-container>
+            <v-row no-gutters>
+              <v-col>
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile
+                >
+                  #고민 #상담 #고민상담 #만3세지도
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col>
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile
+                >
+                  만 3세 부종교사입니다.
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col>
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile
+                >
+                  저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요. 반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col class="text-left">
+                2022.05.24 23:34
+              </v-col>
+              <v-col class="text-right">
+                답변(2) 포인트(답변10/채택100)
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+
   </div>
+  <!-- Wrap END -->
 
 </template>
 
-<style>
-.v-carousel__controls{
-  top:0
-}
-.slide-row{
-  background-position: center;
-  background-size: cover;
+<style scoped>
+.container{
+  border: 1px solid
 }
 </style>
 <script>
@@ -56,29 +187,11 @@ export default {
   },
   data(){
     return{
-
-      items: [
-        {
-          id: 1,
-          name: '송파유정유치원',
-          score: 68,
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        },
-        {
-          id: 2,
-          name: '오창과학 미래어린이집',
-          score: 52,
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        },
-        {
-          id: 3,
-          name: '하나유치원',
-          score: 44,
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        },
-      ],
     }
   },
+  methods:{
+    
+  }
 
 }
 </script>
