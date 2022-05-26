@@ -25,9 +25,9 @@
         <v-col cols="12" sm="12" md="12" >
         <ul class="text-center" style="padding-left:0">
           <li v-for="social in socials" v-bind:key="social.socialType" style="">
-            <button @click="socialLogin(social.socialType)">
+            <a :href="socialLoginUrl(social.socialType)">
               <img :src="social.src"/>
-            </button>
+            </a>
           </li>
         </ul>
         </v-col>

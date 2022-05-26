@@ -38,6 +38,7 @@
     <!-- 메인슬라이더 END -->
     
     <!-- 메뉴 1,2 START -->
+    <v-container class="pa-0">
     <v-row
       align="center"
       class="grey lighten-5 mb-6"
@@ -79,46 +80,50 @@
         </v-btn>
       </v-col>
     </v-row>
+    </v-container>
     <!-- 메뉴 1,2 END -->
 
-    <!-- -->
-    <v-row v-for="n in 20" :key="n">
-      <v-col class="mx-3">
-        <v-card
-          class="mx-auto"
-          width="100%"
-        >
-          <v-card-title>
-            열린어린이집
-          </v-card-title>
-          <v-card-subtitle>
-            > 가정 > 경기도 화성시
-          </v-card-subtitle>
-          <v-card-text>
-            <div class="text--primary">
-              애기 혼자놀다 다쳐도 교사탓 원장 참견심하고 교사컴퓨터1대로 3명돌아가면서 씀<br/>
-              원장이 기분파라 기분 맞추기 힘듬
-            </div>
-          </v-card-text>
-          <v-card-actions>
-            <v-card
-              class="mx-auto"
-              width="100%"
-            >
-              <v-card-text>
-                <v-row>
-                  <v-col><v-icon>mdi-face-man</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon></v-col>
-                  <v-col>총 만족도 : 5</v-col>
-                  <v-col>업무량 : 4</v-col>
-                  <v-col>원내분위기 : 3</v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-card-actions>
-        </v-card>
+    <v-container>
 
-      </v-col>
-    </v-row>
+      <!-- -->
+      <v-row v-for="n in 20" :key="n">
+        <v-col class="">
+          <v-card
+            class="mx-auto"
+            width="100%"
+          >
+            <v-card-title>
+              열린어린이집
+            </v-card-title>
+            <v-card-subtitle>
+              > 가정 > 경기도 화성시
+            </v-card-subtitle>
+            <v-card-text>
+              <div class="text--primary">
+                애기 혼자놀다 다쳐도 교사탓 원장 참견심하고 교사컴퓨터1대로 3명돌아가면서 씀<br/>
+                원장이 기분파라 기분 맞추기 힘듬
+              </div>
+            </v-card-text>
+            <v-card-actions>
+              <v-card
+                class="mx-auto"
+                width="100%"
+              >
+                <v-card-text>
+                  <v-row>
+                    <v-col><v-icon>mdi-face-man</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon></v-col>
+                    <v-col>총 만족도 : 5</v-col>
+                    <v-col>업무량 : 4</v-col>
+                    <v-col>원내분위기 : 3</v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-card-actions>
+          </v-card>
+
+        </v-col>
+      </v-row>
+    </v-container>
 
     <!-- dailog1 START -->
     <v-dialog
