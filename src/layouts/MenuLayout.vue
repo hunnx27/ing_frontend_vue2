@@ -68,7 +68,6 @@
     <!-- Bottom Navigation -->
     <v-bottom-navigation
       background-color="deep-purple accent-4"
-      hide-on-scroll
       horizontal
       app
       fixed
@@ -78,6 +77,7 @@
       <v-btn
         color="deep-purple accent-4"
         text
+        @click="goto('/')"
       >
         <span>상담</span>
         <v-icon>mdi-comment-text-multiple-outline</v-icon>
@@ -86,18 +86,21 @@
       <v-btn
         color="deep-purple accent-4"
         text
+        @click="alert('준비중입니다..')"
       >
         <span>작성</span>
         <v-icon>mdi-pencil-outline</v-icon>
       </v-btn>
 
+      
       <v-btn
         color="deep-purple accent-4"
         text
+        @click="goto('/review')"
       >
         <span>리뷰</span>
         <v-icon>mdi-account-star-outline</v-icon>
-      </v-btn>
+        </v-btn>
     </v-bottom-navigation>
    
   </v-app>  
@@ -115,6 +118,11 @@ export default {
       this.drawer = false
     },
   },
+  methods:{
+    goto(val){
+      if(this.$route.path != val )this.$router.push(val);
+    }
+  }
 };
 </script>
 

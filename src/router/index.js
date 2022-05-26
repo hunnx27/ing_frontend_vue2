@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/home/HomeView.vue'
+import ReviewView from '../views/review/ReviewView.vue'
 import LoginView from '../views/login/LoginView.vue'
 import MenuLayout from '../layouts/MenuLayout.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
@@ -21,6 +22,17 @@ const routes = [
         path: "",
         name: 'home',
         component: HomeView
+      }
+    ]
+  },
+  {
+    path: '/review',
+    component: MenuLayout,
+    children: [
+      {
+        path: "",
+        name: 'review',
+        component: ReviewView
       }
     ]
   },
