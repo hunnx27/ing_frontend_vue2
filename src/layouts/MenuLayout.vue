@@ -10,6 +10,7 @@
       class="flex-grow-0"
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title>& 원앤집</v-app-bar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -17,11 +18,7 @@
       </v-btn>
 
       <v-btn icon>
-        <v-icon>mdi-filter</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+        <v-icon>mdi-bell-ring</v-icon>
       </v-btn>
     </v-app-bar>
 
