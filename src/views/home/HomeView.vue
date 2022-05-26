@@ -3,64 +3,38 @@
   <div class="home">
 
     <!-- section1 -->
-    <v-container class="lighten-5" style="background-color:#efefef">
-     <v-row no-gutters>
+    <v-container class="lighten-5 pa-0" style="background-color:#333333dd ">
+     <v-row no-gutters class="px-4 pt-4">
         <v-col class="text-left">
-          <v-btn>
-            답변완료
-          </v-btn>
+          <v-chip color="yellow" outlined >답변완료</v-chip>
         </v-col>
         <v-col class="text-right">
-          <v-btn>
-            예비교사
-          </v-btn>
+          <v-chip color="white" outlined >예비교사</v-chip>
         </v-col>
       </v-row>
       <v-row class="text-center">
-        <v-col>
-          <v-container>
+        <v-col class="py-0 px-3">
+          <v-container class="px-12">
             <v-row no-gutters>
-              <v-col>
-                <v-card
-                  class="pa-2"
-                  outlined
-                  tile
-                >
-                  #고민 #상담 #고민상담 #만3세지도
-                </v-card>
+              <v-col class="pa-3 text-h6" style="color:#039BE5;font-weight:bolder">
+                #고민 #상담 #고민상담 #만3세지도
               </v-col>
             </v-row>
             <v-row no-gutters>
-              <v-col>
-                <v-card
-                  class="pa-2"
-                  outlined
-                  tile
-                >
-                  만 3세 부종교사입니다.
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col>
-                <v-card
-                  class="pa-2"
-                  outlined
-                  tile
-                >
-                  저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요. 반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col class="text-left">
-                2022.05.24 23:34
-              </v-col>
-              <v-col class="text-right">
-                답변(2) 포인트(답변10/채택100)
+              <v-col class="pa-2 white--text">
+                만 3세 부종교사입니다.<br/><br/>
+                저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요. 반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
               </v-col>
             </v-row>
           </v-container>
+          <v-row no-gutters class="pa-3" style="background-color:#000000cc">
+            <v-col class="text-left white--text">
+              2022.05.24 23:34
+            </v-col>
+            <v-col class="text-right white--text">
+              답변(2) 포인트(답변10/채택100)
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -69,16 +43,18 @@
     <v-container class="lighten-5 text-center">
       <v-row no-gutters class="pa-3">
         <v-col>
-          <v-btn>넘나 고민되는 것</v-btn>
+          <v-chip color="" outlined >넘나 고민되는 것</v-chip>
         </v-col>
       </v-row>
-      <v-row no-gutters class="pa-3">
-        <v-col>
+      <v-row no-gutters class="pa-1">
+        <v-col class="text-h5">
           마음 속 이야기
         </v-col>
       </v-row>
     </v-container>
 
+    <v-divider></v-divider>
+    
     <!-- section3 -->
     <v-container class="lighten-5 text-center">
       <v-row no-gutters>
@@ -106,65 +82,41 @@
     </v-container>
 
     <!-- section4 리스트 반복 -->
-    <v-container class="lighten-5" style="background-color:#efefef"
-                    v-for="n in 10" :key="n">
-     <v-row no-gutters>
+    <v-container class="lighten-5 pa-0" style="background-color:#333333dd "
+                    v-for="n in 15" :key="n">
+     <v-row no-gutters class="px-4 pt-4">
         <v-col class="text-left">
-          <v-btn>
-            답변완료
-          </v-btn>
+          <v-chip color="yellow" outlined >답변완료</v-chip>
         </v-col>
         <v-col class="text-right">
-          <v-btn>
-            예비교사
-          </v-btn>
+          <v-chip color="white" outlined >예비교사</v-chip>
         </v-col>
       </v-row>
       <v-row class="text-center">
-        <v-col>
-          <v-container>
+        <v-col class="py-0 px-3">
+          <v-container class="px-12">
             <v-row no-gutters>
-              <v-col>
-                <v-card
-                  class="pa-2"
-                  outlined
-                  tile
-                >
-                  #고민 #상담 #고민상담 #만3세지도
-                </v-card>
+              <v-col class="pa-3 text-h6" style="color:#039BE5;font-weight:bolder">
+                #고민 #상담 #고민상담 #경기도
               </v-col>
             </v-row>
             <v-row no-gutters>
-              <v-col>
-                <v-card
-                  class="pa-2"
-                  outlined
-                  tile
-                >
-                  만 3세 부종교사입니다.
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col>
-                <v-card
-                  class="pa-2"
-                  outlined
-                  tile
-                >
-                  저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요. 반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col class="text-left">
-                2022.05.24 23:34
-              </v-col>
-              <v-col class="text-right">
-                답변(2) 포인트(답변10/채택100)
+              <v-col class="pa-2 white--text">
+                정리 안하는 아이 어떻게 지도하는게 좋을까요?<br/>
+                연장반 교사인데 매번 정리를 하지 않으려고 해요...<br/>
+                나는 집에서 가지고 온 장난감만 가지고 놀았다, 반에 있는 장난감은<br/>
+                내가 아니라 다른 친구들이 만졌다, 이런식으로 얘기를 해요
               </v-col>
             </v-row>
           </v-container>
+          <v-row no-gutters class="pa-3" style="background-color:#000000cc">
+            <v-col class="text-left white--text">
+              2022.05.24 23:34
+            </v-col>
+            <v-col class="text-right white--text">
+              답변(2) 포인트(답변10/채택100)
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -176,7 +128,7 @@
 
 <style scoped>
 .container{
-  border: 1px solid
+  
 }
 </style>
 <script>
