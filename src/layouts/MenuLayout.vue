@@ -20,10 +20,6 @@
       <v-btn icon>
         <v-icon>mdi-bell-ring</v-icon>
       </v-btn>
-
-      <v-btn @click="logout()">
-        logout
-      </v-btn>
     </v-app-bar>
 
     <!-- Navigation  Section -->
@@ -54,6 +50,9 @@
           </v-list-item>
           <v-list-item to="/loginSample">
             <v-list-item-title>Login Sample</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="logout()">
+            <v-list-item-title class='red--text'>Logout</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

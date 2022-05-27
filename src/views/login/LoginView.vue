@@ -11,7 +11,7 @@
           <v-text-field v-model="user.name" :rules="inputRules" label="이메일 주소" placeholder="Placeholder" outlined></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" md="12">
-          <v-text-field v-model="user.password" :rules="inputRules" label="비밀번호" outlined></v-text-field>
+          <v-text-field type="password" v-model="user.password" :rules="inputRules" label="비밀번호" outlined></v-text-field>
         </v-col>
         <v-col cols="12" sm="12" md="12">
           <v-btn block color="primary" @click="login">LOGIN</v-btn>
@@ -112,7 +112,6 @@ export default {
           socialType: 'LOCAL'
         },
         body => {
-          debugger;
           if(body == 'error') {
             alert('계정정보가 일치하지 않습니다. 계정정보를 확인하세요.');
             return;
