@@ -39,47 +39,48 @@
     
     <!-- 메뉴 1,2 START -->
     <v-container class="pa-0">
-    <v-row
-      align="center"
-      class="grey lighten-5 mb-6"
-    >
-      <v-col
-        alilgn='start'
-        no-gutters
+      <v-row
+        align="center"
+        class="grey lighten-5 mb-6 ma-0"
+        style="width:100%"
       >
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              text
-              v-bind="attrs"
-              v-on="on"
-            >
-              {{selectedMenu1}} <v-icon>mdi-menu-down</v-icon>
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(item, index) in menu1Items"
-              :key="index" @click="selectMenu1(item.title)"
-            >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-col>
-      <v-col alilgn='center'/>
-      <v-col
-        alilgn='end'
-        no-gutters
-        style='text-align:right'
-      >
-        <v-btn text
-          @click="dialog1 = true"
+        <v-col
+          alilgn='start'
+          no-gutters
         >
-          {{selectedMenu2}} <v-icon>mdi-menu-down</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                text
+                v-bind="attrs"
+                v-on="on"
+              >
+                {{selectedMenu1}} <v-icon>mdi-menu-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(item, index) in menu1Items"
+                :key="index" @click="selectMenu1(item.title)"
+              >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-col>
+        <v-col alilgn='center'/>
+        <v-col
+          alilgn='end'
+          no-gutters
+          style='text-align:right'
+        >
+          <v-btn text
+            @click="dialog1 = true"
+          >
+            {{selectedMenu2}} <v-icon>mdi-menu-down</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
     <!-- 메뉴 1,2 END -->
 
