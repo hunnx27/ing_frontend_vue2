@@ -112,6 +112,11 @@ export default {
           socialType: 'LOCAL'
         },
         body => {
+          debugger;
+          if(body == 'error') {
+            alert('계정정보가 일치하지 않습니다. 계정정보를 확인하세요.');
+            return;
+          }
           const token = body;
           this.setToken(token) // TODO 기능 확인 필요
           this.user.name = this.user.password = ''

@@ -1,5 +1,5 @@
 import accountApi from '@/api/account'
-
+import router from '@/router'
 export const Account = {
   state: {
     user: null,
@@ -19,6 +19,11 @@ export const Account = {
             callback && callback()
           }
         )
+    },
+    logout({commit}){
+      commit("setToken", null);
+      commit("setUser", null);
+      router.push("/login").catch(() => {}); 
     }
   },
   mutations: {
@@ -31,6 +36,5 @@ export const Account = {
     testToken(state){
       alert('TOKEN : ' + state.token);
     }
-
   }
 }

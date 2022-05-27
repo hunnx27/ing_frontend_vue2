@@ -20,6 +20,10 @@
       <v-btn icon>
         <v-icon>mdi-bell-ring</v-icon>
       </v-btn>
+
+      <v-btn @click="logout()">
+        logout
+      </v-btn>
     </v-app-bar>
 
     <!-- Navigation  Section -->
@@ -83,7 +87,7 @@
       <v-btn
         color="deep-purple accent-4"
         text
-        @click="alert('준비중입니다..')"
+        @click="write_modal()"
       >
         <span>작성</span>
         <v-icon>mdi-pencil-outline</v-icon>
@@ -99,11 +103,12 @@
         <v-icon>mdi-account-star-outline</v-icon>
         </v-btn>
     </v-bottom-navigation>
-   
   </v-app>  
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: "MenuLayout",
   data: () => ({
@@ -118,8 +123,26 @@ export default {
   methods:{
     goto(val){
       if(this.$route.path != val )this.$router.push(val);
-    }
-  }
+    },
+    write_modal(){
+      alert('준비중입니다..');
+    },
+    ...mapActions(['logout'])
+  },
+  computed: {
+    ...mapState({
+      'token': state => state.token
+    })
+  },
+  // created(){
+  //   //메인 컴포넌트를 렌더링하면서 토큰체크
+  //   let token = this.$store.getters.token;
+  //   console.log('token : ',token)
+  //   if (token == null) { //다 없으면 로그인 페이지로
+  //     //이미 로그인 페이지가 떠있는 상태에서 새로 고침하면 중복 에러 떠서 이렇게 처리함
+  //     this.$router.push("/").catch(() => {}); 
+  //   }
+  // }
 };
 </script>
 
