@@ -39,3 +39,12 @@ vue add vuetify
 npm install pug-plain-loader pug -D
 npm i axios
 ```
+
+### 최초 실행 script
+```
+npm i -g @vue/cli
+```
+
+### 실행
+docker run -it -d -p 80:80 -v /home/ubuntu/iscream-kids/oneandzip_fo/nginx/conf.d:/etc/nginx/conf.d --name onz-fe-vue hunnx27/onz-fe-vue:latest
+docker run -it -d -p 80:80 --name onz-fe-vue hunnx27/onz-fe-vue:latest
