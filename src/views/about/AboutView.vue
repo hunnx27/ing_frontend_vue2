@@ -2,7 +2,7 @@
 
   <div class="about">
     <h1>This is an about page</h1>
-    <ModuleAItem aaaa="aaaa"/>
+    <ModuleAItem/>
   </div>
 
 </template>
