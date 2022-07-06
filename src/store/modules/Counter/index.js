@@ -19,7 +19,6 @@ export const Counter = {
   actions: {
     test() {
       console.log(4);
-      setCounter(555)
     }
   },
 
