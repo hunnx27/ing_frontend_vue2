@@ -4,6 +4,7 @@ import HomeView from '../views/home/HomeView.vue'
 import HomeView2 from '../views/home/HomeView2.vue'
 import ReviewView from '../views/review/ReviewView.vue'
 import LoginView from '../views/login/LoginView.vue'
+import SignupView from '../views/signup/SignupView.vue'
 import MenuLayout from '../layouts/MenuLayout.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import OauthRedirect from '@/components/login/oauth/RedirectItem'
@@ -67,6 +68,11 @@ const routes = [
     path: '/login/oauth2/redirect',
     name: 'OauthRedrect',
     component: OauthRedirect
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
   },
   {
     path: '/about',
