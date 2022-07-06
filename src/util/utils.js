@@ -1,9 +1,9 @@
 const BACKEND_PORT = process.env.BACKEND_PORT === null ? '' : `:${process.env.BACKEND_PORT}`
 // const BACKEND_URL = `${location.protocol}//${location.hostname}${BACKEND_PORT}`
-const BACKEND_URL = `http://localhost:8080`
+const BACKEND_URL = `http://localhost:9101`
 const FRONTEND_PORT = process.env.FRONTEND_PORT === null ? '' : `:${process.env.FRONTEND_PORT}`
 //const REDIRECT_URI = `${location.protocol}//${location.hostname}${FRONTEND_PORT}/oauth/redirect`
-const REDIRECT_URI = `http://localhost:8081/oauth/redirect`
+const REDIRECT_URI = `http://localhost:9100/login/oauth2/redirect`
 
 export default {
   getSocialLoginUrl (socialType) {

@@ -1,5 +1,5 @@
 <template>
-  <div>a</div>
+  <div>Hello!!!!!</div>
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default {
       this.setToken(token)
       this.fetchUser()
     }
-    this.$router.replace('/')
+    //this.$router.replace('/')
   },
   methods: {
     ...mapActions(['fetchUser']),

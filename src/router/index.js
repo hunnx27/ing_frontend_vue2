@@ -59,16 +59,14 @@ const routes = [
       {
         path: "",
         name: 'login',
-        component: LoginView,
-        children: [
-          {
-            path: '/login/oauth/redirect',
-            name: 'OauthRedrect',
-            component: OauthRedirect
-          }
-        ]
+        component: LoginView
       }
     ]
+  },
+  {
+    path: '/login/oauth2/redirect',
+    name: 'OauthRedrect',
+    component: OauthRedirect
   },
   {
     path: '/about',
@@ -98,22 +96,22 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/loginSample',
-    component: IndexPage,
-    children: [
-      {
-        path: '',
-        name: 'Main',
-        component: Main
-      },
-      {
-        path: '/oauth/redirect',
-        name: 'OauthRedrect',
-        component: SampleOauthRedirect
-      }
-    ]
-  },
+  // {
+  //   path: '/loginSample',
+  //   component: IndexPage,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Main',
+  //       component: Main
+  //     },
+  //     {
+  //       path: '/oauth/redirect',
+  //       name: 'OauthRedrect',
+  //       component: SampleOauthRedirect
+  //     }
+  //   ]
+  // },
   {
     path: '/test1',
     component: Test1View
