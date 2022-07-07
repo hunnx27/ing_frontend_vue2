@@ -1,14 +1,7 @@
 <template>
   <v-app>
-  
     <!-- Header Section-->
-    <v-app-bar
-      color="deep-purple accent-4"
-      dense
-      dark
-      app
-      class="flex-grow-0"
-      >
+    <v-app-bar color="deep-purple accent-4" dense dark app class="flex-grow-0">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title>& 원앤집</v-app-bar-title>
       <v-spacer></v-spacer>
@@ -23,19 +16,12 @@
     </v-app-bar>
 
     <!-- Navigation  Section -->
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
-      <v-list
-        nav
-        dense
-      >
+    <v-navigation-drawer v-model="drawer" fixed app>
+      <v-list nav dense>
         <v-list-item-group
           v-model="group"
           active-class="deep-purple--text text--accent-4"
-        >           
+        >
           <v-list-item to="/" link>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
@@ -52,7 +38,7 @@
             <v-list-item-title>Login Sample</v-list-item-title>
           </v-list-item>
           <v-list-item @click="logout()">
-            <v-list-item-title class='red--text'>Logout</v-list-item-title>
+            <v-list-item-title class="red--text">Logout</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -61,10 +47,10 @@
     <!-- Main Section -->
     <v-main>
       <!--<v-content>-->
-        <router-view></router-view>
+      <router-view></router-view>
       <!--</v-content>-->
     </v-main>
-    
+
     <!-- Bottom Navigation -->
     <v-bottom-navigation
       background-color="deep-purple accent-4"
@@ -72,41 +58,28 @@
       app
       fixed
       dark
-      style="color:white"
+      style="color: white"
     >
-      <v-btn
-        color="deep-purple accent-4"
-        text
-        @click="goto('/')"
-      >
+      <v-btn color="deep-purple accent-4" text @click="goto('/')">
         <span>상담</span>
         <v-icon>mdi-comment-text-multiple-outline</v-icon>
       </v-btn>
 
-      <v-btn
-        color="deep-purple accent-4"
-        text
-        @click="write_modal()"
-      >
+      <v-btn color="deep-purple accent-4" text @click="write_modal()">
         <span>작성</span>
         <v-icon>mdi-pencil-outline</v-icon>
       </v-btn>
 
-      
-      <v-btn
-        color="deep-purple accent-4"
-        text
-        @click="goto('/review')"
-      >
+      <v-btn color="deep-purple accent-4" text @click="goto('/review')">
         <span>리뷰</span>
         <v-icon>mdi-account-star-outline</v-icon>
-        </v-btn>
+      </v-btn>
     </v-bottom-navigation>
-  </v-app>  
+  </v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "MenuLayout",
@@ -115,40 +88,40 @@ export default {
     group: null,
   }),
   watch: {
-    group () {
-      this.drawer = false
+    group() {
+      this.drawer = false;
     },
   },
-  methods:{
-    goto(val){
-      if(this.$route.path != val )this.$router.push(val);
+  methods: {
+    goto(val) {
+      if (this.$route.path != val) this.$router.push(val);
     },
-    write_modal(){
-      alert('준비중입니다..');
+    write_modal() {
+      alert("준비중입니다..");
     },
-    ...mapActions(['logout'])
+    ...mapActions(["logout"]),
   },
   computed: {
     ...mapState({
-      'token': state => state.token
-    })
+      token: (state) => state.token,
+    }),
   },
-  created(){
+  created() {
     //메인 컴포넌트를 렌더링하면서 토큰체크
-    let token = this.$store.getters.token;
-    console.log('token : ',token)
-    if (token == null) { //다 없으면 로그인 페이지로
-      //이미 로그인 페이지가 떠있는 상태에서 새로 고침하면 중복 에러 떠서 이렇게 처리함
-      if(this.$route.path != '/login'){
-        alert('미인증(test TODO:remove)');
-        this.$router.push("/login").catch(() => {}); 
-      }
-    }else{
-      if(this.$route.path == '/login'){
-        alert('로그아웃 하세요.');
-        this.$router.push('/');
-      }
-    }
+    // let token = this.$store.getters.token;
+    // console.log('token : ',token)
+    // if (token == null) { //다 없으면 로그인 페이지로
+    //   //이미 로그인 페이지가 떠있는 상태에서 새로 고침하면 중복 에러 떠서 이렇게 처리함
+    //   if(this.$route.path != '/login'){
+    //     alert('미인증(test TODO:remove)');
+    //     this.$router.push("/login").catch(() => {});
+    //   }
+    // }else{
+    //   if(this.$route.path == '/login'){
+    //     alert('로그아웃 하세요.');
+    //     this.$router.push('/');
+    //   }
+    // }
   },
 };
 </script>
@@ -170,13 +143,12 @@ li {
   padding-left: 1.5rem;
 }
 
-.v-bottom-navigation button{
-  span{
-    color:white;
+.v-bottom-navigation button {
+  span {
+    color: white;
   }
-  i{
-    color:white;
+  i {
+    color: white;
   }
-  
 }
 </style>
