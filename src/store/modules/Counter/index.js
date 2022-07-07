@@ -3,7 +3,7 @@ export const Counter = {
 
   // 변수 초기화
   state: () => ({
-    counter: 10 
+    counter: 10
   }),
 
   // 스테이트 변경시 사용

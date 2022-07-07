@@ -37,7 +37,7 @@ vue add vuetify
 ### 로그인 샘플
 ```
 npm install pug-plain-loader pug -D
-npm i axios
+npm i axios -D
 ```
 
 ### 최초 실행 script

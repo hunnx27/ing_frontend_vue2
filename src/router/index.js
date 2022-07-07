@@ -4,6 +4,7 @@ import HomeView from '../views/home/HomeView.vue'
 import HomeView2 from '../views/home/HomeView2.vue'
 import ReviewView from '../views/review/ReviewView.vue'
 import LoginView from '../views/login/LoginView.vue'
+import SignupView from '../views/signup/SignupView.vue'
 import MenuLayout from '../layouts/MenuLayout.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import OauthRedirect from '@/components/login/oauth/RedirectItem'
@@ -59,16 +60,19 @@ const routes = [
       {
         path: "",
         name: 'login',
-        component: LoginView,
-        children: [
-          {
-            path: '/login/oauth/redirect',
-            name: 'OauthRedrect',
-            component: OauthRedirect
-          }
-        ]
+        component: LoginView
       }
     ]
+  },
+  {
+    path: '/login/oauth2/redirect',
+    name: 'OauthRedrect',
+    component: OauthRedirect
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
   },
   {
     path: '/about',
@@ -98,22 +102,22 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/loginSample',
-    component: IndexPage,
-    children: [
-      {
-        path: '',
-        name: 'Main',
-        component: Main
-      },
-      {
-        path: '/oauth/redirect',
-        name: 'OauthRedrect',
-        component: SampleOauthRedirect
-      }
-    ]
-  },
+  // {
+  //   path: '/loginSample',
+  //   component: IndexPage,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Main',
+  //       component: Main
+  //     },
+  //     {
+  //       path: '/oauth/redirect',
+  //       name: 'OauthRedrect',
+  //       component: SampleOauthRedirect
+  //     }
+  //   ]
+  // },
   {
     path: '/test1',
     component: Test1View

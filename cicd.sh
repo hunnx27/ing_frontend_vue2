@@ -84,7 +84,7 @@ msg "docker rm onz-fe-vue old version"
 docker rm --force onz-be
 
 msg "docker run"
-docker_run=$(docker run -p 8081:80 --name onz-fe-vue onz-fe-vue:${VERSION_NUMBER})
+docker_run=$(docker run -p 9100:80 --name onz-fe-vue onz-fe-vue:${VERSION_NUMBER})
 if ! [ "${docker_run}" ]; then
   die "Docker Run FAILED"
 fi
