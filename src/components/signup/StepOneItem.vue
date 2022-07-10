@@ -48,7 +48,7 @@ export default {
   },
   created: function(){
     if(this.signupData!=null){
-      this.gubn = this.signupData!=null? this.signupData.gubn : null;
+      this.gubn = this.signupData!=null? this.signupData.gubnCode : null;
     }else{
       this.gubn = null;
     }

@@ -23,7 +23,7 @@ export const Account = {
     setSignupGubn(state, {gubn}){
       console.log('mutations : ', gubn);
       const signupData = state.signupData;
-      signupData['gubn'] = gubn;
+      signupData['gubnCode'] = gubn;
     },
     setSignupAgree(state, {agree}){
       console.log('mutations : ', agree);
