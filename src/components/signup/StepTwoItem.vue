@@ -14,13 +14,15 @@
     <p>원앤집 이용 문의:oneandzip@gmail.com</p>
   </div>
   {{signupData}}
-  
+
+  <v-btn @click="signup()">가입하기 호출</v-btn> 
 </div>
 
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import accountApi from '@/api/account'
 
 export default {
   name: 'StepTwoItem',
@@ -41,8 +43,27 @@ export default {
     })
   },
   methods: {
-    
-  },
+
+    signup(){
+      console.log('BEFORE Signup Call');
+      accountApi.signup(
+        {
+          socialId: this.signupData.socialId,
+          gubnCode: this.signupData.gubnCode,
+          agree: this.signupData.agree,
+          snsTypeCode: this.signupData.snsTypeCode
+        },
+        body => {
+          console.log('succss.body : ', body);
+        },
+        err => {
+          console.log('err : ', err);
+        }
+      )
+      console.log('AFTER Signup Call');
+    }
+
+  }
 }
 </script>
 
