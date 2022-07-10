@@ -25,6 +25,11 @@ export const Account = {
       const signupData = state.signupData;
       signupData['gubn'] = gubn;
     },
+    setSignupAgree(state, {agree}){
+      console.log('mutations : ', agree);
+      const signupData = state.signupData;
+      signupData['agree'] = agree;
+    },
     clearSignup(state){
       state.signupData = null;
     }
@@ -51,8 +56,11 @@ export const Account = {
       commit("setSignup", {userId, snsTypeCode});
     },
     setSignupGubn({commit}, {gubn}){
-      console.log('action : ', gubn);
       commit("setSignupGubn", {gubn});
+    },
+    setSignupAgree({commit}, {agree}){
+      console.log('a:', agree);
+      commit("setSignupAgree", {agree});
     },
     clearSignup({commit}){
       commit("clearSignup");
