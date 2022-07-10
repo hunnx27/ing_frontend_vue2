@@ -20,6 +20,11 @@ export const Account = {
       signupData['snsTypeCode'] = snsTypeCode;
       state.signupData = signupData;
     },
+    setSignupGubn(state, {gubn}){
+      console.log('mutations : ', gubn);
+      const signupData = state.signupData;
+      signupData['gubn'] = gubn;
+    },
     clearSignup(state){
       state.signupData = null;
     }
@@ -44,6 +49,10 @@ export const Account = {
     },
     setSignup({commit}, {userId, snsTypeCode}){
       commit("setSignup", {userId, snsTypeCode});
+    },
+    setSignupGubn({commit}, {gubn}){
+      console.log('action : ', gubn);
+      commit("setSignupGubn", {gubn});
     },
     clearSignup({commit}){
       commit("clearSignup");

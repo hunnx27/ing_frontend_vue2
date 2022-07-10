@@ -13,11 +13,15 @@
     </ul>
     <p>원앤집 이용 문의:oneandzip@gmail.com</p>
   </div>
-
+  {{signupData}}
+  
 </div>
+
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'StepTwoItem',
   components: {
@@ -32,7 +36,9 @@ export default {
     }
   },
   computed: {
-
+    ...mapGetters({
+      signupData : 'signupData'
+    })
   },
   methods: {
     
