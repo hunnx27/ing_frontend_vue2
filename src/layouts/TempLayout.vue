@@ -2,47 +2,23 @@
   <v-app>
     <!-- Header Section-->
     <v-app-bar color="deep-purple accent-4" dense dark app class="flex-grow-0">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title>& 원앤집</v-app-bar-title>
+      <v-btn icon @click="goBack">
+        <v-icon >mdi-arrow-left</v-icon>
+      </v-btn>
+      <v-app-bar-title>타이틀 입력</v-app-bar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
+        <v-icon>mdi-check</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-btn>
+      <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-bell-ring</v-icon>
-      </v-btn>
+      
     </v-app-bar>
-
-    <!-- Navigation  Section -->
-    <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item to="/" link>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/login">
-            <v-list-item-title>Login</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/about">
-            <v-list-item-title>About</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/about2">
-            <v-list-item-title>About2</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/loginSample">
-            <v-list-item-title>Login Sample</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="logout()">
-            <v-list-item-title class="red--text">Logout</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
 
     <!-- Main Section -->
     <v-main>
@@ -70,6 +46,9 @@ export default {
   methods: {
     goto(val) {
       if (this.$route.path != val) this.$router.push(val);
+    },
+    goBack(){
+      this.$router.go(-1);
     },
     write_modal() {
       alert("준비중입니다..");
