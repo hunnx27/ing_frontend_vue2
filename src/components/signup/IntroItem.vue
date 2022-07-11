@@ -62,19 +62,19 @@ export default {
       const allCheckSignup = e.target.checked;
       const checkSignupService = allCheckSignup;
       const checkSignupPrivacy = allCheckSignup;
-      console.log("m : ", allCheckSignup);
+      console.log("methods : ", allCheckSignup);
       this.setAllCheckSignup({ allCheckSignup });
       this.setCheckSignupService({ checkSignupService });
       this.setCheckSignupPrivacy({ checkSignupPrivacy });
     },
     clickCheckSignupService(e) {
       const checkSignupService = e.target.checked;
-      console.log("m : ", checkSignupService);
+      console.log("methods : ", checkSignupService);
       this.setCheckSignupService({ checkSignupService });
     },
     clickCheckSignupPrivacy(e) {
       const checkSignupPrivacy = e.target.checked;
-      console.log("m : ", checkSignupPrivacy);
+      console.log("methods : ", checkSignupPrivacy);
       this.setCheckSignupPrivacy({ checkSignupPrivacy });
     },
   },

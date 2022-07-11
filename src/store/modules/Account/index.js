@@ -83,15 +83,15 @@ export const Account = {
       commit("setSignupGubn", {gubn});
     },
     setAllCheckSignup({commit}, {allCheckSignup}){
-      console.log('a:', allCheckSignup);
+      console.log('actions : ', allCheckSignup);
       commit("setAllCheckSignup", {allCheckSignup});
     },
     setCheckSignupService({commit}, {checkSignupService}){
-      console.log('a:', checkSignupService);
+      console.log('actions : ', checkSignupService);
       commit("setCheckSignupService", {checkSignupService});
     },
     setCheckSignupPrivacy({commit}, {checkSignupPrivacy}){
-      console.log('a:', checkSignupPrivacy);
+      console.log('actions : ', checkSignupPrivacy);
       commit("setCheckSignupPrivacy", {checkSignupPrivacy});
     },
     clearSignup({commit}){
