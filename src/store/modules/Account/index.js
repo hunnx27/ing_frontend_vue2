@@ -25,10 +25,34 @@ export const Account = {
       const signupData = state.signupData;
       signupData['gubnCode'] = gubn;
     },
-    setSignupAgree(state, {agree}){
-      console.log('mutations : ', agree);
+    setAllCheckSignup(state, {allCheckSignup}){
+      console.log('mutations : ', allCheckSignup);
       const signupData = state.signupData;
-      signupData['agree'] = agree;
+      signupData['allCheckSignup'] = allCheckSignup;
+    },
+    setCheckSignupService(state, {checkSignupService}){
+      console.log('mutations : ', checkSignupService);
+      const signupData = state.signupData;
+      signupData['checkSignupService'] = checkSignupService;
+
+      if(signupData['checkSignupPrivacy'] == true 
+          && signupData['checkSignupService'] == true){
+        signupData['allCheckSignup'] = true;
+      }else{
+        signupData['allCheckSignup'] = false;
+      }
+    },
+    setCheckSignupPrivacy(state, {checkSignupPrivacy}){
+      console.log('mutations : ', checkSignupPrivacy);
+      const signupData = state.signupData;
+      signupData['checkSignupPrivacy'] = checkSignupPrivacy;
+
+      if(signupData['checkSignupPrivacy'] == true 
+          && signupData['checkSignupService'] == true){
+        signupData['allCheckSignup'] = true;
+      }else{
+        signupData['allCheckSignup'] = false;
+      }
     },
     clearSignup(state){
       state.signupData = null;
@@ -58,9 +82,17 @@ export const Account = {
     setSignupGubn({commit}, {gubn}){
       commit("setSignupGubn", {gubn});
     },
-    setSignupAgree({commit}, {agree}){
-      console.log('a:', agree);
-      commit("setSignupAgree", {agree});
+    setAllCheckSignup({commit}, {allCheckSignup}){
+      console.log('a:', allCheckSignup);
+      commit("setAllCheckSignup", {allCheckSignup});
+    },
+    setCheckSignupService({commit}, {checkSignupService}){
+      console.log('a:', checkSignupService);
+      commit("setCheckSignupService", {checkSignupService});
+    },
+    setCheckSignupPrivacy({commit}, {checkSignupPrivacy}){
+      console.log('a:', checkSignupPrivacy);
+      commit("setCheckSignupPrivacy", {checkSignupPrivacy});
     },
     clearSignup({commit}){
       commit("clearSignup");
