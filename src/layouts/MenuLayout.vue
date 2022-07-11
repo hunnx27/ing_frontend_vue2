@@ -28,15 +28,21 @@
           <v-list-item to="/login">
             <v-list-item-title>Login</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/about">
+          <v-list-item to="/mypage">
+            <v-list-item-title>마이페이지</v-list-item-title>
+          </v-list-item>
+          <!-- <v-list-item to="/about">
             <v-list-item-title>About</v-list-item-title>
           </v-list-item>
           <v-list-item to="/about2">
             <v-list-item-title>About2</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/loginSample">
+          </v-list-item> -->
+          <!-- <v-list-item to="/loginSample">
             <v-list-item-title>Login Sample</v-list-item-title>
-          </v-list-item>
+          </v-list-item> -->
+          <!-- <v-list-item to="/loginSample">
+            <v-list-item-title>Login Sample</v-list-item-title>
+          </v-list-item> -->
           <v-list-item @click="logout()">
             <v-list-item-title class="red--text">Logout</v-list-item-title>
           </v-list-item>
