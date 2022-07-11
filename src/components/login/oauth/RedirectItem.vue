@@ -13,19 +13,19 @@ export default {
     console.log('token', token);
     console.log('userId', userId);
     console.log('snsTypeCode', snsTypeCode);
-    debugger;
     if (token) {
       this.setToken(token)
       this.fetchUser()
       this.$router.replace('/')
     }else{
+      this.clearSignup();
       this.setSignup({userId, snsTypeCode});
       this.$router.replace('/signup');
     }
     
   },
   methods: {
-    ...mapActions(['fetchUser', 'setSignup']),
+    ...mapActions(['fetchUser', 'setSignup','clearSignup']),
     ...mapMutations(['setToken'])
   }
 }

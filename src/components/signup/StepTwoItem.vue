@@ -13,15 +13,16 @@
     </ul>
     <p>원앤집 이용 문의:oneandzip@gmail.com</p>
   </div>
-  {{signupData}}
-
-  <v-btn @click="signup()">가입하기 호출</v-btn> 
+  {{signupData}}<br/><br/>
+  <v-btn @click="signup()">가입하기 호출</v-btn> <br/>
+  result : {{resultData}}
 </div>
+
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import accountApi from '@/api/account'
 
 export default {
@@ -34,27 +35,33 @@ export default {
   },
   data() {
     return {
-
+      resultData: {}
     }
   },
   computed: {
     ...mapGetters({
       signupData : 'signupData'
-    })
+    }),
+    
   },
   methods: {
-
+    ...mapActions(['clearSignup']),
     signup(){
       console.log('BEFORE Signup Call');
       accountApi.signup(
         {
           socialId: this.signupData.socialId,
           gubnCode: this.signupData.gubnCode,
-          agree: this.signupData.agree,
-          snsTypeCode: this.signupData.snsTypeCode
+          snsTypeCode: this.signupData.snsTypeCode,
+          allCheckSignup: this.signupData.allCheckSignup,
+          checkSignupService: this.signupData.checkSignupService,
+          checkSignupPrivacy: this.signupData.checkSignupPrivacy,
         },
         body => {
           console.log('succss.body : ', body);
+          console.log('signup data Clear!');
+          this.resultData = body;
+          this.clearSignup();
         },
         err => {
           console.log('err : ', err);
