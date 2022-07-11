@@ -1,106 +1,119 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/home/HomeView.vue'
-import HomeView2 from '../views/home/HomeView2.vue'
-import ReviewView from '../views/review/ReviewView.vue'
-import LoginView from '../views/login/LoginView.vue'
-import SignupView from '../views/signup/SignupView.vue'
-import MenuLayout from '../layouts/MenuLayout.vue'
-import DefaultLayout from '../layouts/DefaultLayout.vue'
-import OauthRedirect from '@/components/login/oauth/RedirectItem'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HomeView from "../views/home/HomeView.vue";
+import HomeView2 from "../views/home/HomeView2.vue";
+import ReviewView from "../views/review/ReviewView.vue";
+import LoginView from "../views/login/LoginView.vue";
+import SignupView from "../views/signup/SignupView.vue";
+import MenuLayout from "../layouts/MenuLayout.vue";
+import DefaultLayout from "../layouts/DefaultLayout.vue";
+import TempLayout from "../layouts/TempLayout.vue";
+import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
-// sample loginnpm 
-import Main from '@/components/loginExample/MainItem'
-import IndexPage from '@/components/loginExample/IndexItem'
-import SampleOauthRedirect from '@/components/loginExample/oauth/RedirectItem'
+// sample loginnpm
+import Main from "@/components/loginExample/MainItem";
+import IndexPage from "@/components/loginExample/IndexItem";
+import SampleOauthRedirect from "@/components/loginExample/oauth/RedirectItem";
 
 // test
-import Test1View from '@/views/sample/Test1View.vue'
+import Test1View from "@/views/sample/Test1View.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: MenuLayout,
     children: [
       {
         path: "",
-        name: 'home',
-        component: HomeView
-      }
-    ]
+        name: "home",
+        component: HomeView,
+      },
+    ],
   },
   {
-    path: '/home2',
+    path: "/home2",
     component: MenuLayout,
     children: [
       {
         path: "",
-        name: 'home2',
-        component: HomeView2
-      }
-    ]
+        name: "home2",
+        component: HomeView2,
+      },
+    ],
   },
   {
-    path: '/review',
+    path: "/review",
     component: MenuLayout,
     children: [
       {
         path: "",
-        name: 'review',
-        component: ReviewView
-      }
-    ]
+        name: "review",
+        component: ReviewView,
+      },
+    ],
   },
   {
-    path: '/login',
+    path: "/login",
     component: DefaultLayout,
     children: [
       {
         path: "",
-        name: 'login',
-        component: LoginView
-      }
-    ]
+        name: "login",
+        component: LoginView,
+      },
+    ],
   },
   {
-    path: '/login/oauth2/redirect',
-    name: 'OauthRedrect',
-    component: OauthRedirect
+    path: "/login/oauth2/redirect",
+    name: "OauthRedrect",
+    component: OauthRedirect,
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
+    path: "/signup",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "signup",
+        component: SignupView,
+      },
+    ],
   },
   {
-    path: '/about',
+    path: "/about",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: MenuLayout,
-    children:[
+    children: [
       {
         path: "",
-        name: 'about',
-        component: () => import(/* webpackChunkName: "about" */ '../views/about/AboutView.vue') 
-      }
-    ]
+        name: "about",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "../views/about/AboutView.vue"
+          ),
+      },
+    ],
   },
   {
-    path: '/about2',
+    path: "/about2",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: DefaultLayout,
-    children:[
+    children: [
       {
         path: "",
-        name: 'about2',
-        component: () => import(/* webpackChunkName: "about" */ '../views/about/About2View.vue') 
-      }
-    ]
+        name: "about2",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "../views/about/About2View.vue"
+          ),
+      },
+    ],
   },
   // {
   //   path: '/loginSample',
@@ -119,16 +132,15 @@ const routes = [
   //   ]
   // },
   {
-    path: '/test1',
-    component: Test1View
+    path: "/test1",
+    component: Test1View,
   },
-  
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
