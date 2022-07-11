@@ -162,6 +162,9 @@ export default {
       //      this.testToken();
       this.$router.push("/");
     },
+    membership(){
+      this.$router.push("/signup");
+    }
   },
 };
 </script>
