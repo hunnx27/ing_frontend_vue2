@@ -1,7 +1,7 @@
 <template>
-  <div class="stap-wrap">
+  <div class="step-wrap">
     <div class="step-title">회원가입</div>
-    
+
     <div>
       <label for="allCheckSignup" class="">
         <input
@@ -39,8 +39,10 @@
       </div>
     </div>
 
-    DATA값 : {{ allCheckSignup }} / {{checkSignupService}} / {{checkSignupPrivacy}}<br/>
-    스토어값 : {{storeAllCheckSignup}} / {{storeCheckSignupService}} / {{storeCheckSignupPrivacy}}
+    DATA값 : {{ allCheckSignup }} / {{ checkSignupService }} /
+    {{ checkSignupPrivacy }}<br />
+    스토어값 : {{ storeAllCheckSignup }} / {{ storeCheckSignupService }} /
+    {{ storeCheckSignupPrivacy }}
   </div>
 </template>
 
@@ -57,7 +59,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setAllCheckSignup","setCheckSignupService","setCheckSignupPrivacy"]),
+    ...mapActions([
+      "setAllCheckSignup",
+      "setCheckSignupService",
+      "setCheckSignupPrivacy",
+    ]),
     clickAllCheckSignup(e) {
       const allCheckSignup = e.target.checked;
       const checkSignupService = allCheckSignup;
@@ -85,46 +91,55 @@ export default {
     */
 
     ...mapGetters(["signupData"]),
-    storeAllCheckSignup(){
+    storeAllCheckSignup() {
       return this.signupData.allCheckSignup;
     },
-    storeCheckSignupService(){
+    storeCheckSignupService() {
       return this.signupData.checkSignupService;
     },
-    storeCheckSignupPrivacy(){
+    storeCheckSignupPrivacy() {
       return this.signupData.checkSignupPrivacy;
-    }
+    },
   },
-  watch:{
+  watch: {
     /*
      Data 혹은 Computed의 값의 변경 이벤트를 감지함
     */
 
-    storeAllCheckSignup(val, oldVal){
+    storeAllCheckSignup(val, oldVal) {
       //console.log('watch : ', val, oldVal);
       this.allCheckSignup = val;
     },
-    storeCheckSignupService(val, oldVal){
+    storeCheckSignupService(val, oldVal) {
       //console.log('watch : ', val, oldVal);
       this.checkSignupService = val;
     },
-    storeCheckSignupPrivacy(val, oldVal){
+    storeCheckSignupPrivacy(val, oldVal) {
       //console.log('watch : ', val, oldVal);
       this.checkSignupPrivacy = val;
-    }
+    },
   },
   created: function () {
     /**
      * 최초 실행
      */
     if (this.signupData != null) {
-      this.allCheckSignup = this.signupData.allCheckSignup != null ? this.signupData.allCheckSignup : false;
-      this.checkSignupService = this.signupData.checkSignupService != null ? this.signupData.checkSignupService : false;
-      this.checkSignupPrivacy = this.signupData.checkSignupPrivacy != null ? this.signupData.checkSignupPrivacy : false;
+      this.allCheckSignup =
+        this.signupData.allCheckSignup != null
+          ? this.signupData.allCheckSignup
+          : false;
+      this.checkSignupService =
+        this.signupData.checkSignupService != null
+          ? this.signupData.checkSignupService
+          : false;
+      this.checkSignupPrivacy =
+        this.signupData.checkSignupPrivacy != null
+          ? this.signupData.checkSignupPrivacy
+          : false;
 
-      if(this.checkSignupService == true && this.checkSignupPrivacy == true){
+      if (this.checkSignupService == true && this.checkSignupPrivacy == true) {
         this.allCheckSignup = true;
-      }else{
+      } else {
         this.allCheckSignup = false;
       }
     } else {
@@ -137,7 +152,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stap-wrap {
+.step-wrap {
   padding: 30px 15px 15px;
 
   .step-title {
@@ -148,6 +163,7 @@ export default {
   align-items: center;
   margin-top: 10px;
   padding: 10px 10px;
+  background: #fff;
   border: 1px solid #673ab7;
   border-radius: 10px;
 

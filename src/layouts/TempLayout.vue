@@ -102,6 +102,9 @@ export default {
 </script>
 
 <style lang="scss">
+.v-main__wrap {
+  background: #f2f2f2;
+}
 a {
   text-decoration: none;
 }
