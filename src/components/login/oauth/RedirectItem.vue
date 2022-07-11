@@ -7,16 +7,25 @@ import { mapMutations, mapActions } from 'vuex'
 
 export default {
   created () {
-    const token = this.$route.query.token
-    console.log('token', token)
+    const token = this.$route.query.token;
+    const userId = this.$route.query.userId;
+    const snsTypeCode = this.$route.query.snsTypeCode;
+    console.log('token', token);
+    console.log('userId', userId);
+    console.log('snsTypeCode', snsTypeCode);
+    debugger;
     if (token) {
       this.setToken(token)
       this.fetchUser()
+      this.$router.replace('/')
+    }else{
+      this.setSignup({userId, snsTypeCode});
+      this.$router.replace('/signup');
     }
-    this.$router.replace('/')
+    
   },
   methods: {
-    ...mapActions(['fetchUser']),
+    ...mapActions(['fetchUser', 'setSignup']),
     ...mapMutations(['setToken'])
   }
 }

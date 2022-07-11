@@ -1,6 +1,15 @@
 <template>
   <div class="stap-wrap">
     <div class="step-title">회원가입</div>
+    <<<<<<< HEAD =======
+
+    <div>
+      <input type="checkbox" @click="stored($event)" v-model="agree" />전체동의
+      <div>서비스 이용약관 <a href="#">자세히보기</a></div>
+      <div>개인정보 취급정책 <a href="#">자세히보기</a></div>
+    </div>
+    {{ agree }}
+    >>>>>>> 42d2a787fd40e63880792798503dd301a9b9ed42
 
     <div>
       <label for="allCheckSignup" class="">
@@ -36,10 +45,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "IntroItem",
   data() {
-    return {};
+    return {
+      agree: false,
+    };
+  },
+  methods: {
+    ...mapActions(["setSignupAgree"]),
+    stored(e) {
+      const agree = e.target.checked;
+      console.log("m : ", agree);
+      this.setSignupAgree({ agree });
+    },
+  },
+  computed: {
+    ...mapGetters(["signupData"]),
+  },
+  created: function () {
+    if (this.signupData != null) {
+      this.agree =
+        this.signupData.agree != null ? this.signupData.agree : false;
+    } else {
+      this.agree = false;
+    }
   },
 };
 </script>

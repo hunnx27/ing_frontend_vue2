@@ -2,7 +2,8 @@ import req from './req-wrapper'
 
 const ACCOUNT_URI = {
   LOGIN: '/auth/login',
-  USER: '/api/accounts/me'
+  USER: '/api/accounts/me',
+  SIGNUP: '/auth/oauth2/signup'
 }
 
 export default {
@@ -11,5 +12,8 @@ export default {
   },
   getUser (success) {
     req.get(ACCOUNT_URI.USER, success)
+  },
+  signup(body, success, fail){
+    req.post(ACCOUNT_URI.SIGNUP, body, success, fail);
   }
 }
