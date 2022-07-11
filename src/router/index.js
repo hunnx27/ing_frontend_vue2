@@ -10,6 +10,11 @@ import DefaultLayout from "../layouts/DefaultLayout.vue";
 import TempLayout from "../layouts/TempLayout.vue";
 import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
+// Mypage
+import MypageView from "../views/mypage/MypageView.vue"
+import MyinfoView from "../views/mypage/MyinfoView.vue"
+import PointHistoryView from "../views/mypage/PointHistoryView.vue"
+
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
 import IndexPage from "@/components/loginExample/IndexItem";
@@ -29,17 +34,6 @@ const routes = [
         path: "",
         name: "home",
         component: HomeView,
-      },
-    ],
-  },
-  {
-    path: "/home2",
-    component: MenuLayout,
-    children: [
-      {
-        path: "",
-        name: "home2",
-        component: HomeView2,
       },
     ],
   },
@@ -78,6 +72,64 @@ const routes = [
         path: "",
         name: "signup",
         component: SignupView,
+      },
+    ],
+  },
+
+  /**
+   * MyPage
+   */
+   {
+    path: "/mypage",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "mypageView",
+        component: MypageView,
+      },
+    ],
+  },
+  {
+    path: "/mypage/myinfo",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "myinfoView",
+        component: MyinfoView,
+      },
+    ],
+  },
+  {
+    path: "/mypage/pointHistory",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "pointHistoryView",
+        component: PointHistoryView,
+      },
+    ],
+  },
+
+
+
+
+
+  /**
+   * 
+   * 샘플 소스
+   * 
+   */
+  {
+    path: "/home2",
+    component: MenuLayout,
+    children: [
+      {
+        path: "",
+        name: "home2",
+        component: HomeView2,
       },
     ],
   },
