@@ -1,10 +1,21 @@
 import accountApi from '@/api/account'
 import router from '@/router'
+
+const SIGNUP_DATA = () => {
+  return {
+    snsTypeCode : null,
+    socialId : null,
+    allCheckSignup: false,
+    checkSignupService: false,
+    checkSignupPrivacy: false,
+  }
+}
+
 export const Account = {
   state: {
     user: null,
     token: null,
-    signupData: null
+    signupData: SIGNUP_DATA()
   },
   mutations: {
     setToken (state, token) {
@@ -15,7 +26,7 @@ export const Account = {
     },
     setSignup(state, {userId, snsTypeCode}){
       console.log('#mutaion.setSignup : ', userId, snsTypeCode);
-      const signupData = {};
+      const signupData = state.signupData;
       signupData['socialId'] = userId;
       signupData['snsTypeCode'] = snsTypeCode;
       state.signupData = signupData;
@@ -55,7 +66,7 @@ export const Account = {
       }
     },
     clearSignup(state){
-      state.signupData = null;
+      state.signupData = SIGNUP_DATA();
     }
 
     

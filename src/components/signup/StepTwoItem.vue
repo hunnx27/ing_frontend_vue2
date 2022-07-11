@@ -18,11 +18,12 @@
     {{ signupData }}
 
     <v-btn @click="signup()">가입하기 호출</v-btn>
+    result : {{ resultData }}
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
@@ -30,7 +31,9 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      resultData: {},
+    };
   },
   computed: {
     ...mapGetters({
@@ -38,17 +41,23 @@ export default {
     }),
   },
   methods: {
+    ...mapActions(["clearSignup"]),
     signup() {
       console.log("BEFORE Signup Call");
       accountApi.signup(
         {
           socialId: this.signupData.socialId,
           gubnCode: this.signupData.gubnCode,
-          agree: this.signupData.agree,
           snsTypeCode: this.signupData.snsTypeCode,
+          allCheckSignup: this.signupData.allCheckSignup,
+          checkSignupService: this.signupData.checkSignupService,
+          checkSignupPrivacy: this.signupData.checkSignupPrivacy,
         },
         (body) => {
           console.log("succss.body : ", body);
+          console.log("signup data Clear!");
+          this.resultData = body;
+          this.clearSignup();
         },
         (err) => {
           console.log("err : ", err);
