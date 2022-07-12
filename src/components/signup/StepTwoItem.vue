@@ -44,6 +44,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["setSignupGubn"]),
     stored(e) {
       console.log(e.target.value);
       const gubn = e.target.value;
@@ -67,8 +68,8 @@ export default {
   },
   created: function () {
     // Appbar Option 설정
-    const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
-    this.$emit('setLayout',options);
+    // const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
+    // this.$emit('setLayout',options);
     
     if (this.signupData != null) {
       this.gubn = this.signupData != null ? this.signupData.gubnCode : null;

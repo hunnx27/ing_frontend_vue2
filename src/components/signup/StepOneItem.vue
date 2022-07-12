@@ -141,8 +141,8 @@ export default {
      */
 
     // Appbar Option 설정
-    const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
-    this.$emit('setLayout',options);
+    // const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
+    // this.$emit('setLayout',options);
 
     // 스토어 저장된 데이터 로드
     if (this.signupData != null) {

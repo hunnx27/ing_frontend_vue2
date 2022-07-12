@@ -36,9 +36,13 @@ export default {
       //this.signup();
       this.$router.replace('/');
     },
+    valid(){
+      const rs = {'isValid':true, 'err':''}
+      return rs;
+    }
   },
   created() {
-    // Appbar Option 설정
+    //Appbar Option 설정
     const options = {isShowCheckBtn: true,isShowNextBtn: false,isShowSearchBtn: false};
     this.$emit('setLayout',options);
   },
