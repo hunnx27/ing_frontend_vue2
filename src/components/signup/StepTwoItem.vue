@@ -19,9 +19,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
-import accountApi from "@/api/account";
-
 export default {
   name: "StepTwoItem",
   components: {},
@@ -32,45 +29,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      signupData: "signupData",
-    }),
+    
   },
   methods: {
-    ...mapActions(['fetchUser','clearSignup']),
-    ...mapMutations(['setToken']),
-    signup() {
-      console.log("BEFORE Signup Call");
-      accountApi.signup(
-        {
-          socialId: this.signupData.socialId,
-          gubnCode: this.signupData.gubnCode,
-          snsTypeCode: this.signupData.snsTypeCode,
-          allCheckSignup: this.signupData.allCheckSignup,
-          checkSignupService: this.signupData.checkSignupService,
-          checkSignupPrivacy: this.signupData.checkSignupPrivacy,
-        },
-        (body) => {
-          console.log("succss.body : ", body);
-          console.log("signup data Clear!");
-          if(body.accessToken != null){
-            this.clearSignup();
-            this.setToken(body.accessToken)
-            this.fetchUser()
-            this.$router.replace('/')  
-          }else{
-            console.log('엑세스토큰이 없습니다.')
-          }
-            
-        },
-        (err) => {
-          console.log("err : ", err);
-        }
-      );
-      console.log("AFTER Signup Call");
-    },
     doCheck(){
-      this.signup();
+      //this.signup();
+      this.$router.replace('/');
     },
   },
   created() {

@@ -12,10 +12,12 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations, mapGetters } from "vuex";
+
 import IntroItem from '@/components/signup/IntroItem.vue'
 import StepOneItem from '@/components/signup/StepOneItem.vue'
 import StepTwoItem from '@/components/signup/StepTwoItem.vue'
+import accountApi from "@/api/account";
 
 const title = "회원가입";
 const options = {
@@ -36,7 +38,8 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['clearSignup']),
+    ...mapActions(["setSignupGubn",'fetchUser','clearSignup']),
+    ...mapMutations(['setToken']),
     stepUp(){
       if( (this.stepsList.length-1)>this.currentStep ){
         this.currentStep++;
@@ -62,9 +65,44 @@ export default {
         alert(rsValid.err);
         return;
       }
-      if( (this.stepsList.length-1)>this.currentStep ){
+
+      if(this.currentStep == 1){
+        // 회원가입 요청
+        this.signup();
+      }else if( (this.stepsList.length-1)>this.currentStep ){
         this.currentStep++;
       }
+    },
+    signup() {
+      console.log("BEFORE Signup Call");
+      debugger;
+      accountApi.signup(
+        {
+          socialId: this.signupData.socialId,
+          gubnCode: this.signupData.gubnCode,
+          snsTypeCode: this.signupData.snsTypeCode,
+          allCheckSignup: this.signupData.allCheckSignup,
+          checkSignupService: this.signupData.checkSignupService,
+          checkSignupPrivacy: this.signupData.checkSignupPrivacy,
+        },
+        (body) => {
+          console.log("succss.body : ", body);
+          console.log("signup data Clear!");
+          if(body.accessToken != null){
+            this.clearSignup();
+            this.setToken(body.accessToken);
+            this.fetchUser();
+            alert('회원가입에 성공하였습니다.');
+          }else{
+            alert('엑세스토큰이 없습니다. 다시 시도하세요.')
+          }
+          this.currentStep++;
+        },
+        (err) => {
+          console.log("err : ", err);
+        }
+      );
+      console.log("AFTER Signup Call");
     },
     setLayout(options){
       console.log(options);
@@ -72,6 +110,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["signupData"]),
     isFirstStep() {
       return this.currentStep === 0
     },

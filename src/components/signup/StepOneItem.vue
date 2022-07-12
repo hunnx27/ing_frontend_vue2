@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+
 
 export default {
   name: "StepOneItem",
@@ -43,7 +44,6 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setSignupGubn"]),
     stored(e) {
       console.log(e.target.value);
       const gubn = e.target.value;
