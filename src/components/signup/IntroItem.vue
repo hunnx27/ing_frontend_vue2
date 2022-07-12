@@ -12,7 +12,7 @@
           v-model="allCheckSignup"
         />전체동의
       </label>
-      <div class="checkbox-wrap d-flex">
+      <div class="checkbox-wrap">
         <label for="checkSignupService">
           <input
             type="checkbox"
@@ -25,7 +25,7 @@
         <a class="text_view" href="#">자세히보기</a>
       </div>
 
-      <div class="checkbox-wrap d-flex">
+      <div class="checkbox-wrap">
         <label for="CheckSignupPrivacy">
           <input
             type="checkbox"
@@ -160,6 +160,7 @@ export default {
   }
 }
 .checkbox-wrap {
+  position: relative;
   align-items: center;
   margin-top: 10px;
   padding: 10px 10px;
@@ -168,7 +169,10 @@ export default {
   border-radius: 10px;
 
   .text_view {
-    flex: end;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
     color: #666;
   }
 }
