@@ -1,14 +1,13 @@
 <template>
 <div>
   <component
-    :is="this.stepsList[this.currentStep]"
+    :is="this.stepsList[this.currentStep]" ref="signform"
   ></component>
 
   <div>
     <v-btn @click="stepUp()">step up</v-btn> 
     <v-btn @click="stepDown()">step down</v-btn>
   </div>
-  currentStep : {{currentStep}}
 </div>
 </template>
 
@@ -39,6 +38,12 @@ export default {
     stepDown(){
       if(this.currentStep>0){
         this.currentStep--;
+      }
+    },
+    doCheck(){
+      // Child Component의 DoCheck호출!
+      if(this.$refs.signform.doCheck !=null){
+        this.$refs.signform.doCheck();
       }
     }
 

@@ -38,11 +38,6 @@
         <a class="text_view" href="#">자세히보기</a>
       </div>
     </div>
-
-    DATA값 : {{ allCheckSignup }} / {{ checkSignupService }} /
-    {{ checkSignupPrivacy }}<br />
-    스토어값 : {{ storeAllCheckSignup }} / {{ storeCheckSignupService }} /
-    {{ storeCheckSignupPrivacy }}
   </div>
 </template>
 

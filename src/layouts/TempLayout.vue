@@ -9,10 +9,10 @@
       
       <v-spacer></v-spacer>
       
-      <v-btn icon v-show="isShowCheckBtn">
+      <v-btn icon v-show="isShowCheckBtn" @click="doCheck">
         <v-icon>mdi-check</v-icon>
       </v-btn>
-      <v-btn icon v-show="isShowNextBtn">
+      <v-btn icon v-show="isShowNextBtn" @click="doNext">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
       <v-btn icon v-show="isShowSearchBtn">
@@ -24,7 +24,7 @@
     <!-- Main Section -->
     <v-main>
       <!--<v-content>-->
-      <router-view @setLayout="setLayout"></router-view>
+      <router-view @setLayout="setLayout" ref="childForm"></router-view>
       <!--</v-content>-->
     </v-main>
   </v-app>
@@ -64,6 +64,18 @@ export default {
       this.isShowCheckBtn = isShowCheckBtn;
       this.isShowNextBtn = isShowNextBtn;
       this.isShowSearchBtn = isShowSearchBtn;
+    },
+    doCheck(){
+      // ChildrenComponent에 doCheck()메소드 실행
+      if(this.$refs.childForm.doCheck!=null){
+        this.$refs.childForm.doCheck();
+      }
+    },
+    doNext(){
+      // ChildrenComponent에 doNext()메소드 실행
+      if(this.$refs.childForm.doNext!=null){
+        this.$refs.childForm.doNext();
+      }
     },
     ...mapActions(["logout"]),
   },

@@ -15,15 +15,11 @@
       </ul>
       <p>원앤집 이용 문의:oneandzip@gmail.com</p>
     </div>
-    {{ signupData }}
-
-    <v-btn @click="signup()">가입하기 호출</v-btn>
-    result : {{ resultData }}
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
@@ -32,7 +28,7 @@ export default {
   props: {},
   data() {
     return {
-      resultData: {},
+      
     };
   },
   computed: {
@@ -41,7 +37,8 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(["clearSignup"]),
+    ...mapActions(['fetchUser','clearSignup']),
+    ...mapMutations(['setToken']),
     signup() {
       console.log("BEFORE Signup Call");
       accountApi.signup(
@@ -56,8 +53,15 @@ export default {
         (body) => {
           console.log("succss.body : ", body);
           console.log("signup data Clear!");
-          this.resultData = body;
-          this.clearSignup();
+          if(body.accessToken != null){
+            this.clearSignup();
+            this.setToken(body.accessToken)
+            this.fetchUser()
+            this.$router.replace('/')  
+          }else{
+            console.log('엑세스토큰이 없습니다.')
+          }
+            
         },
         (err) => {
           console.log("err : ", err);
@@ -65,6 +69,9 @@ export default {
       );
       console.log("AFTER Signup Call");
     },
+    doCheck(){
+      this.signup();
+    }
   },
 };
 </script>
