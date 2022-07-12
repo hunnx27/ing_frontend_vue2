@@ -5,16 +5,17 @@
       <v-btn icon @click="goBack">
         <v-icon >mdi-arrow-left</v-icon>
       </v-btn>
-      <v-app-bar-title>타이틀 입력</v-app-bar-title>
+      <v-app-bar-title>{{title}}</v-app-bar-title>
+      
       <v-spacer></v-spacer>
-
-      <v-btn icon>
+      
+      <v-btn icon v-show="isShowCheckBtn">
         <v-icon>mdi-check</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon v-show="isShowNextBtn">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon v-show="isShowSearchBtn">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       
@@ -23,7 +24,7 @@
     <!-- Main Section -->
     <v-main>
       <!--<v-content>-->
-      <router-view></router-view>
+      <router-view @setLayout="setLayout"></router-view>
       <!--</v-content>-->
     </v-main>
   </v-app>
@@ -37,6 +38,10 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
+    title: null,
+    isShowCheckBtn: null,
+    isShowNextBtn: false,
+    isShowSearchBtn: false
   }),
   watch: {
     group() {
@@ -52,6 +57,13 @@ export default {
     },
     write_modal() {
       alert("준비중입니다..");
+    },
+    setLayout({title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn}){
+      console.log(title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn);
+      this.title = title;
+      this.isShowCheckBtn = isShowCheckBtn;
+      this.isShowNextBtn = isShowNextBtn;
+      this.isShowSearchBtn = isShowSearchBtn;
     },
     ...mapActions(["logout"]),
   },
