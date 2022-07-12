@@ -39,6 +39,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -51,6 +52,8 @@ export default {
       allCheckSignup: false,
       checkSignupService: false,
       checkSignupPrivacy: false,
+      socialId: null,
+      snsTypeCode: null,
     };
   },
   methods: {
@@ -78,6 +81,24 @@ export default {
       console.log("methods : ", checkSignupPrivacy);
       this.setCheckSignupPrivacy({ checkSignupPrivacy });
     },
+    valid(){
+      var isValid = false;
+      var err = '';
+      
+      if(this.socialId==null || this.snsTypeCode==null){
+        isValid = false;
+        err = '인증정보가 유효하지 않습니다. 로그인을 다시 시도하세요.'
+        return {isValid, 'err':err};
+      }
+      if(this.allCheckSignup != true){
+        isValid = false;
+        err = '모든 약관에 동의하셔야 합니다.'
+        return {isValid, 'err':err};
+      }
+      
+      // 통과
+      return {isValid:true, 'err':''};
+    }
   },
   computed: {
     /*
@@ -118,19 +139,18 @@ export default {
     /**
      * 최초 실행
      */
+
+    // Appbar Option 설정
+    const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
+    this.$emit('setLayout',options);
+
+    // 스토어 저장된 데이터 로드
     if (this.signupData != null) {
-      this.allCheckSignup =
-        this.signupData.allCheckSignup != null
-          ? this.signupData.allCheckSignup
-          : false;
-      this.checkSignupService =
-        this.signupData.checkSignupService != null
-          ? this.signupData.checkSignupService
-          : false;
-      this.checkSignupPrivacy =
-        this.signupData.checkSignupPrivacy != null
-          ? this.signupData.checkSignupPrivacy
-          : false;
+      this.socialId = ( this.signupData.socialId != null )                      ? this.signupData.socialId : null;
+      this.snsTypeCode = ( this.signupData.snsTypeCode != null )                ? this.signupData.snsTypeCode : null;
+      this.allCheckSignup = ( this.signupData.allCheckSignup != null )          ? this.signupData.allCheckSignup : false;
+      this.checkSignupService = ( this.signupData.checkSignupService != null )  ? this.signupData.checkSignupService : false;
+      this.checkSignupPrivacy = ( this.signupData.checkSignupPrivacy != null )  ? this.signupData.checkSignupPrivacy : false;
 
       if (this.checkSignupService == true && this.checkSignupPrivacy == true) {
         this.allCheckSignup = true;

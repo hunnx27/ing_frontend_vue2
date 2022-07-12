@@ -20,7 +20,7 @@ export default {
     }else{
       this.clearSignup();
       this.setSignup({userId, snsTypeCode});
-      this.$router.replace('/signup');
+      this.$router.replace({path:'/signup', query:{isAuth:'true'} });
     }
     
   },

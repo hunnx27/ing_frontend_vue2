@@ -1,7 +1,7 @@
 <template>
 <div>
   <component
-    :is="this.stepsList[this.currentStep]" ref="signform"
+    :is="this.stepsList[this.currentStep]" ref="childform" @setLayout="setLayout"
   ></component>
 
   <div>
@@ -12,10 +12,17 @@
 </template>
 
 <script>
-
+import { mapActions } from "vuex";
 import IntroItem from '@/components/signup/IntroItem.vue'
 import StepOneItem from '@/components/signup/StepOneItem.vue'
 import StepTwoItem from '@/components/signup/StepTwoItem.vue'
+
+const title = "회원가입";
+const options = {
+      isShowCheckBtn: false,
+      isShowNextBtn: false,
+      isShowSearchBtn: false
+};
 
 export default {
   name: 'SginupView',
@@ -29,6 +36,7 @@ export default {
     }
   },
   methods:{
+    ...mapActions(['clearSignup']),
     stepUp(){
       if( (this.stepsList.length-1)>this.currentStep ){
         this.currentStep++;
@@ -42,11 +50,26 @@ export default {
     },
     doCheck(){
       // Child Component의 DoCheck호출!
-      if(this.$refs.signform.doCheck !=null){
-        this.$refs.signform.doCheck();
+      if(this.$refs.childform.doCheck !=null){
+        this.$refs.childform.doCheck();
       }
-    }
-
+    },
+    doNext(){
+      // Child Component의 DoCheck호출!
+      const rsValid = this.$refs.childform.valid();
+      console.log('##isValid : ', rsValid)
+      if(!rsValid.isValid){
+        alert(rsValid.err);
+        return;
+      }
+      if( (this.stepsList.length-1)>this.currentStep ){
+        this.currentStep++;
+      }
+    },
+    setLayout(options){
+      console.log(options);
+      this.$emit("setLayout", title, options);
+    },
   },
   computed: {
     isFirstStep() {
@@ -57,13 +80,11 @@ export default {
     }
   },
   created() {
-    const options = {
-      title: '회원가입',
-      isShowCheckBtn: true,
-      isShowNextBtn: false,
-      isShowSearchBtn: false
-    };
-    this.$emit("setLayout", options);
+    const isAuth = this.$route.query.isAuth;
+    if(!isAuth){
+      this.clearSignup();
+    }
+    this.setLayout(options)
   },
 }
 </script>

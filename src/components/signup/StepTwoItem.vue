@@ -71,7 +71,12 @@ export default {
     },
     doCheck(){
       this.signup();
-    }
+    },
+  },
+  created() {
+    // Appbar Option 설정
+    const options = {isShowCheckBtn: true,isShowNextBtn: false,isShowSearchBtn: false};
+    this.$emit('setLayout',options);
   },
 };
 </script>

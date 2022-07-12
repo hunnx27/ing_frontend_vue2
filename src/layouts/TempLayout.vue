@@ -58,7 +58,7 @@ export default {
     write_modal() {
       alert("준비중입니다..");
     },
-    setLayout({title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn}){
+    setLayout(title, {isShowCheckBtn, isShowNextBtn, isShowSearchBtn}){
       console.log(title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn);
       this.title = title;
       this.isShowCheckBtn = isShowCheckBtn;

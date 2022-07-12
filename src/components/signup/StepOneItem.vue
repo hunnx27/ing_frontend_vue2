@@ -49,11 +49,27 @@ export default {
       const gubn = e.target.value;
       this.setSignupGubn({ gubn });
     },
+    valid(){
+      var isValid = false;
+      var err = '';
+      if(this.gubn != null){
+        isValid = true;
+      }else{
+        isValid = false;
+        err = '기관구분을 선택하세요.'
+      }
+      const rs = {isValid, 'err':err}
+      return rs;
+    }
   },
   computed: {
     ...mapGetters(["signupData"]),
   },
   created: function () {
+    // Appbar Option 설정
+    const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
+    this.$emit('setLayout',options);
+    
     if (this.signupData != null) {
       this.gubn = this.signupData != null ? this.signupData.gubnCode : null;
     } else {
