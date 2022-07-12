@@ -3,7 +3,7 @@
   <div class="mypageView">
 
     <div>
-      <router-link to="/mypage/myinfo">
+      <router-link to="/menu/mypage/myinfo">
         내 정보
         <span>
           <v-btn icon><v-icon>mdi-chevron-right</v-icon></v-btn>
@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div>
-      <router-link to="/mypage/pointHistory">
+      <router-link to="/menu/mypage/pointHistory">
         포인트 내역
         <v-btn icon><v-icon>mdi-chevron-right</v-icon></v-btn>
       </router-link>

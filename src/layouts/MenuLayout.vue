@@ -3,7 +3,15 @@
     <!-- Header Section-->
     <v-app-bar color="deep-purple accent-4" dense dark app class="flex-grow-0">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title>& 원앤집</v-app-bar-title>
+
+      <v-img
+        class="mx-2"
+        src="/resources/images/logo_pink.png"
+        max-height="40"
+        max-width="40"
+        contain
+      ></v-img>
+      <v-app-bar-title>원앤집</v-app-bar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -28,8 +36,11 @@
           <v-list-item to="/login">
             <v-list-item-title>Login</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/mypage">
+          <v-list-item to="/menu/mypage">
             <v-list-item-title>마이페이지</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/menu/accountManage">
+            <v-list-item-title>계정관리</v-list-item-title>
           </v-list-item>
           <!-- <v-list-item to="/about">
             <v-list-item-title>About</v-list-item-title>

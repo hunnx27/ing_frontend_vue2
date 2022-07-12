@@ -10,10 +10,13 @@ import DefaultLayout from "../layouts/DefaultLayout.vue";
 import TempLayout from "../layouts/TempLayout.vue";
 import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
-// Mypage
-import MypageView from "../views/mypage/MypageView.vue"
-import MyinfoView from "../views/mypage/MyinfoView.vue"
+// Menu
+// Menu.Mypage
+import MypageView from "../views/menu/mypage/MypageView.vue"
+import MyinfoView from "../views/menu/mypage/MyinfoView.vue"
 import PointHistoryView from "../views/mypage/PointHistoryView.vue"
+// Menu.AccountManageView
+import AccountManageView from "../views/menu/AccountManageView.vue"
 
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
@@ -77,10 +80,10 @@ const routes = [
   },
 
   /**
-   * MyPage
+   * Menu.mypage
    */
    {
-    path: "/mypage",
+    path: "/menu/mypage",
     component: TempLayout,
     children: [
       {
@@ -91,7 +94,7 @@ const routes = [
     ],
   },
   {
-    path: "/mypage/myinfo",
+    path: "/menu/mypage/myinfo",
     component: TempLayout,
     children: [
       {
@@ -102,13 +105,27 @@ const routes = [
     ],
   },
   {
-    path: "/mypage/pointHistory",
+    path: "/menu/mypage/pointHistory",
     component: TempLayout,
     children: [
       {
         path: "",
         name: "pointHistoryView",
         component: PointHistoryView,
+      },
+    ],
+  },
+  /**
+   * Menu.accountManageView
+   */
+  {
+    path: "/menu/accountManage",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "accountManageView",
+        component: AccountManageView,
       },
     ],
   },
