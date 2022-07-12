@@ -1,86 +1,103 @@
 <template>
-  <div class="step-two">
-    <div class="step-title">회원가입완료</div>
-    <div class="welcome_txt">
-      <p class="big_txt">원앤집 회원이 되신 것을 환영합니다.</p>
-      <p>원앤집은 모든 유아교육 종사자들과 함께</p>
-      <p>더 나은 환경을 만들어 나가기 위해 노력합니다.</p>
+  <div class="step-one">
+    <div class="step-title">회원가입</div>
+    <div class="radio-wrap">
+      <label for="checkSignupJob1">
+        <input
+          id="checkSignupJob1"
+          v-model="gubn"
+          name="gubn"
+          type="radio"
+          value="A"
+          @change="stored($event)"
+        />유아교사<br />
+      </label>
+      <p>원앤집의 모든 기능을 이용할 수 있습니다.</p>
     </div>
-    <div class="membership_notice">
-      <ul>
-        <li>실명(또는 별명)이 포함된 리뷰는 승인되지 않아요.</li>
-        <li>욕설 및 비방, 비속어 사용 역시 승인되지 않아요.</li>
-        <li>근거 없는 비방이나 모욕적 표현은 자제해 주세요.</li>
-        <li>확인되지 않은 내용 적시는 법적처벌사유가 될 수 있어요.</li>
-      </ul>
-      <p>원앤집 이용 문의:oneandzip@gmail.com</p>
+    <div class="radio-wrap">
+      <label for="checkSignupJob2">
+        <input
+          id="checkSignupJob2"
+          v-model="gubn"
+          name="gubn"
+          type="radio"
+          value="I"
+          @change="stored($event)"
+        />예비교사/학부모<br />
+      </label>
+      <p>기관리뷰 작성을 제외한 모든 기능을 이용할 수 있습니다.</p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from "vuex";
+
+
 export default {
-  name: "StepTwoItem",
+  name: "StepOneItem",
   components: {},
   props: {},
   data() {
     return {
-      
+      gubn: null,
     };
   },
-  computed: {
-    
-  },
   methods: {
-    doCheck(){
-      //this.signup();
-      this.$router.replace('/');
+    stored(e) {
+      console.log(e.target.value);
+      const gubn = e.target.value;
+      this.setSignupGubn({ gubn });
     },
+    valid(){
+      var isValid = false;
+      var err = '';
+      if(this.gubn != null){
+        isValid = true;
+      }else{
+        isValid = false;
+        err = '기관구분을 선택하세요.'
+      }
+      const rs = {isValid, 'err':err}
+      return rs;
+    }
   },
-  created() {
+  computed: {
+    ...mapGetters(["signupData"]),
+  },
+  created: function () {
     // Appbar Option 설정
-    const options = {isShowCheckBtn: true,isShowNextBtn: false,isShowSearchBtn: false};
+    const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
     this.$emit('setLayout',options);
+    
+    if (this.signupData != null) {
+      this.gubn = this.signupData != null ? this.signupData.gubnCode : null;
+    } else {
+      this.gubn = null;
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.step-two {
+.step-one {
   padding: 30px 15px 15px;
 
   .step-title {
-    text-align: center;
     font-size: 20px;
   }
+}
+.radio-wrap {
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px 10px;
+  background: #fff;
+  border: 1px solid #673ab7;
+  border-radius: 10px;
 
-  .welcome_txt {
-    margin-top: 20px;
-    text-align: center;
-    .big_txt {
-      font-weight: 600;
-      font-size: 20px;
-      color: #673ab7;
-    }
-    p {
-      margin: 0;
-    }
-  }
-  .membership_notice {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #cccccc;
-    background: #fff;
-    ul {
-      padding: 0;
-      li {
-        display: block;
-        padding: 0;
-      }
-    }
-    p {
-      margin: 20px 0 0 0;
-    }
+  .text_view {
+    flex: end;
+    color: #666;
   }
 }
 </style>

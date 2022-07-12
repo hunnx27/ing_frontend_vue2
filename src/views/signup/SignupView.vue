@@ -14,9 +14,9 @@
 <script>
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
-import IntroItem from '@/components/signup/IntroItem.vue'
 import StepOneItem from '@/components/signup/StepOneItem.vue'
 import StepTwoItem from '@/components/signup/StepTwoItem.vue'
+import StepComplteItem from '@/components/signup/StepComplteItem.vue'
 import accountApi from "@/api/account";
 
 const title = "회원가입";
@@ -29,12 +29,12 @@ const options = {
 export default {
   name: 'SginupView',
   components:{
-    IntroItem, StepOneItem, StepTwoItem
+    StepOneItem, StepTwoItem, StepComplteItem
   },
   data(){
     return{
       currentStep: 0,
-      stepsList: ['IntroItem', 'StepOneItem', 'StepTwoItem'],
+      stepsList: ['StepOneItem', 'StepTwoItem','StepComplteItem'],
     }
   },
   methods:{

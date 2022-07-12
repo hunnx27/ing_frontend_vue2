@@ -1,93 +1,181 @@
 <template>
-  <div class="step-one">
+  <div class="step-wrap">
     <div class="step-title">회원가입</div>
-    <div class="radio-wrap">
-      <label for="checkSignupJob1">
+
+    <div>
+      <label for="allCheckSignup" class="">
         <input
-          id="checkSignupJob1"
-          v-model="gubn"
-          name="gubn"
-          type="radio"
-          value="A"
-          @change="stored($event)"
-        />유아교사<br />
+          type="checkbox"
+          id="allCheckSignup"
+          name="allCheckSignup"
+          @click="clickAllCheckSignup($event)"
+          v-model="allCheckSignup"
+        />전체동의
       </label>
-      <p>원앤집의 모든 기능을 이용할 수 있습니다.</p>
-    </div>
-    <div class="radio-wrap">
-      <label for="checkSignupJob2">
-        <input
-          id="checkSignupJob2"
-          v-model="gubn"
-          name="gubn"
-          type="radio"
-          value="I"
-          @change="stored($event)"
-        />예비교사/학부모<br />
-      </label>
-      <p>기관리뷰 작성을 제외한 모든 기능을 이용할 수 있습니다.</p>
+      <div class="checkbox-wrap">
+        <label for="checkSignupService">
+          <input
+            type="checkbox"
+            id="checkSignupService"
+            name="checkSignupService"
+            @click="clickCheckSignupService($event)"
+            v-model="checkSignupService"
+          />서비스 이용약관
+        </label>
+        <a class="text_view" href="#">자세히보기</a>
+      </div>
+
+      <div class="checkbox-wrap">
+        <label for="CheckSignupPrivacy">
+          <input
+            type="checkbox"
+            id="checkSignupPrivacy"
+            name="checkSignupPrivacy"
+            @click="clickCheckSignupPrivacy($event)"
+            v-model="checkSignupPrivacy"
+          />개인정보 취급정책
+        </label>
+        <a class="text_view" href="#">자세히보기</a>
+      </div>
     </div>
   </div>
+  
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
-
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "StepOneItem",
-  components: {},
-  props: {},
+  name: "IntroItem",
   data() {
     return {
-      gubn: null,
+      allCheckSignup: false,
+      checkSignupService: false,
+      checkSignupPrivacy: false,
+      socialId: null,
+      snsTypeCode: null,
     };
   },
   methods: {
-    stored(e) {
-      console.log(e.target.value);
-      const gubn = e.target.value;
-      this.setSignupGubn({ gubn });
+    ...mapActions([
+      "setAllCheckSignup",
+      "setCheckSignupService",
+      "setCheckSignupPrivacy",
+    ]),
+    clickAllCheckSignup(e) {
+      const allCheckSignup = e.target.checked;
+      const checkSignupService = allCheckSignup;
+      const checkSignupPrivacy = allCheckSignup;
+      console.log("methods : ", allCheckSignup);
+      this.setAllCheckSignup({ allCheckSignup });
+      this.setCheckSignupService({ checkSignupService });
+      this.setCheckSignupPrivacy({ checkSignupPrivacy });
+    },
+    clickCheckSignupService(e) {
+      const checkSignupService = e.target.checked;
+      console.log("methods : ", checkSignupService);
+      this.setCheckSignupService({ checkSignupService });
+    },
+    clickCheckSignupPrivacy(e) {
+      const checkSignupPrivacy = e.target.checked;
+      console.log("methods : ", checkSignupPrivacy);
+      this.setCheckSignupPrivacy({ checkSignupPrivacy });
     },
     valid(){
       var isValid = false;
       var err = '';
-      if(this.gubn != null){
-        isValid = true;
-      }else{
+      
+      if(this.socialId==null || this.snsTypeCode==null){
         isValid = false;
-        err = '기관구분을 선택하세요.'
+        err = '인증정보가 유효하지 않습니다. 로그인을 다시 시도하세요.'
+        return {isValid, 'err':err};
       }
-      const rs = {isValid, 'err':err}
-      return rs;
+      if(this.allCheckSignup != true){
+        isValid = false;
+        err = '모든 약관에 동의하셔야 합니다.'
+        return {isValid, 'err':err};
+      }
+      
+      // 통과
+      return {isValid:true, 'err':''};
     }
   },
   computed: {
+    /*
+     스토어의 값을 변수처리할 수 있도록 초기화함
+     1. mapGetters : 스토어의 모든 Getter함수를 가져옴, 그 중 배열에 선택된 Getter함수 제한 가능
+    */
+
     ...mapGetters(["signupData"]),
+    storeAllCheckSignup() {
+      return this.signupData.allCheckSignup;
+    },
+    storeCheckSignupService() {
+      return this.signupData.checkSignupService;
+    },
+    storeCheckSignupPrivacy() {
+      return this.signupData.checkSignupPrivacy;
+    },
+  },
+  watch: {
+    /*
+     Data 혹은 Computed의 값의 변경 이벤트를 감지함
+    */
+
+    storeAllCheckSignup(val, oldVal) {
+      //console.log('watch : ', val, oldVal);
+      this.allCheckSignup = val;
+    },
+    storeCheckSignupService(val, oldVal) {
+      //console.log('watch : ', val, oldVal);
+      this.checkSignupService = val;
+    },
+    storeCheckSignupPrivacy(val, oldVal) {
+      //console.log('watch : ', val, oldVal);
+      this.checkSignupPrivacy = val;
+    },
   },
   created: function () {
+    /**
+     * 최초 실행
+     */
+
     // Appbar Option 설정
     const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
     this.$emit('setLayout',options);
-    
+
+    // 스토어 저장된 데이터 로드
     if (this.signupData != null) {
-      this.gubn = this.signupData != null ? this.signupData.gubnCode : null;
+      this.socialId = ( this.signupData.socialId != null )                      ? this.signupData.socialId : null;
+      this.snsTypeCode = ( this.signupData.snsTypeCode != null )                ? this.signupData.snsTypeCode : null;
+      this.allCheckSignup = ( this.signupData.allCheckSignup != null )          ? this.signupData.allCheckSignup : false;
+      this.checkSignupService = ( this.signupData.checkSignupService != null )  ? this.signupData.checkSignupService : false;
+      this.checkSignupPrivacy = ( this.signupData.checkSignupPrivacy != null )  ? this.signupData.checkSignupPrivacy : false;
+
+      if (this.checkSignupService == true && this.checkSignupPrivacy == true) {
+        this.allCheckSignup = true;
+      } else {
+        this.allCheckSignup = false;
+      }
     } else {
-      this.gubn = null;
+      this.allCheckSignup = false;
+      this.checkSignupService = false;
+      this.checkSignupPrivacy = false;
     }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.step-one {
+.step-wrap {
   padding: 30px 15px 15px;
 
   .step-title {
     font-size: 20px;
   }
 }
-.radio-wrap {
+.checkbox-wrap {
+  position: relative;
   align-items: center;
   margin-top: 10px;
   padding: 10px 10px;
@@ -96,7 +184,10 @@ export default {
   border-radius: 10px;
 
   .text_view {
-    flex: end;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
     color: #666;
   }
 }
