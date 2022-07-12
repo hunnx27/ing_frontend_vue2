@@ -1,32 +1,43 @@
 <template>
   <!-- Wrap START -->
   <div class="myinfo">
+    <br/>
     관심기관
     <div>
-      전체 / 유치원 / 어린이집
+      <input name="organizationType" type="radio" value="all">전체
+      <input name="organizationType" type="radio" value="유치원">유치원
+      <input name="organizationType" type="radio" value="어린이집">어린이집
     </div>
+
+    <br/>
     출생연도
     <div>
-      <select>
+      <select class="line">
         <option value="">1990</option>
       </select>
     </div>
+
+    <br/>
     관심지역
     <div>
-      <select>
+      <select class="line">
         <option value="">서울특별시</option>
       </select>
-      <select>
+      <select class="line">
         <option value="">전체</option>
       </select>
     </div>
+
+    <br/>
     출신학교
     <div>
-      <input type="text"/>
+      <input type="text" class="line"/>
     </div>
+
+    <br/>
     학과
     <div>
-      <input type="text"/>
+      <input type="text" class="line"/>
     </div>
 
     
@@ -36,9 +47,13 @@
 </template>
 
 <style>
-
+.line{
+  border:1px solid
+}
 </style>
 <script>
+import accountApi from '@/api/account'
+
 export default {
   name: 'myinfoView',
   components:{
@@ -50,6 +65,10 @@ export default {
     }
   },
   methods:{
+    
+  },
+  created () {
+    console.log('HELLO!');
     
   }
 
