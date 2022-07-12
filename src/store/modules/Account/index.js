@@ -77,7 +77,7 @@ export const Account = {
         ? callback && callback()
         : accountApi.getUser(
           res => {
-            commit('setUser', res.user)
+            commit('setUser', res)
             callback && callback()
           }
         )
