@@ -50,7 +50,16 @@ export default {
     isLastStep() {
       return this.currentStep === this.stepsList.length - 1
     }
-  }
+  },
+  created() {
+    const options = {
+      title: '회원가입',
+      isShowCheckBtn: true,
+      isShowNextBtn: false,
+      isShowSearchBtn: false
+    };
+    this.$emit("setLayout", options);
+  },
 }
 </script>
 
