@@ -14,7 +14,7 @@ import OauthRedirect from "@/components/login/oauth/RedirectItem";
 // Menu.Mypage
 import MypageMenuView from "../views/menu/mypage/MypageMenuView.vue"
 import MyinfoView from "../views/menu/mypage/MyinfoView.vue"
-import PointHistoryView from "../views/mypage/PointHistoryView.vue"
+import PointHistoryView from "../views/menu/mypage/PointHistoryView.vue"
 // Menu.AccountManageView
 import AccountManageView from "../views/menu/AccountManageView.vue"
 
