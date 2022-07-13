@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="mypageView">
+  <div class="mypageMenuView">
 
     <div>
       <router-link to="/menu/mypage/myinfo">

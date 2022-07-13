@@ -12,7 +12,7 @@ import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
 // Menu
 // Menu.Mypage
-import MypageView from "../views/menu/mypage/MypageView.vue"
+import MypageMenuView from "../views/menu/mypage/MypageMenuView.vue"
 import MyinfoView from "../views/menu/mypage/MyinfoView.vue"
 import PointHistoryView from "../views/mypage/PointHistoryView.vue"
 // Menu.AccountManageView
@@ -88,8 +88,8 @@ const routes = [
     children: [
       {
         path: "",
-        name: "mypageView",
-        component: MypageView,
+        name: "mypageMenuView",
+        component: MypageMenuView,
       },
     ],
   },
