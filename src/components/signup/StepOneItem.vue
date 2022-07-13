@@ -1,5 +1,5 @@
 <template>
-  <div class="step-wrap">
+  <div class="step-wrap page-wrap">
     <div class="step-title">회원가입</div>
 
     <div class="mgt20">
@@ -180,8 +180,6 @@ export default {
 
 <style lang="scss" scoped>
 .step-wrap {
-  padding: 30px 15px 15px;
-
   .step-title {
     font-size: 20px;
   }

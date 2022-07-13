@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="mypageMenuView">
+  <div class="mypageMenuView page-wrap">
     <div>
       <router-link
         to="/menu/mypage/myinfo"
@@ -34,22 +34,17 @@ export default {
   data() {
     return {};
   },
-  methods: {
-  },
+  methods: {},
   created() {
     const title = "마이 페이지";
     const options = {
-          isShowCheckBtn: false,
-          isShowNextBtn: false,
-          isShowSearchBtn: false
+      isShowCheckBtn: false,
+      isShowNextBtn: false,
+      isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.mypageMenuView {
-  padding: 30px 15px 15px;
-}
-</style>
+<style lang="scss" scoped></style>

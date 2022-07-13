@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="myinfo">
+  <div class="myinfo page-wrap">
     <div class="step-title">관심기관</div>
     <div>
       <input
@@ -164,10 +164,6 @@ export default {
   font-size: 20px;
   font-weight: 600;
 }
-.myinfo {
-  padding: 30px 15px 15px;
-}
-
 input[type="radio"] {
   width: 20px;
   height: 20px;
