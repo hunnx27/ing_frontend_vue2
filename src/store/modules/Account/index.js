@@ -82,6 +82,14 @@ export const Account = {
           }
         )
     },
+    refreshUser ({state, commit}, callback) {
+      accountApi.getUser(
+        res => {
+          commit('setUser', res)
+          callback && callback()
+        }
+      )
+    },
     logout({commit}){
       commit("setToken", null);
       commit("setUser", null);

@@ -4,9 +4,9 @@
     <br/>
     관심기관
     <div>
-      <input v-model="intrsOrg" name="intrsOrg" type="radio" value="ALL">전체
-      <input v-model="intrsOrg" name="intrsOrg" type="radio" value="KINDERGARTEN">유치원
-      <input v-model="intrsOrg" name="intrsOrg" type="radio" value="DAYCARECENTER">어린이집
+      <input v-model="intrsOrgName" name="intrsOrg" type="radio" value="all">전체
+      <input v-model="intrsOrgName" name="intrsOrg" type="radio" value="kindergarten">유치원
+      <input v-model="intrsOrgName" name="intrsOrg" type="radio" value="daycarecenter">어린이집
     </div>
 
     <br/>
@@ -55,12 +55,7 @@
 </style>
 <script>
 import accountApi from '@/api/account'
-const title = "내 정보";
-const options = {
-      isShowCheckBtn: true,
-      isShowNextBtn: false,
-      isShowSearchBtn: false
-};
+import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: 'myinfoView',
@@ -69,31 +64,19 @@ export default {
   },
   data(){
     return{
-      intrsOrg: null,
-      birthYYYY: 2021,
+      intrsOrgName: null,
+      birthYYYY: null,
       intrsZone: null,
       majorSchool: null,
       majorDepartment: null,
     }
   },
   methods:{
-    yearRange(startFrom) {
-      var today = new Date();
-      var year = today.getFullYear();
-      const r = [];
-      for(let i = startFrom; i <= year; i++) {
-        r.push(i);
-      }
-      return r.reverse();
-    },
-    setLayout(options){
-      console.log(options);
-      this.$emit("setLayout", title, options);
-    },
+    ...mapActions(['refreshUser']),
     doCheck(){
       // 저장데이터 셋팅
       var saveDataObj = {
-        intrsOrg: this.intrsOrg, 
+        intrsOrgName: this.intrsOrgName, 
         birthYYYY: this.birthYYYY, 
         intrsZone: this.intrsZone, 
         majorSchool: this.majorSchool, 
@@ -111,19 +94,57 @@ export default {
         paramObj,
         (body) => {
           console.log("succss.body : ", body);
-          alert("fixme : 저장후 처리 로직 추가 하세요." , body);
+          alert('내 정보가 저장되었습니다.');
+          this.refreshUser();
         },
         (err) => {
           console.log("err : ", err);
-          alert("FIXME : 에러처리하세요.", err);
+          alert("FIXME : 시스템오류가 있습니다.", err);
         }
       );
       console.log("AFTER save Call");
     },
+    yearRange(startFrom) {
+      var today = new Date();
+      var year = today.getFullYear();
+      const r = [];
+      for(let i = startFrom; i <= year; i++) {
+        r.push(i);
+      }
+      return r.reverse();
+    },
+  },
+  computed: {
+    /*
+     스토어의 값을 변수처리할 수 있도록 초기화함
+     1. mapGetters : 스토어의 모든 Getter함수를 가져옴, 그 중 배열에 선택된 Getter함수 제한 가능
+    */
+    ...mapGetters(["user"]),
+
   },
   created () {
-    console.log('HELLO!');
-    this.setLayout(options);
+    const title = "내 정보";
+    const options = {
+          isShowCheckBtn: true,
+          isShowNextBtn: false,
+          isShowSearchBtn: false
+    };
+    this.$emit("setLayout", title, options);
+    const storedMyinfo = this.user!=null? this.user.myinfo : null;
+    if(storedMyinfo!=null){
+      this.intrsOrgName = storedMyinfo.intrsOrg;
+      this.birthYYYY = storedMyinfo.birthYYYY;
+      this.intrsZone = storedMyinfo.intrsZone;
+      this.majorSchool = storedMyinfo.majorSchool;
+      this.majorDepartment = storedMyinfo.majorDepartment;
+    }else{
+      this.intrsOrgName = null;
+      this.birthYYYY = null;
+      this.intrsZone = null;
+      this.majorSchool = null;
+      this.majorDepartment = null;
+    }
+    
   }
 
 }
