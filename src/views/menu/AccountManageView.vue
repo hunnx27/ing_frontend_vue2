@@ -54,6 +54,14 @@ export default {
     ...mapGetters(["user"]),
   },
   created() {
+    const title = "계정관리";
+    const options = {
+          isShowCheckBtn: false,
+          isShowNextBtn: false,
+          isShowSearchBtn: false
+    };
+    this.$emit("setLayout", title, options);
+
     if (this.user != null) {
       this.userId = this.user != null ? this.user.userId : null;
       this.snsType = this.user != null ? this.user.snsType : null;

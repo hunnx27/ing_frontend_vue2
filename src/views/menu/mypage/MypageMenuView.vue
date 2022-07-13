@@ -34,7 +34,17 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+  },
+  created() {
+    const title = "마이 페이지";
+    const options = {
+          isShowCheckBtn: false,
+          isShowNextBtn: false,
+          isShowSearchBtn: false
+    };
+    this.$emit("setLayout", title, options);
+  },
 };
 </script>
 

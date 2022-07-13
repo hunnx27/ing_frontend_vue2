@@ -30,9 +30,17 @@ export default {
       
     }
   },
-  methods:{
-    
-  }
+  methods: {
+  },
+  created() {
+    const title = "포인트 이력";
+    const options = {
+          isShowCheckBtn: false,
+          isShowNextBtn: false,
+          isShowSearchBtn: false
+    };
+    this.$emit("setLayout", title, options);
+  },
 
 }
 </script>

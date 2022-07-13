@@ -55,9 +55,6 @@ export default {
     goBack(){
       this.$router.go(-1);
     },
-    write_modal() {
-      alert("준비중입니다..");
-    },
     setLayout(title, {isShowCheckBtn, isShowNextBtn, isShowSearchBtn}){
       console.log(title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn);
       this.title = title;
