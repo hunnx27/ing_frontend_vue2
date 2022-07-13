@@ -26,6 +26,7 @@
 
 </style>
 <script>
+
 export default {
   name: 'MypageView',
   components:{
