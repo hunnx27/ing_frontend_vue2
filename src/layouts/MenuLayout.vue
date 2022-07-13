@@ -42,6 +42,9 @@
           <v-list-item to="/menu/accountManage">
             <v-list-item-title>계정관리</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/menu/temp/counselReq1">
+            <v-list-item-title>상담요청</v-list-item-title>
+          </v-list-item>
           <!-- <v-list-item to="/about">
             <v-list-item-title>About</v-list-item-title>
           </v-list-item>

@@ -18,6 +18,11 @@ import PointHistoryView from "../views/menu/mypage/PointHistoryView.vue"
 // Menu.AccountManageView
 import AccountManageView from "../views/menu/AccountManageView.vue"
 
+import CounselReq1View from "../views/menu/temp/CounselReq1View.vue"
+import CounselReq2View from "../views/menu/temp/CounselReq2View.vue"
+import CounselReq3View from "../views/menu/temp/CounselReq3View.vue"
+import CounselReq4TagView from "../views/menu/temp/CounselReq4TagView.vue"
+
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
 import IndexPage from "@/components/loginExample/IndexItem";
@@ -126,6 +131,53 @@ const routes = [
         path: "",
         name: "accountManageView",
         component: AccountManageView,
+      },
+    ],
+  },
+  /**
+   * Menu.temp.CounselReqView
+   */
+   {
+    path: "/menu/temp/counselReq1",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselReq1View",
+        component: CounselReq1View,
+      },
+    ],
+  },
+  {
+    path: "/menu/temp/counselReq2",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselReq2View",
+        component: CounselReq2View,
+      },
+    ],
+  },
+  {
+    path: "/menu/temp/counselReq3",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselReq3View",
+        component: CounselReq3View,
+      },
+    ],
+  },
+  {
+    path: "/menu/temp/counselReq4Tag",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselReq4TagView",
+        component: CounselReq4TagView,
       },
     ],
   },
