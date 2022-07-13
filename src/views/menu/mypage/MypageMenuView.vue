@@ -4,7 +4,7 @@
     <div>
       <router-link
         to="/menu/mypage/myinfo"
-        class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default"
+        class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default white"
         style="width: 100%"
       >
         내 정보
@@ -16,7 +16,7 @@
     <div>
       <router-link
         to="/menu/mypage/pointHistory"
-        class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default"
+        class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default white"
         style="width: 100%; margin-top: 30px"
       >
         포인트 내역
