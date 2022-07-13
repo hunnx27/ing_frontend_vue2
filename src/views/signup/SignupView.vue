@@ -1,85 +1,97 @@
 <template>
-<div style="height:">
-  <component
-    :is="this.stepsList[this.currentStep]" ref="childform" @setLayout="setLayout"
-  ></component>
+  <div style="height: ">
+    <component
+      :is="this.stepsList[this.currentStep]"
+      ref="childform"
+      @setLayout="setLayout"
+    ></component>
 
-  <div>
-    <v-btn @click="stepUp()">다음(테스트:검증X)</v-btn> 
+    <div>
+      <v-btn @click="stepUp()">다음(테스트:검증X)</v-btn>
+    </div>
+    <div style="position: fixed; bottom: 0; padding: 15px; width: 100%">
+      <v-btn
+        style="
+          width: 100%;
+          border-color: #9c27b0;
+          background: #9c27b0;
+          color: #fff;
+        "
+        @click="submit"
+        >{{ btnList[this.currentStep] }}</v-btn
+      >
+    </div>
   </div>
-  <div style="position:fixed;bottom:0;padding:15px;width:100%;">
-    <v-btn style="width:100%" @click="submit">{{btnList[this.currentStep]}}</v-btn>
-  </div>
-</div>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
-import StepOneItem from '@/components/signup/StepOneItem.vue'
-import StepTwoItem from '@/components/signup/StepTwoItem.vue'
-import StepComplteItem from '@/components/signup/StepComplteItem.vue'
+import StepOneItem from "@/components/signup/StepOneItem.vue";
+import StepTwoItem from "@/components/signup/StepTwoItem.vue";
+import StepComplteItem from "@/components/signup/StepComplteItem.vue";
 import accountApi from "@/api/account";
 
 const title = "회원가입";
 const options = {
-      isShowCheckBtn: false,
-      isShowNextBtn: false,
-      isShowSearchBtn: false
+  isShowCheckBtn: false,
+  isShowNextBtn: false,
+  isShowSearchBtn: false,
 };
 
 export default {
-  name: 'SginupView',
-  components:{
-    StepOneItem, StepTwoItem, StepComplteItem
+  name: "SginupView",
+  components: {
+    StepOneItem,
+    StepTwoItem,
+    StepComplteItem,
   },
-  data(){
-    return{
+  data() {
+    return {
       currentStep: 0,
-      stepsList: ['StepOneItem', 'StepTwoItem','StepComplteItem'],
-      btnList: ['확인', '선택완료', '완료']
-    }
+      stepsList: ["StepOneItem", "StepTwoItem", "StepComplteItem"],
+      btnList: ["확인", "선택완료", "완료"],
+    };
   },
-  methods:{
-    ...mapActions(['fetchUser','clearSignup']),
-    ...mapMutations(['setToken']),
-    stepUp(){
-      if( (this.stepsList.length-1)>this.currentStep ){
+  methods: {
+    ...mapActions(["fetchUser", "clearSignup"]),
+    ...mapMutations(["setToken"]),
+    stepUp() {
+      if (this.stepsList.length - 1 > this.currentStep) {
         this.currentStep++;
       }
-      
     },
-    submit(){
+    submit() {
       const rsValid = this.$refs.childform.valid();
-      console.log('##isValid : ', rsValid)
-      if(!rsValid.isValid){
+      console.log("##isValid : ", rsValid);
+      if (!rsValid.isValid) {
         alert(rsValid.err);
         return;
       }
 
-      if(this.currentStep == 0){
+      if (this.currentStep == 0) {
         this.currentStep++;
-      } else if(this.currentStep == 1){
+      } else if (this.currentStep == 1) {
         // 회원가입 요청
         var gubnCode = this.signupData.gubnCode;
-        var gubn = '유아교사'
-        if(gubnCode == 'A'){
-          gubn = '유아교사'
-        }else if(gubnCode == 'I'){
-          gubn = '예비교사/학부모'
+        var gubn = "유아교사";
+        if (gubnCode == "A") {
+          gubn = "유아교사";
+        } else if (gubnCode == "I") {
+          gubn = "예비교사/학부모";
         }
-        if(confirm(gubn + "로 가입하시겠습니까?")) this.signup();
-      } else if(this.currentStep == 2){
-        this.$router.replace('/');
+        if (confirm(gubn + "로 가입하시겠습니까?")) this.signup();
+      } else if (this.currentStep == 2) {
+        this.$router.replace("/");
       }
     },
-    doCheck(){
+    doCheck() {
       //Child Component의 DoCheck호출!
-      if(this.$refs.childform.doCheck !=null){
+      if (this.$refs.childform.doCheck != null) {
         this.$refs.childform.doCheck();
       }
     },
-    doNext(){
+    doNext() {
       // Child Component의 DoCheck호출!
       // const rsValid = this.$refs.childform.valid();
       // console.log('##isValid : ', rsValid)
@@ -87,7 +99,6 @@ export default {
       //   alert(rsValid.err);
       //   return;
       // }
-
       // if(this.currentStep == 1){
       //   // 회원가입 요청
       //   this.signup();
@@ -109,13 +120,13 @@ export default {
         (body) => {
           console.log("succss.body : ", body);
           console.log("signup data Clear!");
-          if(body.accessToken != null){
+          if (body.accessToken != null) {
             this.clearSignup();
             this.setToken(body.accessToken);
             this.fetchUser();
             this.currentStep++;
-          }else{
-            alert('엑세스토큰이 없습니다. 다시 시도하세요.')
+          } else {
+            alert("엑세스토큰이 없습니다. 다시 시도하세요.");
           }
         },
         (err) => {
@@ -124,7 +135,7 @@ export default {
       );
       console.log("AFTER Signup Call");
     },
-    setLayout(options){
+    setLayout(options) {
       console.log(options);
       this.$emit("setLayout", title, options);
     },
@@ -134,16 +145,12 @@ export default {
   },
   created() {
     const isAuth = this.$route.query.isAuth;
-    if(!isAuth){
+    if (!isAuth) {
       this.clearSignup();
     }
-    this.setLayout(options)
+    this.setLayout(options);
   },
-}
+};
 </script>
 
-<style>
-.step-title{
-  font-weight: bolder;
-}
-</style>
+<style lang="scss" scoped></style>

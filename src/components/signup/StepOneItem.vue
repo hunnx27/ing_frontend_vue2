@@ -1,8 +1,8 @@
 <template>
-  <div class="step-wrap">
+  <div class="step-wrap page-wrap">
     <div class="step-title">회원가입</div>
 
-    <div>
+    <div class="mgt20">
       <label for="allCheckSignup" class="">
         <input
           type="checkbox"
@@ -39,7 +39,6 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -81,24 +80,24 @@ export default {
       console.log("methods : ", checkSignupPrivacy);
       this.setCheckSignupPrivacy({ checkSignupPrivacy });
     },
-    valid(){
+    valid() {
       var isValid = false;
-      var err = '';
-      
-      if(this.socialId==null || this.snsTypeCode==null){
+      var err = "";
+
+      if (this.socialId == null || this.snsTypeCode == null) {
         isValid = false;
-        err = '인증정보가 유효하지 않습니다. 로그인을 다시 시도하세요.'
-        return {isValid, 'err':err};
+        err = "인증정보가 유효하지 않습니다. 로그인을 다시 시도하세요.";
+        return { isValid, err: err };
       }
-      if(this.allCheckSignup != true){
+      if (this.allCheckSignup != true) {
         isValid = false;
-        err = '모든 약관에 동의하셔야 합니다.'
-        return {isValid, 'err':err};
+        err = "모든 약관에 동의하셔야 합니다.";
+        return { isValid, err: err };
       }
-      
+
       // 통과
-      return {isValid:true, 'err':''};
-    }
+      return { isValid: true, err: "" };
+    },
   },
   computed: {
     /*
@@ -146,11 +145,24 @@ export default {
 
     // 스토어 저장된 데이터 로드
     if (this.signupData != null) {
-      this.socialId = ( this.signupData.socialId != null )                      ? this.signupData.socialId : null;
-      this.snsTypeCode = ( this.signupData.snsTypeCode != null )                ? this.signupData.snsTypeCode : null;
-      this.allCheckSignup = ( this.signupData.allCheckSignup != null )          ? this.signupData.allCheckSignup : false;
-      this.checkSignupService = ( this.signupData.checkSignupService != null )  ? this.signupData.checkSignupService : false;
-      this.checkSignupPrivacy = ( this.signupData.checkSignupPrivacy != null )  ? this.signupData.checkSignupPrivacy : false;
+      this.socialId =
+        this.signupData.socialId != null ? this.signupData.socialId : null;
+      this.snsTypeCode =
+        this.signupData.snsTypeCode != null
+          ? this.signupData.snsTypeCode
+          : null;
+      this.allCheckSignup =
+        this.signupData.allCheckSignup != null
+          ? this.signupData.allCheckSignup
+          : false;
+      this.checkSignupService =
+        this.signupData.checkSignupService != null
+          ? this.signupData.checkSignupService
+          : false;
+      this.checkSignupPrivacy =
+        this.signupData.checkSignupPrivacy != null
+          ? this.signupData.checkSignupPrivacy
+          : false;
 
       if (this.checkSignupService == true && this.checkSignupPrivacy == true) {
         this.allCheckSignup = true;
@@ -168,8 +180,6 @@ export default {
 
 <style lang="scss" scoped>
 .step-wrap {
-  padding: 30px 15px 15px;
-
   .step-title {
     font-size: 20px;
   }
@@ -190,5 +200,10 @@ export default {
     transform: translate(0, -50%);
     color: #666;
   }
+}
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
 }
 </style>

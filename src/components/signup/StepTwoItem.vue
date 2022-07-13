@@ -1,5 +1,5 @@
 <template>
-  <div class="step-one">
+  <div class="step-one page-wrap">
     <div class="step-title">회원가입</div>
     <div class="radio-wrap">
       <label for="checkSignupJob1">
@@ -33,7 +33,6 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
-
 export default {
   name: "StepOneItem",
   components: {},
@@ -50,18 +49,18 @@ export default {
       const gubn = e.target.value;
       this.setSignupGubn({ gubn });
     },
-    valid(){
+    valid() {
       var isValid = false;
-      var err = '';
-      if(this.gubn != null){
+      var err = "";
+      if (this.gubn != null) {
         isValid = true;
-      }else{
+      } else {
         isValid = false;
-        err = '기관구분을 선택하세요.'
+        err = "기관구분을 선택하세요.";
       }
-      const rs = {isValid, 'err':err}
+      const rs = { isValid, err: err };
       return rs;
-    }
+    },
   },
   computed: {
     ...mapGetters(["signupData"]),
@@ -70,7 +69,7 @@ export default {
     // Appbar Option 설정
     // const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
     // this.$emit('setLayout',options);
-    
+
     if (this.signupData != null) {
       this.gubn = this.signupData != null ? this.signupData.gubnCode : null;
     } else {
@@ -82,8 +81,6 @@ export default {
 
 <style lang="scss" scoped>
 .step-one {
-  padding: 30px 15px 15px;
-
   .step-title {
     font-size: 20px;
   }

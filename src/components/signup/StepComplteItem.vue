@@ -1,5 +1,5 @@
 <template>
-  <div class="step-two">
+  <div class="step-two page-wrap">
     <div class="step-title">회원가입완료</div>
     <div class="welcome_txt">
       <p class="big_txt">원앤집 회원이 되신 것을 환영합니다.</p>
@@ -24,35 +24,33 @@ export default {
   components: {},
   props: {},
   data() {
-    return {
-      
-    };
+    return {};
   },
-  computed: {
-    
-  },
+  computed: {},
   methods: {
-    doCheck(){
+    doCheck() {
       //this.signup();
-      this.$router.replace('/');
+      this.$router.replace("/");
     },
-    valid(){
-      const rs = {'isValid':true, 'err':''}
+    valid() {
+      const rs = { isValid: true, err: "" };
       return rs;
-    }
+    },
   },
   created() {
     //Appbar Option 설정
-    const options = {isShowCheckBtn: true,isShowNextBtn: false,isShowSearchBtn: false};
-    this.$emit('setLayout',options);
+    const options = {
+      isShowCheckBtn: true,
+      isShowNextBtn: false,
+      isShowSearchBtn: false,
+    };
+    this.$emit("setLayout", options);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .step-two {
-  padding: 30px 15px 15px;
-
   .step-title {
     text-align: center;
     font-size: 20px;
