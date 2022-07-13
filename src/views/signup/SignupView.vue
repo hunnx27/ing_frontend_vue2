@@ -153,8 +153,4 @@ export default {
 };
 </script>
 
-<style>
-.step-title {
-  font-weight: bolder;
-}
-</style>
+<style lang="scss" scoped></style>

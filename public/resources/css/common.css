@@ -1,3 +1,14 @@
+/* margin padding */
+.mgt20 {
+  margin-top: 20px;
+}
+
+/* title */
+.step-title {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
 .v-text-field--outlined > .v-input__control > .v-input__slot {
   background: #fff !important;
 }
