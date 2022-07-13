@@ -56,7 +56,7 @@ export default {
     }
   },
   directives: {
-    'click-outside': $.clickOutside()
+    //'click-outside': $.clickOutside()
   }
 }
 </script>

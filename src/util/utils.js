@@ -1,13 +1,14 @@
-const BACKEND_PORT = process.env.BACKEND_PORT === null ? '' : `:${process.env.BACKEND_PORT}`
+// const BACKEND_PORT = process.env.VUE_APP_BACKEND_PORT === null ? '' : `:${process.env.VUE_APP_BACKEND_PORT}`
 // const BACKEND_URL = `${location.protocol}//${location.hostname}${BACKEND_PORT}`
-const BACKEND_URL = `http://localhost:9101`
-const FRONTEND_PORT = process.env.FRONTEND_PORT === null ? '' : `:${process.env.FRONTEND_PORT}`
+// const BACKEND_URL = `http://localhost:9101`
+// const FRONTEND_PORT = process.env.FRONTEND_PORT === null ? '' : `:${process.env.FRONTEND_PORT}`
 //const REDIRECT_URI = `${location.protocol}//${location.hostname}${FRONTEND_PORT}/oauth/redirect`
-const REDIRECT_URI = `http://localhost:9100/login/oauth2/redirect`
+const BACKEND_URI = process.env.VUE_APP_BACKEND_URI === null ? '' : `${process.env.VUE_APP_BACKEND_URI}`
+const REDIRECT_URI = process.env.VUE_APP_REDIRECT_URI === null ? '' : `${process.env.VUE_APP_REDIRECT_URI}`
 
 export default {
   getSocialLoginUrl (socialType) {
-    return `${BACKEND_URL}/oauth2/authorization/${socialType}?redirect_uri=${REDIRECT_URI}`
+    return `${BACKEND_URI}/oauth2/authorization/${socialType}?redirect_uri=${REDIRECT_URI}`
   },
   getSocialImage (socialType) {
     switch (socialType) {
@@ -17,19 +18,19 @@ export default {
       case 'kakao': return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAV1BMVEVHcEz95AD74wD74gD85QD64QD74QD74QD74QD74wD74gD74wD74gD74QA8Hh44Gh7y2AFGKRx8YBRfQhjgxgSegw6tkwyOchFTNhprThbGrAjTuQa5nwoG7ISxAAAADXRSTlMABzOdD97t9x1zuzo+dvp0aAAAAvJJREFUWMOtl4myqjAMQBEBL3pp0339/+98bQFFKNyiLzMyzmhOs5EmVZWkqft7exsK5dbe+7qpXnKpr12xdiIMt+5aX2b9pm+HD6Ttm1m/+0Q/GDESLh/qB+n66EXdfqofglkHB67DF3Jtqrr7BtDVVf/MH5x5zE701X34Su7VhyGczWirgwqEl+wnotrVdVJRw7RmhirpdhlZAHCrGCHoKYQwZTkcAOBNXZqF8lOMzCG2FnDJEEY5wUzyPwFgKToQauEYAFKjQ9ESjgAgCPpDiIB9QIH+hvAGkAX60Ys9gGOoSJjLA4CiQqGQBXiNCwHaZwHJAE2TmJBNQ1NI2OiYSdXJxizTHMCxaICfXj9JKAcVdDS3JBah5QYjyh1ZRaFapYB6ywduPSUyvJDhPAZcR4ADE/Rh/BeRGYDC04snBhk0jPM2hnUCGAf0qY+Q2gKA4rlQBokRVqAo92QBkC99/MrDDgBrD4Y4zl6AGKY5TwWAcLrGMoTxBQihnSslBxjeXRCDVcqDXQCEBG4mQCYGg0ALALOTXSwCME5Z0HawejeIg5wcTAAKTiilLAgDEL6ZEESDDR+TjReluC6k9LqK4IFA4VwKlkF03gZWLCSAWJeRlCllNVe6YsiohCOKEiqCUE1jWZL0RIGfA9g5SWT6zF9J7PBjl09PvHyfl/1AHfUTvOxJOw1lTtKZdvDe0iw73ZBWXdnrAn17dC94dlJ/czNZgw4aGybU/XU3crXbGkNBC15wve/cjjhUmN27nd9vK4m3Z2NkhIWyAQMUfqqNEnq18A6yU1IGwNkUMCWlUEJIbx3fnZIyADcNJB6G4wFrc7XNI0Kqd8ULhrysBanxMQ+FA+N2Tgwt8Pj41ZzYboYkUn58nFQ3s7IThcfDOCv3p7atVcnFaf3RZX8ppHSP7zeW6rfds2+1YGRsbB97W1uZQ+PW9vHeGCLY/J/NNXjxez1tRHf9vSzW7+YRtvfuVihd2N4fy+09IZqfE9I8T/8HxHrZ6Vi0v8gAAAAASUVORK5CYII='
     }
   },
-  clickOutside (exceptionId = '#') {
-    return {
-      bind: function (el, binding, vnode) {
-        el.clickOutsideEvent = function (e) {
-          if (!(el === e.target || el.contains(e.target)) && e.target.id !== exceptionId) {
-            vnode.context[binding.expression](e)
-          }
-        }
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function (el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      }
-    }
-  }
+  // clickOutside (exceptionId = '#') {
+  //   return {
+  //     bind: function (el, binding, vnode) {
+  //       el.clickOutsideEvent = function (e) {
+  //         if (!(el === e.target || el.contains(e.target)) && e.target.id !== exceptionId) {
+  //           vnode.context[binding.expression](e)
+  //         }
+  //       }
+  //       document.body.addEventListener('click', el.clickOutsideEvent)
+  //     },
+  //     unbind: function (el) {
+  //       document.body.removeEventListener('click', el.clickOutsideEvent)
+  //     }
+  //   }
+  // }
 }
