@@ -1,2 +1,3 @@
-body {
+.v-text-field--outlined > .v-input__control > .v-input__slot {
+  background: #fff !important;
 }
