@@ -99,6 +99,7 @@ export default {
       intrsZone: null,
       majorSchool: null,
       majorDepartment: null,
+      addressList: []
     };
   },
   methods:{
@@ -144,6 +145,13 @@ export default {
       }
       return r.reverse();
     },
+    getAllAddress(){
+      debugger;
+      accountApi.getAddress((body)=>{
+        console.log(body);
+        this.addressList = body;
+      });
+    }
   },
   computed: {
     /*
@@ -151,6 +159,9 @@ export default {
      1. mapGetters : 스토어의 모든 Getter함수를 가져옴, 그 중 배열에 선택된 Getter함수 제한 가능
     */
     ...mapGetters(["user"]),
+    intrsSido(){
+      return "";
+    }
 
   },
   created () {
@@ -175,7 +186,7 @@ export default {
       this.majorSchool = null;
       this.majorDepartment = null;
     }
-    
+    this.getAllAddress();
   }
 
 }
