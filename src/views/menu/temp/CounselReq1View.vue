@@ -91,7 +91,9 @@ import accountApi from "@/api/account";
 export default {
   name: "counselReq1View",
   data() {
-    return {};
+    return {
+      dialog: false,
+    };
   },
   methods: {
     ...mapActions(["logout"]),
@@ -103,25 +105,13 @@ export default {
     ...mapGetters(["user"]),
   },
   created() {
-    const title = "교사멘토 매칭(상담요청1페이지)";
+    const title = "교사멘토 매칭";
     const options = {
       isShowCheckBtn: false,
       isShowNextBtn: true,
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
-  },
-};
-</script>
-
-<script>
-// popup script
-export default {
-  name: "layerpopup",
-  data() {
-    return {
-      dialog: false,
-    };
   },
 };
 </script>

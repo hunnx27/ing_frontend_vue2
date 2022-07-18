@@ -52,7 +52,14 @@ import accountApi from "@/api/account";
 export default {
   name: "counselReq2View",
   data() {
-    return {};
+    return {
+      rules: [
+        (value) =>
+          !value ||
+          value.size < 2000000 ||
+          "Avatar size should be less than 2 MB!",
+      ],
+    };
   },
   methods: {
     ...mapActions(["logout"]),
@@ -72,20 +79,6 @@ export default {
     };
     this.$emit("setLayout", title, options);
   },
-};
-</script>
-
-<script>
-export default {
-  name: "inputFilephoto",
-  data: () => ({
-    rules: [
-      (value) =>
-        !value ||
-        value.size < 2000000 ||
-        "Avatar size should be less than 2 MB!",
-    ],
-  }),
 };
 </script>
 
