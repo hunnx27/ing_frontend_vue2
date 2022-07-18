@@ -12,6 +12,35 @@
     <div class="column">
       <textarea name="" id="" cols="0" rows="0"></textarea>
     </div>
+
+    <div class="step-title">사진첨부(최대5장) 선택사항</div>
+    <v-file-input
+      :rules="rules"
+      accept="image/png, image/jpeg, image/bmp"
+      placeholder="이미지를 첨부하세요"
+      prepend-icon="mdi-camera"
+      label="이미지"
+    ></v-file-input>
+
+    <div class="box-point">
+      <div class="box-point--title">포인트</div>
+      <span class="box-point--text">
+        내 보유포인트 <span class="box-point--text--blue">3,150</span>
+        <span class="deduction_txt">: 상담등록시100P 차감됩니다.</span>
+      </span>
+    </div>
+
+    <div class="btn-wrap">
+      <div class="step-title">공개설정</div>
+      <v-btn
+        depressed
+        color="blue-grey"
+        style="margin-right: 10px; color: #fff"
+      >
+        비공개
+      </v-btn>
+      <v-btn depressed color="primary"> 공개 </v-btn>
+    </div>
   </div>
   <!-- Wrap END -->
 </template>
@@ -43,6 +72,20 @@ export default {
     };
     this.$emit("setLayout", title, options);
   },
+};
+</script>
+
+<script>
+export default {
+  name: "inputFilephoto",
+  data: () => ({
+    rules: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        "Avatar size should be less than 2 MB!",
+    ],
+  }),
 };
 </script>
 
@@ -102,6 +145,44 @@ select {
     select {
       width: 50%;
     }
+  }
+}
+.box-point {
+  margin-top: 10px;
+  padding: 15px;
+  color: #000;
+  background: #fff;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 1px 2px 4px -3px;
+  line-height: 18px;
+  font-size: 18px;
+  &--title {
+    font-weight: 600;
+  }
+  &--text {
+    display: block;
+    margin-top: 5px;
+    font-size: 16px;
+    &--blue {
+      color: #5691ef;
+    }
+    .deduction_txt {
+      color: #a1a1a1;
+    }
+  }
+}
+.btn-wrap {
+  position: relative;
+  margin-top: 20px;
+  text-align: right;
+  .step-title {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-top: 0;
   }
 }
 
