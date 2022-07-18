@@ -21,7 +21,7 @@ import AccountManageView from "../views/menu/AccountManageView.vue"
 import CounselReq1View from "../views/menu/temp/CounselReq1View.vue"
 import CounselReq2View from "../views/menu/temp/CounselReq2View.vue"
 import CounselReq3View from "../views/menu/temp/CounselReq3View.vue"
-import CounselReq4TagView from "../views/menu/temp/CounselReq4TagView.vue"
+import CounselDetailView from "../views/menu/temp/CounselDetailView.vue"
 
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
@@ -171,16 +171,16 @@ const routes = [
     ],
   },
   {
-    path: "/menu/temp/counselReq4Tag",
+    path: "/menu/temp/counselDetail",
     component: TempLayout,
     children: [
       {
         path: "",
-        name: "CounselReq4TagView",
-        component: CounselReq4TagView,
+        name: "CounselDetail",
+        component: CounselDetailView,
       },
     ],
-  },
+  },  
 
 
 

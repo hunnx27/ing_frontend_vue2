@@ -45,6 +45,9 @@
           <v-list-item to="/menu/temp/counselReq1">
             <v-list-item-title>상담요청</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/menu/temp/counselDetail">
+            <v-list-item-title>상담상세</v-list-item-title>
+          </v-list-item>
           <!-- <v-list-item to="/about">
             <v-list-item-title>About</v-list-item-title>
           </v-list-item>

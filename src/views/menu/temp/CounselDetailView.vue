@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="counselReq4TagView page-wrap"></div>
+  <div class="CounselDetailView page-wrap"></div>
   <!-- Wrap END -->
 </template>
 
@@ -10,7 +10,7 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
-  name: "counselReq4TagView",
+  name: "CounselDetailView",
   data() {
     return {};
   },
@@ -21,7 +21,7 @@ export default {
     ...mapGetters(["user"]),
   },
   created() {
-    const title = "상담요청태그(상담요청 기타 태그 페이지)";
+    const title = "상담 상세";
     const options = {
       isShowCheckBtn: false,
       isShowNextBtn: false,
