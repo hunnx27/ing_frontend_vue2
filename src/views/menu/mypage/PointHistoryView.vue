@@ -1,28 +1,62 @@
 <template>
   <!-- Wrap START -->
   <div class="pointHistory page-wrap">
-    현재 포인트 <span class="point_num">3050p</span>
-    <div class="pointbox">
-      <span>오늘</span> <span>-100</span><span>상담질문등록</span>
-    </div>
-    <div class="pointbox">
-      <span>2022.05.16</span><span>+50</span><span>로그인-출석</span>
-    </div>
-    <div class="pointbox">
-      <span>2022.05.16</span><span>+3000</span><span>회원가입</span>
+    현재 포인트 <span class="point_num">{{user.point}}p</span>
+    <div class="pointbox" v-for="(item) in pointHistories" :key="item.id">
+      <span>{{item.createDt}}</span>
+      <span>{{item.amt}}</span>
+      <span>{{item.description}}</span>
     </div>
   </div>
   <!-- Wrap END -->
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import accountApi from "@/api/account";
+
 export default {
   name: "pointHistoryView",
   components: {},
   data() {
-    return {};
+    return {
+      pointHistories: [
+        {
+            "createdAt": null,
+            "modifiedAt": null,
+            "isDelete": "N",
+            "id": 0,
+            "accountId": 0,
+            "amt": 0,
+            "description": "",
+            "createDt": ""
+        }
+    ]
+    };
   },
-  methods: {},
+  computed: {
+    ...mapGetters(["user"]),
+  },
+  methods: {
+    getMyPointHistories() {
+      accountApi.getMyPointHistories(
+        (body) => {
+          if (body == "error") {
+            alert("서버에 오류가 있습니다.", body);
+            return;
+          }
+          console.log(body);
+          this.pointHistories = body.content;
+        },
+        (err) => {
+          if (err.response.data.status === 500) {
+            alert('서버에 오류가 있습니다.');
+          }
+          console.log(`err : ${err}`);
+        }
+      );
+    },
+  },
   created() {
     const title = "포인트 이력";
     const options = {
@@ -31,6 +65,7 @@ export default {
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    this.getMyPointHistories();
   },
 };
 </script>

@@ -29,6 +29,8 @@ export default {
     const URI = `${ACCOUNT_URI.ACCOUNT}/me/myinfo`
     req.put(URI, body, success, fail);
   },
-  
-  
+  getMyPointHistories(success, fail){
+    const URI = `${ACCOUNT_URI.ACCOUNT}/me/pointHistories`
+    req.get(URI, success);
+  },
 }
