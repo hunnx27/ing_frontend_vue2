@@ -39,6 +39,7 @@
           </v-list-item>
           <hr/>
           <div>개발</div>
+          <hr/>
           <v-list-item to="/counsel/counselReg1">
             <v-list-item-title>상담리뷰등록</v-list-item-title>
           </v-list-item>
@@ -47,6 +48,7 @@
           </v-list-item>
           <hr/>
           <div>개발예정</div>
+          <hr/>
           <v-list-item to="/review/company/companyReg1">
             <v-list-item-title>기관리뷰등록1</v-list-item-title>
           </v-list-item>
@@ -79,7 +81,7 @@
           <v-list-item to="/review/yearamt/yearamtReg3">
             <v-list-item-title>연봉리뷰등록3</v-list-item-title>
           </v-list-item>
-          
+          <hr/>
           <v-list-item @click="logout()">
             <v-list-item-title class="red--text">Logout</v-list-item-title>
           </v-list-item>
