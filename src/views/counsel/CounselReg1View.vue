@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="counselReq1View page-wrap">
+  <div class="counselReg1View page-wrap">
     <div class="page-txt">
       <p>유아교사(멘토)를 찾는데 활용됩니다.</p>
     </div>
@@ -89,7 +89,7 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
-  name: "counselReq1View",
+  name: "counselReg1View",
   data() {
     return {
       dialog: false,
@@ -98,7 +98,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     doNext() {
-      this.$router.push("/counsel/counselReq2");
+      this.$router.push("/counsel/counselReg2");
     },
   },
   computed: {

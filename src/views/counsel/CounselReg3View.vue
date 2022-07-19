@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="CounselReq3View page-wrap">
+  <div class="CounselReg3View page-wrap">
     <div class="text-sucess">
       <p class="text-sucess--top">
         유아교사님 <br />
@@ -27,7 +27,7 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
-  name: "CounselReq3View",
+  name: "CounselReg3View",
   data() {
     return {};
   },

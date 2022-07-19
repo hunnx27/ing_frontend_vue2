@@ -18,10 +18,27 @@ import PointHistoryView from "../views/menu/mypage/PointHistoryView.vue"
 // Menu.AccountManageView
 import AccountManageView from "../views/menu/AccountManageView.vue"
 
-import CounselReq1View from "../views/counsel/CounselReq1View.vue"
-import CounselReq2View from "../views/counsel/CounselReq2View.vue"
-import CounselReq3View from "../views/counsel/CounselReq3View.vue"
+// Counsel
+import CounselReg1View from "../views/counsel/CounselReg1View.vue"
+import CounselReg2View from "../views/counsel/CounselReg2View.vue"
+import CounselReg3View from "../views/counsel/CounselReg3View.vue"
 import CounselDetailView from "../views/menu/temp/CounselDetailView.vue"
+
+// Review.company
+import CompanyReg1View from "../views/review/company/CompanyReg1View.vue"
+import CompanyReg2View from "../views/review/company/CompanyReg2View.vue"
+import CompanyReg3View from "../views/review/company/CompanyReg3View.vue"
+import CompanyReg4View from "../views/review/company/CompanyReg4View.vue"
+
+// Review.interview
+import InterviewReg1View from "../views/review/interview/InterviewReg1View.vue"
+import InterviewReg2View from "../views/review/interview/InterviewReg2View.vue"
+import InterviewReg3View from "../views/review/interview/InterviewReg3View.vue"
+
+// Review.yearamt
+import YearamtReg1View from "../views/review/yearamt/YearamtReg1View.vue"
+import YearamtReg2View from "../views/review/yearamt/YearamtReg2View.vue"
+import YearamtReg3View from "../views/review/yearamt/YearamtReg3View.vue"
 
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
@@ -135,38 +152,38 @@ const routes = [
     ],
   },
   /**
-   * Menu.temp.CounselReqView
+   * Counsel
    */
    {
-    path: "/counsel/counselReq1",
+    path: "/counsel/counselReg1",
     component: TempLayout,
     children: [
       {
         path: "",
-        name: "CounselReq1View",
-        component: CounselReq1View,
+        name: "CounselReg1View",
+        component: CounselReg1View,
       },
     ],
   },
   {
-    path: "/counsel/counselReq2",
+    path: "/counsel/counselReg2",
     component: TempLayout,
     children: [
       {
         path: "",
-        name: "CounselReq2View",
-        component: CounselReq2View,
+        name: "CounselReg2View",
+        component: CounselReg2View,
       },
     ],
   },
   {
-    path: "/counsel/counselReq3",
+    path: "/counsel/counselReg3",
     component: TempLayout,
     children: [
       {
         path: "",
-        name: "CounselReq3View",
-        component: CounselReq3View,
+        name: "CounselReg3View",
+        component: CounselReg3View,
       },
     ],
   },
@@ -182,8 +199,129 @@ const routes = [
     ],
   },  
 
+  /**
+   * Review.Company
+   */
+  {
+    path: "/review/company/companyReg1",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CompanyReg1View",
+        component: CompanyReg1View,
+      },
+    ],
+  },
+  {
+    path: "/review/company/companyReg2",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CompanyReg2View",
+        component: CompanyReg2View,
+      },
+    ],
+  },
+  {
+    path: "/review/company/companyReg3",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CompanyReg3View",
+        component: CompanyReg3View,
+      },
+    ],
+  },
+  {
+    path: "/review/company/companyReg4",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CompanyReg4View",
+        component: CompanyReg4View,
+      },
+    ],
+  },
 
+  /**
+   * Review.Interview
+   */
+  {
+    path: "/review/interview/interviewReg1",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "InterviewReg1View",
+        component: InterviewReg1View,
+      },
+    ],
+  },
+  {
+    path: "/review/interview/interviewReg2",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "InterviewReg2View",
+        component: InterviewReg2View,
+      },
+    ],
+  },
+  {
+    path: "/review/interview/interviewReg3",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "InterviewReg3View",
+        component: InterviewReg3View,
+      },
+    ],
+  },
+  
 
+  /**
+   * Review.Yearamt
+   */
+  {
+    path: "/review/yearamt/yearamtReg1",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "YearamtReg1View",
+        component: YearamtReg1View,
+      },
+    ],
+  },
+  {
+    path: "/review/yearamt/yearamtReg2",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "YearamtReg2View",
+        component: YearamtReg2View,
+      },
+    ],
+  },
+  {
+    path: "/review/yearamt/yearamtReg3",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "YearamtReg3View",
+        component: YearamtReg3View,
+      },
+    ],
+  },
+  
 
 
   /**

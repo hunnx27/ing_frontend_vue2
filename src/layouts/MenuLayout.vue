@@ -30,36 +30,56 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item to="/" link>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/login">
-            <v-list-item-title>Login</v-list-item-title>
-          </v-list-item>
+          
           <v-list-item to="/menu/mypage">
             <v-list-item-title>마이페이지</v-list-item-title>
           </v-list-item>
           <v-list-item to="/menu/accountManage">
             <v-list-item-title>계정관리</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/counsel/counselReq1">
-            <v-list-item-title>상담요청</v-list-item-title>
+          <hr/>
+          <div>개발</div>
+          <v-list-item to="/counsel/counselReg1">
+            <v-list-item-title>상담리뷰등록</v-list-item-title>
           </v-list-item>
           <v-list-item to="/menu/temp/counselDetail">
             <v-list-item-title>상담상세</v-list-item-title>
           </v-list-item>
-          <!-- <v-list-item to="/about">
-            <v-list-item-title>About</v-list-item-title>
+          <hr/>
+          <div>개발예정</div>
+          <v-list-item to="/review/company/companyReg1">
+            <v-list-item-title>기관리뷰등록1</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/about2">
-            <v-list-item-title>About2</v-list-item-title>
-          </v-list-item> -->
-          <!-- <v-list-item to="/loginSample">
-            <v-list-item-title>Login Sample</v-list-item-title>
-          </v-list-item> -->
-          <!-- <v-list-item to="/loginSample">
-            <v-list-item-title>Login Sample</v-list-item-title>
-          </v-list-item> -->
+          <v-list-item to="/review/company/companyReg2">
+            <v-list-item-title>기관리뷰등록2</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/review/company/companyReg3">
+            <v-list-item-title>기관리뷰등록3</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/review/company/companyReg4">
+            <v-list-item-title>기관리뷰등록4</v-list-item-title>
+          </v-list-item>
+          <hr/>
+          <v-list-item to="/review/interview/interviewReg1">
+            <v-list-item-title>면접리뷰등록1</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/review/interview/interviewReg2">
+            <v-list-item-title>면접리뷰등록2</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/review/interview/interviewReg3">
+            <v-list-item-title>면접리뷰등록3</v-list-item-title>
+          </v-list-item>
+          <hr/>
+          <v-list-item to="/review/yearamt/yearamtReg1">
+            <v-list-item-title>연봉리뷰등록1</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/review/yearamt/yearamtReg2">
+            <v-list-item-title>연봉리뷰등록2</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/review/yearamt/yearamtReg3">
+            <v-list-item-title>연봉리뷰등록3</v-list-item-title>
+          </v-list-item>
+          
           <v-list-item @click="logout()">
             <v-list-item-title class="red--text">Logout</v-list-item-title>
           </v-list-item>
@@ -126,10 +146,10 @@ export default {
     drawer: false,
     group: null,
     menus: [
-      { title: '상담리뷰등록', path: '/counsel/counselReq1'},
-      { title: '연봉리뷰등록', path: ''},
-      { title: '기관리뷰등록', path: ''},
-      { title: '면접리뷰등록', path: ''},
+      { title: '상담리뷰등록', path: '/counsel/counselReg1'},
+      { title: '연봉리뷰등록', path: '/review/yearamt/yearamtReg1'},
+      { title: '기관리뷰등록', path: '/review/company/companyReg1'},
+      { title: '면접리뷰등록', path: '/review/interview/interviewReg1'},
     ],
   }),
   watch: {

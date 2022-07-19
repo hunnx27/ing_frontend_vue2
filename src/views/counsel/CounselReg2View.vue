@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="counselReq2View page-wrap">
+  <div class="counselReg2View page-wrap">
     <div class="step-title">상담분류</div>
     <div class="column">
       <select class="line" name="" attr="">
@@ -50,7 +50,7 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
-  name: "counselReq2View",
+  name: "counselReg2View",
   data() {
     return {
       rules: [
@@ -64,7 +64,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     doCheck() {
-      this.$router.push("/counsel/counselReq3");
+      this.$router.push("/counsel/counselReg3");
     },
   },
   computed: {
