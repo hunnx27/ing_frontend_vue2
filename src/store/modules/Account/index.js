@@ -74,11 +74,10 @@ export const Account = {
   actions: {
     fetchUser ({state, commit}, callback) {
       state.user
-        ? callback && callback()
-        : accountApi.getUser(
-          res => {
+        ? callback && callback(state.user)
+        : accountApi.getUser(res => {
             commit('setUser', res)
-            callback && callback()
+            callback && callback(res)
           }
         )
     },

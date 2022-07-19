@@ -4,7 +4,7 @@
     <div class="step-title">관심기관</div>
     <div>
       <input
-        v-model="intrsOrgName"
+        v-model="interestOrgName"
         name="intrsOrg"
         type="radio"
         value="all"
@@ -12,7 +12,7 @@
       />
       <label for="allChoice">전체</label>
       <input
-        v-model="intrsOrgName"
+        v-model="interestOrgName"
         name="intrsOrg"
         type="radio"
         value="kindergarten"
@@ -20,7 +20,7 @@
       />
       <label for="kindergartenChoice">유치원</label>
       <input
-        v-model="intrsOrgName"
+        v-model="interestOrgName"
         name="intrsOrg"
         type="radio"
         value="daycarecenter"
@@ -45,18 +45,23 @@
     </div>
     <div class="step-title">관심지역</div>
     <div class="column--col2">
-      <select class="line" name="intrsZonePrefix" attr="sido_code">
-        <option value="11">서울특별시</option>
+      <select class="line" name="interestZonePrefix" attr="sido_code" v-model='interestSidoCode' @change="getAddressBySido">
+        <option v-for="(item) in sidoList" :value="item.sidoCode" :key="item.sidoCode" >{{item.sidoName}}</option>
       </select>
       <select
         class="line"
-        name="intrsZone"
-        v-model="intrsZone"
+        name="interestZone"
+        v-model="interestZone"
         attr="sigungu_code"
       >
         <option value="">전체</option>
-        <option value="11680">강남구</option>
-        <option value="error">FIXME: ADDRESS Table처리필요</option>
+        <option 
+          v-for="(item) in sigugunList" 
+          :value="item.sigunguCode" 
+          :key="item.id"
+          :selected="item.sidoCode == interestZone"
+        >{{item.sigunguName}}
+        </option>
       </select>
     </div>
 
@@ -94,12 +99,14 @@ export default {
   },
   data(){
     return{
-      intrsOrgName: null,
+      interestOrgName: null,
       birthYYYY: null,
-      intrsZone: null,
+      interestSidoCode: null,
+      interestZone: null,
       majorSchool: null,
       majorDepartment: null,
-      addressList: []
+      sidoList: [],
+      sigugunList: []
     };
   },
   methods:{
@@ -107,9 +114,9 @@ export default {
     doCheck(){
       // 저장데이터 셋팅
       var saveDataObj = {
-        intrsOrgName: this.intrsOrgName, 
+        interestOrgName: this.interestOrgName, 
         birthYYYY: this.birthYYYY, 
-        intrsZone: this.intrsZone, 
+        interestZone: this.interestZone, 
         majorSchool: this.majorSchool, 
         majorDepartment: this.majorDepartment
       }
@@ -145,12 +152,19 @@ export default {
       }
       return r.reverse();
     },
-    getAllAddress(){
-      accountApi.getAddress((body)=>{
+    getAddressSido(){
+      accountApi.getAddressSido((body)=>{
         console.log(body);
-        this.addressList = body;
+        this.sidoList = body;
+        this.getAddressBySido();
       });
-    }
+    },
+    getAddressBySido(){
+      accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
+        console.log(body);
+        this.sigugunList = body;
+      });
+    },
   },
   computed: {
     /*
@@ -173,19 +187,23 @@ export default {
     this.$emit("setLayout", title, options);
     const storedMyinfo = this.user!=null? this.user.myinfo : null;
     if(storedMyinfo!=null){
-      this.intrsOrgName = storedMyinfo.intrsOrg;
+      this.interestOrgName = storedMyinfo.interestOrg;
       this.birthYYYY = storedMyinfo.birthYYYY;
-      this.intrsZone = storedMyinfo.intrsZone;
+      const storeinterestZone = storedMyinfo.interestZone;
+      this.interestZone = storeinterestZone;
+      this.interestSidoCode = storeinterestZone!=null && storeinterestZone!='' ? storeinterestZone.substr(0, 2) : null;
       this.majorSchool = storedMyinfo.majorSchool;
       this.majorDepartment = storedMyinfo.majorDepartment;
+      
     }else{
-      this.intrsOrgName = null;
+      this.interestOrgName = null;
       this.birthYYYY = null;
-      this.intrsZone = null;
+      this.interestSidoCode = null;
+      this.interestZone = null;
       this.majorSchool = null;
       this.majorDepartment = null;
     }
-    this.getAllAddress();
+    this.getAddressSido();
   }
 
 }

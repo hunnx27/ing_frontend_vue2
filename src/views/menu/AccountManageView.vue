@@ -12,7 +12,7 @@
     </div>
 
     <div style="position:fixed; bottom:0;;width:100%">
-      <v-btn @click="secede" x-large style="width:50%">
+      <v-btn @click="deleteUser" x-large style="width:50%">
         회원탈퇴
       </v-btn>
       <v-btn @click="logout" x-large style="min-width:50%">
@@ -46,8 +46,12 @@ export default {
   },
   methods:{
     ...mapActions(['logout']),
-    secede(){
-      alert('회원탈퇴!!!');
+    deleteUser(){
+      accountApi.deleteUser((body)=>{
+        console.log(body);
+      }, (error)=>{
+        console.log(error);
+      });
     },
   },
   computed: {
