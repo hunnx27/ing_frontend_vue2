@@ -25,7 +25,7 @@
       <label for="careCenterChoice">어린이집</label>
     </div>
 
-    <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
+    <div class="step-title">질문과 관련된 지역을 선택하세요.</div>
     <div class="column--col2">
       <select class="line" name="interestZonePrefix" attr="sido_code" v-model='interestSidoCode' @change="getAddressBySido">
         <option v-for="(item) in sidoList" :value="item.sidoCode" :key="item.sidoCode" >{{item.sidoName}}</option>
