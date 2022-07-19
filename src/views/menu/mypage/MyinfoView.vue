@@ -146,7 +146,6 @@ export default {
       return r.reverse();
     },
     getAllAddress(){
-      debugger;
       accountApi.getAddress((body)=>{
         console.log(body);
         this.addressList = body;
