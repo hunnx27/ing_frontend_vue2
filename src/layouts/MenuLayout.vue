@@ -42,7 +42,7 @@
           <v-list-item to="/menu/accountManage">
             <v-list-item-title>계정관리</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/menu/temp/counselReq1">
+          <v-list-item to="/counsel/counselReq1">
             <v-list-item-title>상담요청</v-list-item-title>
           </v-list-item>
           <v-list-item to="/menu/temp/counselDetail">
@@ -88,10 +88,26 @@
         <v-icon>mdi-comment-text-multiple-outline</v-icon>
       </v-btn>
 
-      <v-btn color="deep-purple accent-4" text @click="write_modal()">
-        <span>작성</span>
-        <v-icon>mdi-pencil-outline</v-icon>
-      </v-btn>
+      <v-menu offset-y top>
+        <!-- 버튼 -->
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="deep-purple accent-4" text v-bind="attrs" v-on="on">
+            <span>작성</span>
+            <v-icon>mdi-pencil-outline</v-icon>
+          </v-btn>
+        </template>
+        
+        <!-- 리스트-->
+        <v-list>
+          <v-list-item
+            v-for="(menu, index) in menus"
+            :key="index"
+            @click="gotoMenu(menu.path)"
+          >
+            <v-list-item-title>{{ menu.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <v-btn color="deep-purple accent-4" text @click="goto('/review')">
         <span>리뷰</span>
@@ -109,6 +125,12 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
+    menus: [
+      { title: '상담리뷰등록', path: '/counsel/counselReq1'},
+      { title: '연봉리뷰등록', path: ''},
+      { title: '기관리뷰등록', path: ''},
+      { title: '면접리뷰등록', path: ''},
+    ],
   }),
   watch: {
     group() {
@@ -119,8 +141,12 @@ export default {
     goto(val) {
       if (this.$route.path != val) this.$router.push(val);
     },
-    write_modal() {
-      alert("준비중입니다..");
+    gotoMenu(path) {
+      if(path!=''){
+        this.goto(path);
+      }else{
+        alert('준비중입니다.');
+      }
     },
     ...mapActions(["logout"]),
   },

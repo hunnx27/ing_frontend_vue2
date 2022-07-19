@@ -98,7 +98,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     doNext() {
-      this.$router.push("/menu/temp/counselReq2");
+      this.$router.push("/counsel/counselReq2");
     },
   },
   computed: {

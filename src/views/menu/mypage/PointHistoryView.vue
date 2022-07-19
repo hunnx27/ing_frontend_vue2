@@ -20,18 +20,7 @@ export default {
   components: {},
   data() {
     return {
-      pointHistories: [
-        {
-            "createdAt": null,
-            "modifiedAt": null,
-            "isDelete": "N",
-            "id": 0,
-            "accountId": 0,
-            "amt": 0,
-            "description": "",
-            "createDt": ""
-        }
-    ]
+      pointHistories: []
     };
   },
   computed: {

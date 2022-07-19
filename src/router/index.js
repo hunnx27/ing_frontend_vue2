@@ -18,9 +18,9 @@ import PointHistoryView from "../views/menu/mypage/PointHistoryView.vue"
 // Menu.AccountManageView
 import AccountManageView from "../views/menu/AccountManageView.vue"
 
-import CounselReq1View from "../views/menu/temp/CounselReq1View.vue"
-import CounselReq2View from "../views/menu/temp/CounselReq2View.vue"
-import CounselReq3View from "../views/menu/temp/CounselReq3View.vue"
+import CounselReq1View from "../views/counsel/CounselReq1View.vue"
+import CounselReq2View from "../views/counsel/CounselReq2View.vue"
+import CounselReq3View from "../views/counsel/CounselReq3View.vue"
 import CounselDetailView from "../views/menu/temp/CounselDetailView.vue"
 
 // sample loginnpm
@@ -138,7 +138,7 @@ const routes = [
    * Menu.temp.CounselReqView
    */
    {
-    path: "/menu/temp/counselReq1",
+    path: "/counsel/counselReq1",
     component: TempLayout,
     children: [
       {
@@ -149,7 +149,7 @@ const routes = [
     ],
   },
   {
-    path: "/menu/temp/counselReq2",
+    path: "/counsel/counselReq2",
     component: TempLayout,
     children: [
       {
@@ -160,7 +160,7 @@ const routes = [
     ],
   },
   {
-    path: "/menu/temp/counselReq3",
+    path: "/counsel/counselReq3",
     component: TempLayout,
     children: [
       {

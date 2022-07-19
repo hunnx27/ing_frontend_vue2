@@ -34,7 +34,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     doCheck() {
-      this.$router.push("/menu/temp/counselReq4Tag");
+      this.$router.push("/");//FIXME 저장로직추가해야함.
     },
   },
   computed: {

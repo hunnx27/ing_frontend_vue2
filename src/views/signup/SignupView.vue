@@ -6,9 +6,6 @@
       @setLayout="setLayout"
     ></component>
 
-    <div>
-      <v-btn @click="stepUp()">다음(테스트:검증X)</v-btn>
-    </div>
     <div style="position: fixed; bottom: 0; padding: 15px; width: 100%">
       <v-btn
         style="
