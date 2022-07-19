@@ -1,4 +1,5 @@
 <template>
+  
   <!-- Wrap START -->
   <div class="counselReg1View page-wrap">
     <div class="page-txt">
@@ -6,17 +7,17 @@
     </div>
     <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
     <div>
-      <input name="intrsOrg" type="radio" value="all" id="allChoice" />
+      <input name="interestOrg" type="radio" value="all" id="allChoice" />
       <label for="allChoice">전체</label>
       <input
-        name="intrsOrg"
+        name="interestOrg"
         type="radio"
         value="kindergarten"
         id="kindergartenChoice"
       />
       <label for="kindergartenChoice">유치원</label>
       <input
-        name="intrsOrg"
+        name="interestOrg"
         type="radio"
         value="daycarecenter"
         id="careCenterChoice"
@@ -26,13 +27,23 @@
 
     <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
     <div class="column--col2">
-      <select class="line" name="intrsZonePrefix" attr="sido_code">
-        <option value="11">서울특별시</option>
+      <select class="line" name="interestZonePrefix" attr="sido_code" v-model='interestSidoCode' @change="getAddressBySido">
+        <option v-for="(item) in sidoList" :value="item.sidoCode" :key="item.sidoCode" >{{item.sidoName}}</option>
       </select>
-      <select class="line" name="intrsZone" attr="sigungu_code">
+      <select
+        class="line"
+        name="interestZone"
+        v-model="interestZone"
+        attr="sigungu_code"
+      >
         <option value="">전체</option>
-        <option value="11680">강남구</option>
-        <option value="error">FIXME: ADDRESS Table처리필요</option>
+        <option 
+          v-for="(item) in sigugunList" 
+          :value="item.sigunguCode" 
+          :key="item.id"
+          :selected="item.sidoCode == interestZone"
+        >{{item.sigunguName}}
+        </option>
       </select>
     </div>
 
@@ -44,8 +55,7 @@
             type="text"
             class="line"
             name="majorSchool"
-            v-bind="attrs"
-            v-on="on"
+            v-bind="attrs" v-on="on"
           />
         </div>
       </template>
@@ -55,31 +65,28 @@
           <div class="pop-title">태그입력</div>
           <div class="pop-body">
             <div>
-              <span class="btn-tag btn-tag--purple">#유아원선택</span>
-              <span class="btn-tag btn-tag--gray">#기능</span>
-              <span class="btn-tag btn-tag--blue">#이사</span>
-              <span class="btn-tag btn-tag--blue">#고민</span>
-              <span class="btn-tag btn-tag--green">#부조리</span>
+              <span v-for="(item, idx) in addedTagData" :key="idx" class="btn-tag btn-tag--green">#{{item}}</span>
+              <span v-for="(item, idx) in addingTagData" :key="idx+'adding'" class="btn-tag btn-tag--green">#{{item}}</span>
             </div>
             <div class="wrap-inputbtn">
               <input
                 type="text"
                 class="line"
                 name="taginput"
-                v-bind="attrs"
-                v-on="on"
+                v-model="addTagData"
               />
-              <button type="button">추가</button>
+              <button type="button" @click="addTag">추가</button>
             </div>
           </div>
         </div>
 
         <v-card-actions>
           <v-btn color="primary" text @click="dialog = false">취소</v-btn>
-          <v-btn color="primary" text @click="dialog = true">확인</v-btn>
+          <v-btn color="primary" text @click="confirmTagInput();dialog = false">확인</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+    {{addedTagDataStr}}
   </div>
   <!-- Wrap END -->
 </template>
@@ -93,6 +100,15 @@ export default {
   data() {
     return {
       dialog: false,
+      interestOrgName: null,
+      interestSidoCode: null,
+      interestZone: null,
+      sidoList: [],
+      sigugunList: [],
+
+      addTagData: null,
+      addedTagData: [],
+      addingTagData: []
     };
   },
   methods: {
@@ -100,9 +116,43 @@ export default {
     doNext() {
       this.$router.push("/counsel/counselReg2");
     },
+    getAddressSido(){
+      accountApi.getAddressSido((body)=>{
+        console.log(body);
+        this.sidoList = body;
+        this.getAddressBySido();
+      });
+    },
+    getAddressBySido(){
+      if(this.interestSidoCode){
+        accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
+          console.log(body);
+          this.sigugunList = body;
+        });
+      }
+    },
+    addTag(){
+      this.addingTagData.push(this.addTagData);
+      this.addTagData = null;
+    },
+    confirmTagInput(){
+      this.addedTagData.push(...this.addingTagData);
+      this.addingTagData = [];
+    }
   },
   computed: {
     ...mapGetters(["user"]),
+    addedTagDataStr(){
+      var rs = "";
+      this.addedTagData.forEach((data, idx)=>{
+        if(idx == 0){
+          rs += data;
+        }else{
+          rs += ', ' + data;
+        }
+      })
+      return rs;
+    }
   },
   created() {
     const title = "교사멘토 매칭";
@@ -112,6 +162,7 @@ export default {
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    this.getAddressSido();
   },
 };
 </script>
