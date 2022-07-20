@@ -1,54 +1,22 @@
 <template>
   <div class="step-one page-wrap">
     <div class="step-title">회원가입</div>
-    <div class="radio-wrap">
-      <label for="checkSignupJob1">
-        <input
-          id="checkSignupJob1"
-          v-model="gubn"
-          name="gubn"
-          type="radio"
-          value="A"
-          @change="stored($event)"
-        />유아교사<br />
-      </label>
-      <p>원앤집의 모든 기능을 이용할 수 있습니다.</p>
-    </div>
-    <div class="radio-wrap">
-      <label for="checkSignupJob2">
-        <input
-          id="checkSignupJob2"
-          v-model="gubn"
-          name="gubn"
-          type="radio"
-          value="I"
-          @change="stored($event)"
-        />예비교사/학부모<br />
-      </label>
-      <p>기관리뷰 작성을 제외한 모든 기능을 이용할 수 있습니다.</p>
-    </div>
+    <CheckGubnItem></CheckGubnItem>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-
+import CheckGubnItem from "@/components/common/CheckGubnItem.vue";
 export default {
   name: "StepOneItem",
-  components: {},
+  components: {CheckGubnItem},
   props: {},
   data() {
     return {
-      gubn: null,
     };
   },
   methods: {
-    ...mapActions(["setSignupGubn"]),
-    stored(e) {
-      console.log(e.target.value);
-      const gubn = e.target.value;
-      this.setSignupGubn({ gubn });
-    },
     valid() {
       var isValid = false;
       var err = "";
@@ -64,17 +32,6 @@ export default {
   },
   computed: {
     ...mapGetters(["signupData"]),
-  },
-  created: function () {
-    // Appbar Option 설정
-    // const options = {isShowCheckBtn: false,isShowNextBtn: true,isShowSearchBtn: false};
-    // this.$emit('setLayout',options);
-
-    if (this.signupData != null) {
-      this.gubn = this.signupData != null ? this.signupData.gubnCode : null;
-    } else {
-      this.gubn = null;
-    }
   },
 };
 </script>
