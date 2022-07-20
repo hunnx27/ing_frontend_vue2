@@ -7,9 +7,10 @@
     </div>
     <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
     <div>
-      <input name="interestOrg" type="radio" value="all" id="allChoice" />
+      <input v-model="interestOrgName" name="interestOrg" type="radio" value="all" id="allChoice" />
       <label for="allChoice">전체</label>
       <input
+        v-model="interestOrgName"
         name="interestOrg"
         type="radio"
         value="kindergarten"
@@ -17,6 +18,7 @@
       />
       <label for="kindergartenChoice">유치원</label>
       <input
+        v-model="interestOrgName"
         name="interestOrg"
         type="radio"
         value="daycarecenter"
@@ -55,6 +57,8 @@
             type="text"
             class="line"
             name="majorSchool"
+            :value="addedTagDataStr"
+            readonly
             v-bind="attrs" v-on="on"
           />
         </div>
@@ -86,7 +90,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    {{addedTagDataStr}}
   </div>
   <!-- Wrap END -->
 </template>
@@ -132,6 +135,15 @@ export default {
       }
     },
     addTag(){
+      if(this.addedTagData.includes(this.addTagData)){
+        alert('이미 등록된 태그입니다.');
+        return;
+      }
+      if(this.addingTagData.includes(this.addTagData)){
+        alert('이미 등록된 태그입니다.');
+        return;
+      }
+      
       this.addingTagData.push(this.addTagData);
       this.addTagData = null;
     },
@@ -145,11 +157,8 @@ export default {
     addedTagDataStr(){
       var rs = "";
       this.addedTagData.forEach((data, idx)=>{
-        if(idx == 0){
-          rs += data;
-        }else{
-          rs += ', ' + data;
-        }
+        rs+=`#${data}`;
+        if(idx != this.addedTagData.length-1) rs += ' '
       })
       return rs;
     }
