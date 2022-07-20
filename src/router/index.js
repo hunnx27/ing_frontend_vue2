@@ -48,6 +48,10 @@ import SampleOauthRedirect from "@/components/loginExample/oauth/RedirectItem";
 // test
 import Test1View from "@/views/sample/Test1View.vue";
 
+// Sample
+import ImageUploadView from "../views/sample/ImageUploadView.vue"
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -374,6 +378,18 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/sample/ImageUpload",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "ImageUpload",
+        component: ImageUploadView,
+      },
+    ],
+  },
+  
   // {
   //   path: '/loginSample',
   //   component: IndexPage,

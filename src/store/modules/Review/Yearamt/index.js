@@ -9,19 +9,20 @@ const REQ_DATA = () => {
 }
 
 export const YearamtReview = {
+  namespaced: true,
   state: {
-    yearamtReviewData: REQ_DATA()
+    reqData: REQ_DATA()
   },
   mutations: {
     setReq(state, {param1, param2}){
       console.log('#mutaion.setReq : ', param1, param2);
-      const yearamtReviewData = state.yearamtReviewData;
-      yearamtReviewData['param1'] = param1;
-      yearamtReviewData['param2'] = param2;
-      state.yearamtReviewData = yearamtReviewData;
+      const reqData = state.reqData;
+      reqData['param1'] = param1;
+      reqData['param2'] = param2;
+      state.reqData = reqData;
     },
     clearReq(state){
-      state.yearamtReviewData = REQ_DATA();
+      state.reqData = REQ_DATA();
     }
   },
   actions: {
@@ -34,6 +35,6 @@ export const YearamtReview = {
     }
   },
   getters: {
-    yearamtReviewData : state => state.yearamtReviewData
+    reqData : state => state.reqData
   },
 }

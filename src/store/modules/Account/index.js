@@ -12,6 +12,7 @@ const SIGNUP_DATA = () => {
 }
 
 export const Account = {
+  namespaced: false,
   state: {
     user: null,
     token: null,

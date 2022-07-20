@@ -9,19 +9,20 @@ const REQ_DATA = () => {
 }
 
 export const InterviewReview = {
+  namespaced: true,
   state: {
-    interviewReviewData: REQ_DATA()
+    reqData: REQ_DATA()
   },
   mutations: {
     setReq(state, {param1, param2}){
       console.log('#mutaion.setReq : ', param1, param2);
-      const interviewReviewData = state.interviewReviewData;
-      interviewReviewData['param1'] = param1;
-      interviewReviewData['param2'] = param2;
-      state.interviewReviewData = interviewReviewData;
+      const reqData = state.reqData;
+      reqData['param1'] = param1;
+      reqData['param2'] = param2;
+      state.reqData = reqData;
     },
     clearReq(state){
-      state.interviewReviewData = REQ_DATA();
+      state.reqData = REQ_DATA();
     }
   },
   actions: {
@@ -34,6 +35,6 @@ export const InterviewReview = {
     }
   },
   getters: {
-    interviewReviewData : state => state.interviewReviewData
+    reqData : state => state.reqData
   },
 }
