@@ -46,6 +46,9 @@
           <v-list-item to="/menu/temp/counselDetail">
             <v-list-item-title>상담상세</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/sample/imageUpload">
+            <v-list-item-title>이미지업로드샘플</v-list-item-title>
+          </v-list-item>
           <hr/>
           <div>개발예정</div>
           <hr/>
