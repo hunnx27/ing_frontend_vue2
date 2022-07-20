@@ -90,6 +90,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
   <!-- Wrap END -->
 </template>
@@ -115,8 +116,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions('Counsel',['setReq']),
     doNext() {
+      const interestOrgName = this.addedTagData;
+      const interestZone = this.interestOrgName;
+      const addedTagData = this.interestZone;
+      this.setReq({interestOrgName, interestZone, addedTagData});
       this.$router.push("/counsel/counselReg2");
     },
     getAddressSido(){

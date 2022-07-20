@@ -32,15 +32,28 @@
 
     <div class="btn-wrap">
       <div class="step-title">공개설정</div>
-      <v-btn
-        depressed
-        color="blue-grey"
-        style="margin-right: 10px; color: #fff"
-      >
-        비공개
-      </v-btn>
-      <v-btn depressed color="primary"> 공개 </v-btn>
+      <div>
+        <input
+          v-model="shortOpenYn"
+          name="shortOpenYn"
+          type="radio"
+          value="Y"
+        />
+        <label for="kindergartenChoice">비공개</label>
+        <input
+          v-model="shortOpenYn"
+          name="shortOpenYn"
+          type="radio"
+          value="N"
+        />
+        <label for="kindergartenChoice">공개</label>
+      </div>
     </div>
+    <v-card v-if="shortOpenYn=='Y'">
+        <v-card-text>비공개글은 등록 후 24시간만 공개되며,<br/>
+        답변이 완료되면 질문자와 답변자의 마이페이지>상담내역 에서만 확인할 수 있습니다.
+        </v-card-text>
+    </v-card>
   </div>
   <!-- Wrap END -->
 </template>
@@ -59,12 +72,19 @@ export default {
           value.size < 2000000 ||
           "Avatar size should be less than 2 MB!",
       ],
+      qnaItemName: null,
+      txt:null,
+      shortOpenYn:'N',
     };
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions('Counsel',['setReq', 'clearReq']),
     doCheck() {
-      this.$router.push("/counsel/counselReg3");
+      const qnaItemName = this.qnaItemName
+      const txt = this.txt
+      const shortOpenYn = this.shortOpenYn
+      this.setReq2({qnaItemName,txt,shortOpenYn});
+      //this.$router.push("/counsel/counselReg3");
     },
   },
   computed: {
