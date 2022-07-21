@@ -12,33 +12,35 @@ import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
 // Menu
 // Menu.Mypage
-import MypageMenuView from "../views/menu/mypage/MypageMenuView.vue"
-import MyinfoView from "../views/menu/mypage/MyinfoView.vue"
-import PointHistoryView from "../views/menu/mypage/PointHistoryView.vue"
+import MypageMenuView from "../views/menu/mypage/MypageMenuView.vue";
+import MyinfoView from "../views/menu/mypage/MyinfoView.vue";
+import PointHistoryView from "../views/menu/mypage/PointHistoryView.vue";
 // Menu.AccountManageView
-import AccountManageView from "../views/menu/AccountManageView.vue"
+import AccountManageView from "../views/menu/AccountManageView.vue";
 
 // Counsel
-import CounselReg1View from "../views/counsel/CounselReg1View.vue"
-import CounselReg2View from "../views/counsel/CounselReg2View.vue"
-import CounselReg3View from "../views/counsel/CounselReg3View.vue"
-import CounselDetailView from "../views/menu/temp/CounselDetailView.vue"
+import CounselReg1View from "../views/counsel/CounselReg1View.vue";
+import CounselReg2View from "../views/counsel/CounselReg2View.vue";
+import CounselReg3View from "../views/counsel/CounselReg3View.vue";
+import CounselDetailView from "../views/menu/temp/CounselDetailView.vue";
+import CounselDetailWrite from "../views/menu/temp/CounselDetailWrite.vue";
+import CounselComentWrite from "../views/menu/temp/CounselComentWrite.vue";
 
 // Review.company
-import CompanyReg1View from "../views/review/company/CompanyReg1View.vue"
-import CompanyReg2View from "../views/review/company/CompanyReg2View.vue"
-import CompanyReg3View from "../views/review/company/CompanyReg3View.vue"
-import CompanyReg4View from "../views/review/company/CompanyReg4View.vue"
+import CompanyReg1View from "../views/review/company/CompanyReg1View.vue";
+import CompanyReg2View from "../views/review/company/CompanyReg2View.vue";
+import CompanyReg3View from "../views/review/company/CompanyReg3View.vue";
+import CompanyReg4View from "../views/review/company/CompanyReg4View.vue";
 
 // Review.interview
-import InterviewReg1View from "../views/review/interview/InterviewReg1View.vue"
-import InterviewReg2View from "../views/review/interview/InterviewReg2View.vue"
-import InterviewReg3View from "../views/review/interview/InterviewReg3View.vue"
+import InterviewReg1View from "../views/review/interview/InterviewReg1View.vue";
+import InterviewReg2View from "../views/review/interview/InterviewReg2View.vue";
+import InterviewReg3View from "../views/review/interview/InterviewReg3View.vue";
 
 // Review.yearamt
-import YearamtReg1View from "../views/review/yearamt/YearamtReg1View.vue"
-import YearamtReg2View from "../views/review/yearamt/YearamtReg2View.vue"
-import YearamtReg3View from "../views/review/yearamt/YearamtReg3View.vue"
+import YearamtReg1View from "../views/review/yearamt/YearamtReg1View.vue";
+import YearamtReg2View from "../views/review/yearamt/YearamtReg2View.vue";
+import YearamtReg3View from "../views/review/yearamt/YearamtReg3View.vue";
 
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
@@ -49,8 +51,7 @@ import SampleOauthRedirect from "@/components/loginExample/oauth/RedirectItem";
 import Test1View from "@/views/sample/Test1View.vue";
 
 // Sample
-import ImageUploadView from "../views/sample/ImageUploadView.vue"
-
+import ImageUploadView from "../views/sample/ImageUploadView.vue";
 
 Vue.use(VueRouter);
 
@@ -108,7 +109,7 @@ const routes = [
   /**
    * Menu.mypage
    */
-   {
+  {
     path: "/menu/mypage",
     component: TempLayout,
     children: [
@@ -158,7 +159,7 @@ const routes = [
   /**
    * Counsel
    */
-   {
+  {
     path: "/counsel/counselReg1",
     component: TempLayout,
     children: [
@@ -201,7 +202,29 @@ const routes = [
         component: CounselDetailView,
       },
     ],
-  },  
+  },
+  {
+    path: "/menu/temp/counselDetailWrite",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselDetailWrite",
+        component: CounselDetailWrite,
+      },
+    ],
+  },
+  {
+    path: "/menu/temp/CounselComentWrite",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselComentWrite",
+        component: CounselComentWrite,
+      },
+    ],
+  },
 
   /**
    * Review.Company
@@ -287,7 +310,6 @@ const routes = [
       },
     ],
   },
-  
 
   /**
    * Review.Yearamt
@@ -325,13 +347,11 @@ const routes = [
       },
     ],
   },
-  
-
 
   /**
-   * 
+   *
    * 샘플 소스
-   * 
+   *
    */
   {
     path: "/home2",
@@ -389,7 +409,7 @@ const routes = [
       },
     ],
   },
-  
+
   // {
   //   path: '/loginSample',
   //   component: IndexPage,
