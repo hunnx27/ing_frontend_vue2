@@ -20,7 +20,7 @@ export default {
     valid() {
       var isValid = false;
       var err = "";
-      if (this.gubn != null) {
+      if (this.signupData.gubnCode != null) {
         isValid = true;
       } else {
         isValid = false;

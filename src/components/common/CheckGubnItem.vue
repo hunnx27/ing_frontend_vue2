@@ -11,7 +11,7 @@
           @change="stored($event)"
         />유아교사<br />
       </label>
-      <p>원앤집의 모든 기능을 이용할 수 있습니다.</p>
+      <p v-show="gubn == 'S'">원앤집의 모든 기능을 이용할 수 있습니다.</p>
     </div>
     <div class="radio-wrap">
       <label for="checkJobGubn2">
@@ -24,7 +24,7 @@
           @change="stored($event)"
         />예비교사/학부모<br />
       </label>
-      <p>기관리뷰 작성을 제외한 모든 기능을 이용할 수 있습니다.</p>
+      <p v-show="gubn == 'I'">기관리뷰 작성을 제외한 모든 기능을 이용할 수 있습니다.</p>
     </div>
   </div>
 </template>
