@@ -3,25 +3,56 @@
   <div class="counselReg2View page-wrap">
     <div class="step-title">상담분류</div>
     <div class="column">
-      <select class="line" name="" attr="">
-        <option value="">우리반아이</option>
+      <select class="line" v-model="qnaItem">
+        <option v-for="(item) in qnaItemList" :key="item.code" :value="item.code">{{item.name}}</option>
       </select>
     </div>
 
     <div class="step-title">궁금한 내용</div>
     <div class="column">
-      <textarea name="" id="" cols="0" rows="0"></textarea>
+      <textarea v-model="txt" name="" id="" cols="0" rows="0"></textarea>
     </div>
 
-    <div class="step-title">사진첨부(최대5장) 선택사항</div>
+    <!-- <div class="step-title">사진첨부(최대5장) 선택사항</div>
     <v-file-input
       :rules="rules"
       accept="image/png, image/jpeg, image/bmp"
       placeholder="이미지를 첨부하세요"
       prepend-icon="mdi-camera"
       label="이미지"
-    ></v-file-input>
-
+    ></v-file-input> -->
+    <!-- <div v-if="images"
+       class="w-full h-full flex items-center">
+      <img :src="images" alt="image">
+    </div>
+    <div v-else
+        class="w-full h-full flex items-center justify-center cursor-pointer hover:bg-pink-100"
+        @click="clickInputTag()">
+        <v-file-input
+          :rules="rules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="이미지를 첨부하세요"
+          prepend-icon="mdi-camera"
+          multiple
+          label="이미지"
+          class="hidden"
+          ref="image"
+          @change="uploadImage()"
+        ></v-file-input>
+    </div> -->
+    <v-img :src="url"></v-img>
+    <v-file-input
+          :rules="rules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="이미지를 첨부하세요"
+          prepend-icon="mdi-camera"
+          multiple
+          label="이미지"
+          class="hidden"
+          ref="image"          
+          v-model="image"
+        ></v-file-input>
+        
     <div class="box-point">
       <div class="box-point--title">포인트</div>
       <span class="box-point--text">
@@ -54,6 +85,7 @@
         답변이 완료되면 질문자와 답변자의 마이페이지>상담내역 에서만 확인할 수 있습니다.
         </v-card-text>
     </v-card>
+    <v-btn @click="submit">TEST Submit</v-btn>
   </div>
   <!-- Wrap END -->
 </template>
@@ -61,6 +93,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
+import axios from 'axios'
 
 export default {
   name: "counselReg2View",
@@ -75,6 +108,19 @@ export default {
       qnaItemName: null,
       txt:null,
       shortOpenYn:'N',
+      qnaItem: null,
+      qnaItemList: [
+        {code:"01", name:"고민상담"},
+        {code:"02", name:"우리반아이"},
+        {code:"03", name:"휴가/휴직"},
+        {code:"04", name:"호봉/수당"},
+        {code:"05", name:"승급/임용"},
+        {code:"06", name:"동료/보조/대체"},
+        {code:"07", name:"기관문의"},
+      ],
+      // images: '',
+      url: null,
+      image: null,
     };
   },
   methods: {
@@ -86,9 +132,45 @@ export default {
       this.setReq2({qnaItemName,txt,shortOpenYn});
       //this.$router.push("/counsel/counselReg3");
     },
+    uploadImage: function() {
+      // FIXME
+      // let form = new FormData()
+      // let image = this.$refs['image'].files[0]
+      
+      // form.append('image', image)
+ 
+      // axios.post('/upload', form, {
+      //     header: { 'Content-Type': 'multipart/form-data' }
+      // }).then( ({data}) => {
+      //   this.images = data
+      // })
+      // .catch( err => console.log(err))
+      console.log('일단 주석 이미지업로드시 처리');
+    },
+    // clickInputTag: function() {
+    //   this.$refs['image'].$refs.input.click()
+    // }
+    submit: function(){
+      let form = new FormData()
+      debugger;
+      //let image = this.$refs['image'].files[0];
+      let image = this.image;
+
+      form.append('image', image);
+      debugger;
+      Object.entries(this.reqData).forEach(item => form.append(item[0], item[1]));
+      debugger;
+      axios.post('/testReqCounselSave', form, {
+          header: { 'Content-Type': 'multipart/form-data' }
+      }).then( ({data}) => {
+        this.images = data
+      })
+      .catch( err => console.log(err))
+    },
   },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["user"]),//TODO 확인필요 사용하는지..
+    ...mapGetters('Counsel',['reqData']),
   },
   created() {
     const title = "상담요청(상담요청2페이지)";
