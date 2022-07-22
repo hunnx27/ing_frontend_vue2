@@ -168,6 +168,9 @@ export default {
 .container {
   margin-top: 90px;
 }
+.fill-height {
+  height: auto;
+}
 
 ul {
   padding: 0;
