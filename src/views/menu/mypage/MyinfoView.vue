@@ -2,32 +2,7 @@
   <!-- Wrap START -->
   <div class="myinfo page-wrap">
     <div class="step-title">관심기관</div>
-    <div>
-      <input
-        v-model="interestOrgName"
-        name="intrsOrg"
-        type="radio"
-        value="all"
-        id="allChoice"
-      />
-      <label for="allChoice">전체</label>
-      <input
-        v-model="interestOrgName"
-        name="intrsOrg"
-        type="radio"
-        value="kindergarten"
-        id="kindergartenChoice"
-      />
-      <label for="kindergartenChoice">유치원</label>
-      <input
-        v-model="interestOrgName"
-        name="intrsOrg"
-        type="radio"
-        value="daycarecenter"
-        id="careCenterChoice"
-      />
-      <label for="careCenterChoice">어린이집</label>
-    </div>
+    <CheckOrgItem isShowAll='true' ref="checkOrgItem"></CheckOrgItem>
 
     <div class="step-title">출생연도</div>
     <div class="column">
@@ -91,15 +66,15 @@
 <script>
 import accountApi from '@/api/account'
 import { mapActions, mapMutations, mapGetters } from "vuex";
+import CheckOrgItem from "@/components/common/CheckOrgItem.vue";
 
 export default {
   name: 'myinfoView',
   components:{
-    
+    CheckOrgItem
   },
   data(){
     return{
-      interestOrgName: null,
       birthYYYY: null,
       interestSidoCode: null,
       interestZone: null,
@@ -114,7 +89,7 @@ export default {
     doCheck(){
       // 저장데이터 셋팅
       var saveDataObj = {
-        interestOrgName: this.interestOrgName, 
+        interestOrgName: this.$refs.checkOrgItem.interestOrgName,
         birthYYYY: this.birthYYYY, 
         interestZone: this.interestZone, 
         majorSchool: this.majorSchool, 
@@ -187,7 +162,6 @@ export default {
     this.$emit("setLayout", title, options);
     const storedMyinfo = this.user!=null? this.user.myinfo : null;
     if(storedMyinfo!=null){
-      this.interestOrgName = storedMyinfo.interestOrg;
       this.birthYYYY = storedMyinfo.birthYYYY;
       const storeinterestZone = storedMyinfo.interestZone;
       this.interestZone = storeinterestZone;
@@ -196,7 +170,6 @@ export default {
       this.majorDepartment = storedMyinfo.majorDepartment;
       
     }else{
-      this.interestOrgName = null;
       this.birthYYYY = null;
       this.interestSidoCode = null;
       this.interestZone = null;
@@ -217,11 +190,6 @@ export default {
 .step-title {
   font-size: 20px;
   font-weight: 600;
-}
-input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
 }
 input[type="text"] {
   padding: 10px;
@@ -248,9 +216,5 @@ select {
       width: 50%;
     }
   }
-}
-
-label {
-  margin-right: 10px;
 }
 </style>
