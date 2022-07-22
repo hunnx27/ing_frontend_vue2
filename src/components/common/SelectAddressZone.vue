@@ -8,6 +8,7 @@
         name="interestZone"
         v-model="interestZone"
         attr="sigungu_code"
+        @change="onDataChanged"
       >
         <option value="">전체</option>
         <option 
@@ -28,11 +29,11 @@ import { mapActions, mapMutations, mapGetters } from "vuex";
 export default {
   name: "StepOneItem",
   components: {},
-  props: {},
+  props: ['selected'],
   data() {
     return {
-      interestSidoCode: null,
-      interestZone: null,
+      interestSidoCode: this.selected!=null && this.selected!='' ? this.selected.substr(0, 2) : null,
+      interestZone: this.selected,
       sidoList: [],
       sigugunList: []
     };
@@ -46,11 +47,17 @@ export default {
       });
     },
     getAddressBySido(){
-      accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
-        console.log(body);
-        this.sigugunList = body;
-      });
+      if(this.interestSidoCode!=null){
+        accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
+          console.log(body);
+          this.sigugunList = body;
+        });
+      }
+      
     },
+    onDataChanged() {
+      this.$emit('change', this.interestZone) // input 이벤트 발생
+    }
   },
   computed: {
     /*
@@ -64,15 +71,6 @@ export default {
 
   },
   created: function () {
-    const storedMyinfo = this.user!=null? this.user.myinfo : null;
-    if(storedMyinfo!=null){
-      const storeinterestZone = storedMyinfo.interestZone;
-      this.interestZone = storeinterestZone;
-      this.interestSidoCode = storeinterestZone!=null && storeinterestZone!='' ? storeinterestZone.substr(0, 2) : null;
-    }else{
-      this.interestSidoCode = null;
-      this.interestZone = null;
-    }
     this.getAddressSido();
   },
 };

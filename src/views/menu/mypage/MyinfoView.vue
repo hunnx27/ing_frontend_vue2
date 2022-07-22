@@ -19,7 +19,7 @@
       </select>
     </div>
     <div class="step-title">관심지역</div>
-    <SelectAddressZone ref="selectAddressZone"></SelectAddressZone>
+    <SelectAddressZone :selected='interestZone' @change="onChangeZone" ref="selectAddressZone"></SelectAddressZone>
 
     <div class="step-title">출신학교</div>
     <div class="column">
@@ -61,7 +61,7 @@ export default {
       majorSchool: null,
       majorDepartment: null,
       interestOrgName: null,
-      
+      interestZone: null,
     };
   },
   methods:{
@@ -71,7 +71,7 @@ export default {
       var saveDataObj = {
         interestOrgName: this.interestOrgName,
         birthYYYY: this.birthYYYY, 
-        interestZone: this.$refs.selectAddressZone.interestZone, 
+        interestZone: this.interestZone, 
         majorSchool: this.majorSchool, 
         majorDepartment: this.majorDepartment
       }
@@ -109,6 +109,9 @@ export default {
     },
     onChangeOrg(value){
       this.interestOrgName = value;
+    },
+    onChangeZone(value){
+      this.interestZone = value;
     }
   },
   computed: {
@@ -133,11 +136,13 @@ export default {
       this.majorSchool = storedMyinfo.majorSchool;
       this.majorDepartment = storedMyinfo.majorDepartment;
       this.interestOrgName = storedMyinfo.interestOrg;
+      this.interestZone = storedMyinfo.interestZone;
     }else{
       this.birthYYYY = null;
       this.majorSchool = null;
       this.majorDepartment = null;
       this.interestOrgName = null;
+      this.interestZone = null;
     }
   }
 
