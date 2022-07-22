@@ -3,11 +3,14 @@
     <v-row>
       <v-col cols="12" sm="12" md="12" class="text-center">
         <h3>함께 만드는 유아교사 필수앱</h3>
-        <h1>원앤집</h1>
+        <img src="/resources/images/logo_pink.png" style="width:40px;height:40px;vertical-align:top;"/>
+        <h1 style="display:inline;line-height:40px">
+          원앤집
+        </h1>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="6" md="12">
+      <v-col cols="12" sm="12" md="12">
         <v-text-field
           v-model="user.name"
           :rules="inputRules"
@@ -16,7 +19,7 @@
           outlined
         ></v-text-field>
       </v-col>
-      <v-col cols="12" sm="6" md="12">
+      <v-col cols="12" sm="12" md="12">
         <v-text-field
           type="password"
           v-model="user.password"
@@ -29,9 +32,9 @@
         <v-btn block color="primary" @click="login">LOGIN</v-btn>
       </v-col>
 
-      <v-col cols="12" sm="12" md="12">
+      <!-- <v-col cols="12" sm="12" md="12">
         <v-btn block color="primary" @click="membership">회원가입</v-btn>
-      </v-col>
+      </v-col> -->
 
       <v-col cols="12" sm="12" md="12">
         <div class="caption text-center mt-6">또는 간편 로그인</div>
@@ -46,11 +49,6 @@
             </a>
           </li>
         </ul>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="12" md="12">
-        <v-btn @click="testTokenAlarm()">TEST</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -157,10 +155,6 @@ export default {
     },
     socialLoginUrl(socialType) {
       return $.getSocialLoginUrl(socialType);
-    },
-    testTokenAlarm() {
-      //      this.testToken();
-      this.$router.push("/");
     },
     membership(){
       this.$router.push("/signup");
