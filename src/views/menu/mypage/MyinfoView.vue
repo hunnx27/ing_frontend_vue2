@@ -19,26 +19,7 @@
       </select>
     </div>
     <div class="step-title">관심지역</div>
-    <div class="column--col2">
-      <select class="line" name="interestZonePrefix" attr="sido_code" v-model='interestSidoCode' @change="getAddressBySido">
-        <option v-for="(item) in sidoList" :value="item.sidoCode" :key="item.sidoCode" >{{item.sidoName}}</option>
-      </select>
-      <select
-        class="line"
-        name="interestZone"
-        v-model="interestZone"
-        attr="sigungu_code"
-      >
-        <option value="">전체</option>
-        <option 
-          v-for="(item) in sigugunList" 
-          :value="item.sigunguCode" 
-          :key="item.id"
-          :selected="item.sidoCode == interestZone"
-        >{{item.sigunguName}}
-        </option>
-      </select>
-    </div>
+    <SelectAddressZone ref="selectAddressZone"></SelectAddressZone>
 
     <div class="step-title">출신학교</div>
     <div class="column">
@@ -67,21 +48,18 @@
 import accountApi from '@/api/account'
 import { mapActions, mapMutations, mapGetters } from "vuex";
 import CheckOrgItem from "@/components/common/CheckOrgItem.vue";
+import SelectAddressZone from "@/components/common/SelectAddressZone.vue";
 
 export default {
   name: 'myinfoView',
   components:{
-    CheckOrgItem
+    CheckOrgItem,SelectAddressZone
   },
   data(){
     return{
       birthYYYY: null,
-      interestSidoCode: null,
-      interestZone: null,
       majorSchool: null,
       majorDepartment: null,
-      sidoList: [],
-      sigugunList: []
     };
   },
   methods:{
@@ -91,7 +69,7 @@ export default {
       var saveDataObj = {
         interestOrgName: this.$refs.checkOrgItem.interestOrgName,
         birthYYYY: this.birthYYYY, 
-        interestZone: this.interestZone, 
+        interestZone: this.$refs.selectAddressZone.interestZone, 
         majorSchool: this.majorSchool, 
         majorDepartment: this.majorDepartment
       }
@@ -127,19 +105,6 @@ export default {
       }
       return r.reverse();
     },
-    getAddressSido(){
-      accountApi.getAddressSido((body)=>{
-        console.log(body);
-        this.sidoList = body;
-        this.getAddressBySido();
-      });
-    },
-    getAddressBySido(){
-      accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
-        console.log(body);
-        this.sigugunList = body;
-      });
-    },
   },
   computed: {
     /*
@@ -147,9 +112,6 @@ export default {
      1. mapGetters : 스토어의 모든 Getter함수를 가져옴, 그 중 배열에 선택된 Getter함수 제한 가능
     */
     ...mapGetters(["user"]),
-    intrsSido(){
-      return "";
-    }
 
   },
   created () {
@@ -163,20 +125,14 @@ export default {
     const storedMyinfo = this.user!=null? this.user.myinfo : null;
     if(storedMyinfo!=null){
       this.birthYYYY = storedMyinfo.birthYYYY;
-      const storeinterestZone = storedMyinfo.interestZone;
-      this.interestZone = storeinterestZone;
-      this.interestSidoCode = storeinterestZone!=null && storeinterestZone!='' ? storeinterestZone.substr(0, 2) : null;
       this.majorSchool = storedMyinfo.majorSchool;
       this.majorDepartment = storedMyinfo.majorDepartment;
       
     }else{
       this.birthYYYY = null;
-      this.interestSidoCode = null;
-      this.interestZone = null;
       this.majorSchool = null;
       this.majorDepartment = null;
     }
-    this.getAddressSido();
   }
 
 }
