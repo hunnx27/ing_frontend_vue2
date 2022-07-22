@@ -103,6 +103,10 @@ export default {
       //   this.currentStep++;
       // }
     },
+    goBack(){
+      this.clearSignup();
+      this.$router.push('/login')
+    },
     signup() {
       console.log("BEFORE Signup Call");
       accountApi.signup(

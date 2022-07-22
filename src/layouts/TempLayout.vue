@@ -53,7 +53,11 @@ export default {
       if (this.$route.path != val) this.$router.push(val);
     },
     goBack(){
-      this.$router.go(-1);
+      if(this.$refs.childForm.goBack!=null){
+        this.$refs.childForm.goBack();
+      }else{
+        this.$router.go(-1);
+      }
     },
     setLayout(title, {isShowCheckBtn, isShowNextBtn, isShowSearchBtn}){
       console.log(title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn);
