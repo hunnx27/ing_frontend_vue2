@@ -6,48 +6,11 @@
       <p>유아교사(멘토)를 찾는데 활용됩니다.</p>
     </div>
     <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
-    <div>
-      <input v-model="interestOrgName" name="interestOrg" type="radio" value="all" id="allChoice" />
-      <label for="allChoice">전체</label>
-      <input
-        v-model="interestOrgName"
-        name="interestOrg"
-        type="radio"
-        value="kindergarten"
-        id="kindergartenChoice"
-      />
-      <label for="kindergartenChoice">유치원</label>
-      <input
-        v-model="interestOrgName"
-        name="interestOrg"
-        type="radio"
-        value="daycarecenter"
-        id="careCenterChoice"
-      />
-      <label for="careCenterChoice">어린이집</label>
-    </div>
+    <CheckOrgItem :selected="interestOrgName" isShowAll='false' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
 
     <div class="step-title">질문과 관련된 지역을 선택하세요.</div>
-    <div class="column--col2">
-      <select class="line" name="interestZonePrefix" attr="sido_code" v-model='interestSidoCode' @change="getAddressBySido">
-        <option v-for="(item) in sidoList" :value="item.sidoCode" :key="item.sidoCode" >{{item.sidoName}}</option>
-      </select>
-      <select
-        class="line"
-        name="interestZone"
-        v-model="interestZone"
-        attr="sigungu_code"
-      >
-        <option value="">전체</option>
-        <option 
-          v-for="(item) in sigugunList" 
-          :value="item.sigunguCode" 
-          :key="item.id"
-          :selected="item.sidoCode == interestZone"
-        >{{item.sigunguName}}
-        </option>
-      </select>
-    </div>
+    <SelectAddressZone ref="selectAddressZone"></SelectAddressZone>
+    
 
     <div class="step-title">#태그입력</div>
     <v-dialog v-model="dialog" width="500">
@@ -98,29 +61,29 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
+import CheckOrgItem from "@/components/common/CheckOrgItem.vue";
+import SelectAddressZone from "@/components/common/SelectAddressZone.vue";
 
 export default {
   name: "counselReg1View",
+  components:{
+    CheckOrgItem,SelectAddressZone
+  },
   data() {
     return {
       dialog: false,
-      interestOrgName: null,
-      interestSidoCode: null,
-      interestZone: null,
-      sidoList: [],
-      sigugunList: [],
-
       addTagData: null,
       addedTagData: [],
-      addingTagData: []
+      addingTagData: [],
+      interestOrgName: null,
     };
   },
   methods: {
     ...mapActions('Counsel',['setReq']),
     doNext() {
-      const interestOrgName = this.addedTagData;
-      const interestZone = this.interestOrgName;
-      const addedTagData = this.interestZone;
+      const interestOrgName = this.interestOrgName;
+      const interestZone = this.$refs.selectAddressZone.interestZone;
+      const addedTagData = this.addedTagData
       this.setReq({interestOrgName, interestZone, addedTagData});
       this.$router.push("/counsel/counselReg2");
     },
@@ -155,6 +118,9 @@ export default {
     confirmTagInput(){
       this.addedTagData.push(...this.addingTagData);
       this.addingTagData = [];
+    },
+    onChangeOrg(value){
+      this.interestOrgName = value;
     }
   },
   computed: {
@@ -176,7 +142,6 @@ export default {
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
-    this.getAddressSido();
   },
 };
 </script>

@@ -1,67 +1,44 @@
 <template>
   <div>
-      <template v-if="isShowAll">
-      <input
-        v-model="interestOrgName"
-        name="interestOrg"
-        type="radio"
-        value="all"
-        id="allChoice"
-      />
-      <label for="allChoice">전체</label>
+      <template v-if="isShowAll == 'true'">
+        <input
+          v-model="interestOrgName"
+          type="radio"
+          value="all"
+          @change="onDataChanged"
+        />
+        <label for="allChoice">전체</label>
       </template>
       <input
         v-model="interestOrgName"
-        name="interestOrg"
         type="radio"
         value="kindergarten"
-        id="kindergartenChoice"
+        @change="onDataChanged"
       />
       <label for="kindergartenChoice">유치원</label>
       <input
         v-model="interestOrgName"
-        name="interestOrg"
         type="radio"
         value="daycarecenter"
-        id="careCenterChoice"
+        @change="onDataChanged"
       />
       <label for="careCenterChoice">어린이집</label>
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
-
 export default {
   name: "StepOneItem",
   components: {},
-  props: ['isShowAll'],
+  props: ['selected','isShowAll'],
   data() {
     return {
-      interestOrgName: null,
+      interestOrgName: this.selected,
     };
   },
-  computed: {
-    /*
-     스토어의 값을 변수처리할 수 있도록 초기화함
-     1. mapGetters : 스토어의 모든 Getter함수를 가져옴, 그 중 배열에 선택된 Getter함수 제한 가능
-    */
-    ...mapGetters(["user"]),
-  },
   methods: {
-    ...mapActions(["setSignupGubn"]),
-    stored(e) {
-      console.log(e.target.value);
-      const gubn = e.target.value;
-      this.setSignupGubn({ gubn });
-    },
-  },
-  created: function () {
-    const storedMyinfo = this.user!=null? this.user.myinfo : null;
-    if(storedMyinfo!=null){
-      this.interestOrgName = storedMyinfo.interestOrg;
-    }else{
-      this.interestOrgName = null;
+    onDataChanged() {
+      this.$emit('change', this.interestOrgName) // input 이벤트 발생
     }
   },
 };

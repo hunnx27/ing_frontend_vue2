@@ -2,7 +2,7 @@
   <!-- Wrap START -->
   <div class="myinfo page-wrap">
     <div class="step-title">관심기관</div>
-    <CheckOrgItem isShowAll='true' ref="checkOrgItem"></CheckOrgItem>
+    <CheckOrgItem :selected="interestOrgName" isShowAll='true' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
 
     <div class="step-title">출생연도</div>
     <div class="column">
@@ -60,6 +60,8 @@ export default {
       birthYYYY: null,
       majorSchool: null,
       majorDepartment: null,
+      interestOrgName: null,
+      
     };
   },
   methods:{
@@ -67,7 +69,7 @@ export default {
     doCheck(){
       // 저장데이터 셋팅
       var saveDataObj = {
-        interestOrgName: this.$refs.checkOrgItem.interestOrgName,
+        interestOrgName: this.interestOrgName,
         birthYYYY: this.birthYYYY, 
         interestZone: this.$refs.selectAddressZone.interestZone, 
         majorSchool: this.majorSchool, 
@@ -105,6 +107,9 @@ export default {
       }
       return r.reverse();
     },
+    onChangeOrg(value){
+      this.interestOrgName = value;
+    }
   },
   computed: {
     /*
@@ -127,11 +132,12 @@ export default {
       this.birthYYYY = storedMyinfo.birthYYYY;
       this.majorSchool = storedMyinfo.majorSchool;
       this.majorDepartment = storedMyinfo.majorDepartment;
-      
+      this.interestOrgName = storedMyinfo.interestOrg;
     }else{
       this.birthYYYY = null;
       this.majorSchool = null;
       this.majorDepartment = null;
+      this.interestOrgName = null;
     }
   }
 
