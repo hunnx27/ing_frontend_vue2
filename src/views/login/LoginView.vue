@@ -3,10 +3,11 @@
     <v-row>
       <v-col cols="12" sm="12" md="12" class="text-center">
         <h3>함께 만드는 유아교사 필수앱</h3>
-        <img src="/resources/images/logo_pink.png" style="width:40px;height:40px;vertical-align:top;"/>
-        <h1 style="display:inline;line-height:40px">
-          원앤집
-        </h1>
+        <img
+          src="/resources/images/logo_pink.png"
+          style="width: 40px; height: 40px; vertical-align: top"
+        />
+        <h1 style="display: inline; line-height: 40px">원앤집</h1>
       </v-col>
     </v-row>
     <v-row>
@@ -156,14 +157,18 @@ export default {
     socialLoginUrl(socialType) {
       return $.getSocialLoginUrl(socialType);
     },
-    membership(){
+    membership() {
       this.$router.push("/signup");
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.container {
+  margin-top: 90px;
+}
+
 ul {
   padding: 0;
   li {
