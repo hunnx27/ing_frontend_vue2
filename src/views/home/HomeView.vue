@@ -201,6 +201,10 @@ export default {
     },
     detailCounsel(id){
       alert(id);
+      ///counsel/counselDetail
+      const URI = `/counsel/counselDetail/${id}`;
+      this.$router.push(URI);
+
     }
   },
   created(){

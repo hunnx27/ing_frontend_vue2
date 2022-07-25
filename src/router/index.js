@@ -22,9 +22,9 @@ import AccountManageView from "../views/menu/AccountManageView.vue";
 import CounselReg1View from "../views/counsel/CounselReg1View.vue";
 import CounselReg2View from "../views/counsel/CounselReg2View.vue";
 import CounselReg3View from "../views/counsel/CounselReg3View.vue";
-import CounselDetailView from "../views/menu/temp/CounselDetailView.vue";
-import CounselDetailWrite from "../views/menu/temp/CounselDetailWrite.vue";
-import CounselComentWrite from "../views/menu/temp/CounselComentWrite.vue";
+import CounselDetailView from "../views/counsel/CounselDetailView.vue";
+import CounselDetailWrite from "../views/counsel/CounselDetailWrite.vue";
+import CounselComentWrite from "../views/counsel/CounselComentWrite.vue";
 
 // Review.company
 import CompanyReg1View from "../views/review/company/CompanyReg1View.vue";
@@ -193,7 +193,7 @@ const routes = [
     ],
   },
   {
-    path: "/menu/temp/counselDetail",
+    path: "/counsel/counselDetail/:id",
     component: TempLayout,
     children: [
       {
@@ -204,7 +204,7 @@ const routes = [
     ],
   },
   {
-    path: "/menu/temp/counselDetailWrite",
+    path: "/counsel/counselDetailWrite",
     component: TempLayout,
     children: [
       {
@@ -215,7 +215,7 @@ const routes = [
     ],
   },
   {
-    path: "/menu/temp/CounselComentWrite",
+    path: "/counsel/CounselComentWrite",
     component: TempLayout,
     children: [
       {

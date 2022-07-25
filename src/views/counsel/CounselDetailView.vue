@@ -102,17 +102,29 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import accountApi from "@/api/account";
+import counselApi from "@/api/counsel";
 
 export default {
   name: "CounselDetailView",
   data() {
     return {
       expand: false,
+      id: -1
     };
   },
   methods: {
     ...mapActions(["logout"]),
+    getCounselInfo(){
+      counselApi.getCounselInfo(this.id,
+        (body)=>{
+          debugger;
+          console.log('body')
+        },
+        (err)=>{
+          debugger;
+          console.log(err);
+        })
+    }
   },
   computed: {
     ...mapGetters(["user"]),
@@ -125,6 +137,9 @@ export default {
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    console.log(this.$route.params.id);
+    this.id = this.$route.params.id;
+    this.getCounselInfo();
   },
 };
 </script>

@@ -15,5 +15,9 @@ export default {
     const sort = param.sort!=null? param.sort : 'createdAt,desc';
     const URI = `${ROOT_URI.COUNSEL}?page=${page}&size=${size}&sort=${sort}`
     req.get(URI, success);
+  },
+  getCounselInfo(id, success, fail){
+    const URI = `${ROOT_URI.COUNSEL}/${id}`
+    req.get(URI, success, fail);
   }
 }
