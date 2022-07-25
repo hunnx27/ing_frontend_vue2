@@ -13,6 +13,12 @@ const appendAuth = (config) => {
   }
   return config
 }
+const appendMultipart = (config) => {
+  if (!config) config = { headers: {} }
+  if (!config.headers) config.headers = {}
+  config.headers.ContentType = 'multipart/form-data'
+  return config
+}
 
 export default {
   get (url, success, fail = err => err.response.data.message, config) {
@@ -55,5 +61,20 @@ export default {
     axios.delete(wrap(url), appendAuth(config))
       .then(handler.handle(success))
       .catch(fail)
-  }
+  },
+  // axios.post('/api/counsel/save', form, {
+  //   header: { 'Content-Type': 'multipart/form-data' }
+  // }).then( ({data}) => {
+  //   debugger;
+  //   this.images = data
+  // })
+  // .catch( err => console.log(err))
+  postMultipart (url, form, success, config) {
+    const configAuth = appendAuth(config);
+    axios.post(wrap(url), form, appendMultipart(configAuth))
+      .then(({data})=>{
+        console.log('data : ', data);
+      })
+      .catch(err => console.log(err))
+  },
 }

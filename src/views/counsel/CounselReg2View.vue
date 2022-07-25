@@ -105,18 +105,17 @@ export default {
           value.size < 2000000 ||
           "Avatar size should be less than 2 MB!",
       ],
-      qnaItemName: null,
       txt:null,
       shortOpenYn:'N',
       qnaItem: null,
       qnaItemList: [
-        {code:"01", name:"고민상담"},
-        {code:"02", name:"우리반아이"},
-        {code:"03", name:"휴가/휴직"},
-        {code:"04", name:"호봉/수당"},
-        {code:"05", name:"승급/임용"},
-        {code:"06", name:"동료/보조/대체"},
-        {code:"07", name:"기관문의"},
+        {code:"Q1", name:"고민상담"},
+        {code:"Q2", name:"우리반아이"},
+        {code:"Q3", name:"휴가/휴직"},
+        {code:"Q4", name:"호봉/수당"},
+        {code:"Q5", name:"승급/임용"},
+        {code:"Q6", name:"동료/보조/대체"},
+        {code:"Q7", name:"기관문의"},
       ],
       // images: '',
       url: null,
@@ -124,7 +123,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions('Counsel',['setReq', 'clearReq']),
+    ...mapActions('Counsel',['setReq', 'setReq2', 'clearReq']),
     doCheck() {
       const qnaItemName = this.qnaItemName
       const txt = this.txt
@@ -151,21 +150,32 @@ export default {
     //   this.$refs['image'].$refs.input.click()
     // }
     submit: function(){
+      const qnaItem = this.qnaItem
+      const txt = this.txt
+      const shortOpenYn = this.shortOpenYn
+      this.setReq2({qnaItem,txt,shortOpenYn});
       let form = new FormData()
-      debugger;
-      //let image = this.$refs['image'].files[0];
-      let image = this.image;
 
-      form.append('image', image);
-      debugger;
-      Object.entries(this.reqData).forEach(item => form.append(item[0], item[1]));
-      debugger;
-      axios.post('/testReqCounselSave', form, {
-          header: { 'Content-Type': 'multipart/form-data' }
-      }).then( ({data}) => {
-        this.images = data
-      })
-      .catch( err => console.log(err))
+      // Image File Setting
+      if(this.image){
+        for(let i=0; i<this.image.length; i++){
+          const file = this.image[i];
+          form.append(`files[${i}]`, file);
+        }
+      }
+      
+      // 저장 데이터 셋팅
+      Object.entries(this.reqData).forEach(item => {
+        form.append(item[0], item[1]);
+      });
+      
+      accountApi.saveCounsel(
+        form,
+        (body) => {
+          console.log("succss.body : ", body);
+          alert('상담이 저장되었습니다.');
+        },
+      );
     },
   },
   computed: {

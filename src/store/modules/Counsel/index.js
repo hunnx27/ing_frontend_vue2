@@ -6,7 +6,7 @@ const REQ_DATA = () => {
     addedTagData : null,
     interestOrgName : null,
     interestZone : null,
-    qnaItemName: null,
+    qnaItem: null,
     txt:null,
     shortOpenYn:'N',
   }
@@ -26,13 +26,14 @@ export const Counsel = {
       reqData['addedTagData'] = addedTagData;
       state.reqData = reqData;
     },
-    //TODO!!!!
-    //TODO!!!!
-    //TODO!!!!
-    //TODO!!!!
-    //TODO!!!!
-    //TODO!!!!
-    //setReq2(...)
+    setReq2(state, {qnaItem,txt,shortOpenYn}){
+      console.log('#mutaion.setReq2 : ', qnaItem,txt,shortOpenYn);
+      const reqData = state.reqData;
+      reqData['qnaItem'] = qnaItem;
+      reqData['txt'] = txt;
+      reqData['shortOpenYn'] = shortOpenYn;
+      state.reqData = reqData;
+    },
     clearReq(state){
       state.reqData = REQ_DATA();
     }
@@ -41,6 +42,10 @@ export const Counsel = {
     setReq({commit}, {interestOrgName, interestZone, addedTagData}){
       console.log('#actions.setReq : ', interestOrgName, interestZone, addedTagData);
       commit("setReq", {interestOrgName, interestZone, addedTagData});
+    },
+    setReq2({commit}, {qnaItem,txt,shortOpenYn}){
+      console.log('#actions.setReq2 : ', qnaItem,txt,shortOpenYn);
+      commit("setReq2", {qnaItem,txt,shortOpenYn});
     },
     clearReq({commit}){
       console.log('clearReq');

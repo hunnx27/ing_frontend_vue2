@@ -7,6 +7,9 @@ const ACCOUNT_URI = {
   ACCOUNT: '/api/accounts',
   ADDRESS: '/api/common/address',
 }
+const COUNSEL_URI = {
+  COUNSEL: '/api/counsel'
+}
 
 export default {
   login (body, success, fail) {
@@ -48,4 +51,12 @@ export default {
     const URI = `${ACCOUNT_URI.ACCOUNT}/me/pointHistories`
     req.get(URI, success);
   },
+  saveCounsel(form, success){
+    const URI = `${COUNSEL_URI.COUNSEL}`
+    req.postMultipart(URI, form, success);
+  },
+  getCounselAll(param, success){
+    const URI = `${COUNSEL_URI.COUNSEL}?page=${param.page}&size=20`
+    req.postMultipart(URI, form, success);
+  }
 }
