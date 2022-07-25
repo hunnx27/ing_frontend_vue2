@@ -1,4 +1,3 @@
-import accountApi from '@/api/account'
 import router from '@/router'
 
 const REQ_DATA = () => {

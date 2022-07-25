@@ -92,8 +92,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import accountApi from "@/api/account";
-import axios from 'axios'
+import counselApi from "@/api/counsel";
 
 export default {
   name: "counselReg2View",
@@ -169,7 +168,7 @@ export default {
         form.append(item[0], item[1]);
       });
       
-      accountApi.saveCounsel(
+      counselApi.saveCounsel(
         form,
         (body) => {
           console.log("succss.body : ", body);

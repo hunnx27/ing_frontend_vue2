@@ -4,18 +4,20 @@
     <!-- section1 -->
     <div>
       <v-container
-        class="lighten-5 pa-0 ma-0"
-        style="background-color: #333333dd"
+        class="lighten-5 pa-0 ma-0 block"
+        :style="{backgroundImage: `url('${backgroundUrls[0]}')`}"
       >
         <v-row no-gutters class="px-4 pt-4">
           <v-col class="text-left">
-            <v-chip color="yellow" outlined>답변완료</v-chip>
+            <v-chip color="white" outlined v-if="item.counselStateCode=='R'">{{item.counselStateName}}</v-chip>
+            <v-chip color="yellow" outlined v-else>{{item.counselStateName}}</v-chip>
           </v-col>
           <v-col class="text-right">
-            <v-chip color="white" outlined>예비교사</v-chip>
+            <v-chip color="red" outlined v-if="item.isMine">내질문</v-chip>
+            <v-chip color="white" outlined v-else>{{item.gubnName}}</v-chip>
           </v-col>
         </v-row>
-        <v-row class="text-center pa-0 ma-0" style="width: 100%">
+        <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="py-0 px-3">
             <v-container class="px-9">
               <v-row no-gutters>
@@ -23,14 +25,12 @@
                   class="py-3 text-h7"
                   style="color: #039be5; font-weight: bolder"
                 >
-                  #고민 #상담 #고민상담 #만3세지도
+                  {{item.inputTag}}
                 </v-col>
               </v-row>
               <v-row no-gutters>
                 <v-col class="pa-2 white--text">
-                  만 3세 부종교사입니다.<br /><br />
-                  저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요.
-                  반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
+                  <pre>{{item.txt}}</pre>
                 </v-col>
               </v-row>
             </v-container>
@@ -39,7 +39,7 @@
       </v-container>
       <v-container class="ma-0 pa-0">
         <v-row no-gutters class="pa-3" style="background-color: #000000cc">
-          <v-col class="text-left white--text"> 2022.05.24 23:34 </v-col>
+          <v-col class="text-left white--text"> {{item.createDate}} </v-col>
           <v-col class="text-right white--text">
             답변(2) 포인트(답변10/채택100)
           </v-col>
@@ -76,20 +76,22 @@
     </v-container>
 
     <!-- section4 리스트 반복 -->
-    <div v-for="n in 15" :key="n">
+    <div v-for="(item, index) in list" :key="item.id">
       <v-container
-        class="lighten-5 pa-0 ma-0"
-        style="background-color: #333333dd"
+        class="lighten-5 pa-0 ma-0 block"
+        :style="{backgroundImage: `url('${getBackgroundUrl(index)}')`}"
       >
         <v-row no-gutters class="px-4 pt-4">
           <v-col class="text-left">
-            <v-chip color="yellow" outlined>답변완료</v-chip>
+            <v-chip color="white" outlined v-if="item.counselStateCode=='R'">{{item.counselStateName}}</v-chip>
+            <v-chip color="yellow" outlined v-else>{{item.counselStateName}}</v-chip>
           </v-col>
           <v-col class="text-right">
-            <v-chip color="white" outlined>예비교사</v-chip>
+            <v-chip color="red" outlined v-if="item.isMine">내질문</v-chip>
+            <v-chip color="white" outlined v-else>{{item.gubnName}}</v-chip>
           </v-col>
         </v-row>
-        <v-row class="text-center pa-0 ma-0" style="width: 100%">
+        <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="py-0 px-3">
             <v-container class="px-9">
               <v-row no-gutters>
@@ -97,16 +99,12 @@
                   class="py-3 text-h7"
                   style="color: #039be5; font-weight: bolder"
                 >
-                  #고민 #상담 #고민상담 #만3세지도 #경기도
+                  {{item.inputTag}}
                 </v-col>
               </v-row>
               <v-row no-gutters>
                 <v-col class="pa-2 white--text">
-                  정리 안하는 아이 어떻게 지도하는게 좋을까요?<br />
-                  연장반 교사인데 매번 정리를 하지 않으려고 해요...<br />
-                  나는 집에서 가지고 온 장난감만 가지고 놀았다, 반에 있는
-                  장난감은<br />
-                  내가 아니라 다른 친구들이 만졌다, 이런식으로 얘기를 해요
+                  <pre>{{item.txt}}</pre>
                 </v-col>
               </v-row>
             </v-container>
@@ -115,7 +113,7 @@
       </v-container>
       <v-container class="ma-0 pa-0">
         <v-row no-gutters class="pa-3" style="background-color: #000000cc">
-          <v-col class="text-left white--text"> 2022.05.24 23:34 </v-col>
+          <v-col class="text-left white--text"> {{item.createDate}} </v-col>
           <v-col class="text-right white--text">
             답변(2) 포인트(답변10/채택100)
           </v-col>
@@ -129,14 +127,79 @@
 <style scoped>
 .container {
 }
+.block{
+    position:relative;
+    background-size: cover;
+}
+.block:before{
+  background-color:#333333bb;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
 </style>
 <script>
+import counselApi from "@/api/counsel";
+var reqSample = {
+    id: 1,
+    accountId: 1,
+    counselStateCode: "A",
+    counselStateName: "답변완료",
+    createDate: "2022.07.25 0524:03",
+    gubnName: "준비중",
+    inputTag: "#원앤집 #원앤집",
+    mine: true,
+    reportCnt: 0,
+    txt: "기관은 어디로갈지 고민입니다.\r\n어떻게 할까요?",
+}
 export default {
   name: "HomeItem",
   components: {},
   data() {
-    return {};
+    return {
+      item: reqSample,
+      list: [reqSample],
+      backgroundUrls: [
+        'https://appstage.oneandzip.com/test/new_list00.jpg',
+        'https://appstage.oneandzip.com/test/new_list01.jpg',
+        // 'https://appstage.oneandzip.com/test/new_list02.jpg',
+        // 'https://appstage.oneandzip.com/test/new_list03.jpg',
+        // 'https://appstage.oneandzip.com/test/new_list04.jpg',
+        // 'https://appstage.oneandzip.com/test/new_list05.jpg',
+        // 'https://appstage.oneandzip.com/test/new_list06.jpg',
+        // 'https://appstage.oneandzip.com/test/new_list07.jpg',
+      ]
+    };
   },
-  methods: {},
+  methods: {
+    searchAllList(){
+      var param = {
+        page: 0
+      }
+      counselApi.getCounselAll(param,(body)=>{
+        this.list = body!=null? body : [];
+      })
+    },
+    searchFirst(){
+      var param = {
+        page: 0,
+        size: 1,
+      }
+      counselApi.getCounselAll(param,(body)=>{
+        this.item = body!=null&&body.length>0? body[0] : [];
+      })
+    },
+    getBackgroundUrl(idx){
+      const size = this.backgroundUrls.length;
+      const newidx = idx%size;
+      return this.backgroundUrls[newidx];
+    }
+  },
+  created(){
+    this.searchFirst();
+    this.searchAllList();
+  }
 };
 </script>

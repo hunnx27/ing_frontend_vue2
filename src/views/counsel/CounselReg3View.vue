@@ -24,7 +24,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import accountApi from "@/api/account";
 
 export default {
   name: "CounselReg3View",
