@@ -69,12 +69,10 @@ export default {
   //   this.images = data
   // })
   // .catch( err => console.log(err))
-  postMultipart (url, form, success, config) {
+  postMultipart (url, form, success, fail, config) {
     const configAuth = appendAuth(config);
     axios.post(wrap(url), form, appendMultipart(configAuth))
-      .then(({data})=>{
-        console.log('data : ', data);
-      })
-      .catch(err => console.log(err))
+      .then(handler.handle(success))
+      .catch(fail)
   },
 }

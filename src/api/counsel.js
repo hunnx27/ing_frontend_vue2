@@ -5,9 +5,9 @@ const ROOT_URI = {
 }
 
 export default {
-  saveCounsel(form, success){
+  saveCounsel(form, success, fail){
     const URI = `${ROOT_URI.COUNSEL}`
-    req.postMultipart(URI, form, success);
+    req.postMultipart(URI, form, success, fail);
   },
   getCounselAll(param, success){
     const page = param.page!=null? param.page : 0;

@@ -85,7 +85,6 @@
         답변이 완료되면 질문자와 답변자의 마이페이지>상담내역 에서만 확인할 수 있습니다.
         </v-card-text>
     </v-card>
-    <v-btn @click="submit">TEST Submit</v-btn>
   </div>
   <!-- Wrap END -->
 </template>
@@ -124,30 +123,8 @@ export default {
   methods: {
     ...mapActions('Counsel',['setReq', 'setReq2', 'clearReq']),
     doCheck() {
-      const qnaItemName = this.qnaItemName
-      const txt = this.txt
-      const shortOpenYn = this.shortOpenYn
-      this.setReq2({qnaItemName,txt,shortOpenYn});
-      //this.$router.push("/counsel/counselReg3");
+      this.submit();
     },
-    uploadImage: function() {
-      // FIXME
-      // let form = new FormData()
-      // let image = this.$refs['image'].files[0]
-      
-      // form.append('image', image)
- 
-      // axios.post('/upload', form, {
-      //     header: { 'Content-Type': 'multipart/form-data' }
-      // }).then( ({data}) => {
-      //   this.images = data
-      // })
-      // .catch( err => console.log(err))
-      console.log('일단 주석 이미지업로드시 처리');
-    },
-    // clickInputTag: function() {
-    //   this.$refs['image'].$refs.input.click()
-    // }
     submit: function(){
       const qnaItem = this.qnaItem
       const txt = this.txt
@@ -173,7 +150,12 @@ export default {
         (body) => {
           console.log("succss.body : ", body);
           alert('상담이 저장되었습니다.');
+          this.$router.push("/counsel/counselReg3");
         },
+        (err) =>{
+          console.log(err);
+          alert('상담 등록 시스템 오류가 있습니다.');
+        }
       );
     },
   },
