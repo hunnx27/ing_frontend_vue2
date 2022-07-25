@@ -77,7 +77,9 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
+  background-image: url('~/public/resources/images/join_finish_teacher.png');
+  background-size: cover;
 }
 </style>

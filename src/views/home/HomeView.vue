@@ -5,7 +5,7 @@
     <div @click="detailCounsel(item.id)">
       <v-container
         class="lighten-5 pa-0 ma-0 block"
-        :style="{backgroundImage: `url('${backgroundUrls[0]}')`}"
+        :style="{backgroundImage: `url('/resources/images/new_list_top.jpg')`}"
       >
         <v-row no-gutters class="px-4 pt-4">
           <v-col class="text-left">
@@ -29,7 +29,7 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col class="pa-2 white--text">
+                <v-col class="pa-2 white--text counsel-txt">
                   <pre>{{item.txt}}</pre>
                 </v-col>
               </v-row>
@@ -51,7 +51,7 @@
     <v-container class="lighten-5 text-center">
       <v-row no-gutters class="pa-3">
         <v-col>
-          <v-chip color="" outlined>넘나 고민되는 것</v-chip>
+          <v-chip color="" outlined label>넘나 고민되는 것</v-chip>
         </v-col>
       </v-row>
       <v-row no-gutters class="pa-1">
@@ -64,7 +64,7 @@
     <!-- section3 -->
     <v-container class="lighten-5 text-center">
       <v-row no-gutters>
-        <v-col> #고민11 </v-col>
+        <v-col> #고민</v-col>
         <v-col> #휴가 </v-col>
         <v-col> #호봉 </v-col>
       </v-row>
@@ -103,7 +103,7 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col class="pa-2 white--text">
+                <v-col class="pa-2 white--text counsel-txt">
                   <pre>{{item.txt}}</pre>
                 </v-col>
               </v-row>
@@ -138,6 +138,9 @@
   height: 100%;
   position: absolute;
   width: 100%;
+}
+.counsel-txt{
+  min-height:90px;
 }
 </style>
 <script>
