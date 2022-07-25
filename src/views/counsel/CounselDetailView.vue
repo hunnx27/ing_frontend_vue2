@@ -6,10 +6,12 @@
       <div class="lighten-5 pa-0 ma-0" style="background-color: #333333dd">
         <v-row no-gutters class="px-4 pt-4">
           <v-col class="text-left">
-            <v-chip color="yellow" outlined>답변완료</v-chip>
+            <v-chip color="white" outlined v-if="item.counselStateCode=='R'">{{item.counselStateName}}</v-chip>
+            <v-chip color="yellow" outlined v-else>{{item.counselStateName}}</v-chip>
           </v-col>
           <v-col class="text-right">
-            <v-chip color="white" outlined>예비교사</v-chip>
+            <v-chip color="red" text-color="white" v-if="item.isMine">내질문</v-chip>
+            <v-chip color="white" outlined v-else>{{item.gubnName}}</v-chip>
           </v-col>
         </v-row>
         <v-row class="text-center pa-0 ma-0" style="width: 100%">
@@ -20,14 +22,12 @@
                   class="py-3 text-h7"
                   style="color: #039be5; font-weight: bolder"
                 >
-                  #고민 #상담 #고민상담 #만3세지도
+                  {{item.inputTag}}
                 </v-col>
               </v-row>
               <v-row no-gutters>
                 <v-col class="pa-2 white--text">
-                  만 3세 부종교사입니다.<br /><br />
-                  저희반에 혼나도 혼나는 상황인지 인지를 못하는 유아가 있어요.
-                  반일반때는 그래도 집중해서 활동에 참여하는편인데 종일반 때는
+                  <pre>{{item.txt}}</pre>
                 </v-col>
               </v-row>
             </v-container>
@@ -36,9 +36,9 @@
       </div>
       <div class="ma-0 pa-0">
         <v-row no-gutters class="pa-3" style="background-color: #000000cc">
-          <v-col class="text-left white--text"> 2022.05.24 23:34 </v-col>
+          <v-col class="text-left white--text"> {{item.createDate}} </v-col>
           <v-col class="text-right white--text">
-            답변(2) 포인트(답변10/채택100)
+            답변({{item.reportCnt}}) 포인트(답변10/채택100)
           </v-col>
         </v-row>
       </div>
@@ -46,8 +46,9 @@
 
     <div class="answer">
       <div class="answer-list">
-        <p>답변, <span class="answer-total">4</span>건이 있습니다.</p>
-        <v-btn rounded class="purple darken-1 btn-answer">답변하기</v-btn>
+        <p v-if="item.reportCnt">답변, <span class="answer-total">{{item.reportCnt}}</span>건이 있습니다.</p>
+        <p v-else>답변이 필요합니다.</p>
+        <v-btn v-if="!item.isMine" rounded class="purple darken-1 btn-answer">답변하기</v-btn>
       </div>
       <ul>
         <li>
@@ -109,7 +110,8 @@ export default {
   data() {
     return {
       expand: false,
-      id: -1
+      id: -1,
+      item: {}
     };
   },
   methods: {
@@ -117,11 +119,10 @@ export default {
     getCounselInfo(){
       counselApi.getCounselInfo(this.id,
         (body)=>{
-          debugger;
-          console.log('body')
+          console.log('body');
+          this.item = body!=null? body : {};
         },
         (err)=>{
-          debugger;
           console.log(err);
         })
     }
