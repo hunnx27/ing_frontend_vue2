@@ -1,62 +1,51 @@
 import req from './req-wrapper'
 
-const ACCOUNT_URI = {
+const ROOT_URI = {
   LOGIN: '/auth/login',
   USER: '/api/accounts/me',
   SIGNUP: '/auth/oauth2/signup',
   ACCOUNT: '/api/accounts',
   ADDRESS: '/api/common/address',
 }
-const COUNSEL_URI = {
-  COUNSEL: '/api/counsel'
-}
 
 export default {
   login (body, success, fail) {
-    req.post(ACCOUNT_URI.LOGIN, body, success, fail)
+    req.post(ROOT_URI.LOGIN, body, success, fail)
   },
   deleteUser(success, fail){
     const yes = confirm("정말로 회원을 탈퇴하시겠습니까?");
     if(yes){
-      const URI = `${ACCOUNT_URI.ACCOUNT}/me`;
+      const URI = `${ROOT_URI.ACCOUNT}/me`;
       req.delete(URI, success, fail);
     }
   },
   getUser (success) {
-    req.get(ACCOUNT_URI.USER, success)
+    req.get(ROOT_URI.USER, success)
   },
   signup(body, success, fail){
-    req.post(ACCOUNT_URI.SIGNUP, body, success, fail);
+    req.post(ROOT_URI.SIGNUP, body, success, fail);
   },
   getMyinfo(id, success){
-    const URI = `${ACCOUNT_URI.ACCOUNT}/${id}/myinfo`
+    const URI = `${ROOT_URI.ACCOUNT}/${id}/myinfo`
     req.get(URI, success);
   },
   getAddress(success){
-    req.get(ACCOUNT_URI.ADDRESS, success);
+    req.get(ROOT_URI.ADDRESS, success);
   },
   getAddressSido(success){
-    const URI = `${ACCOUNT_URI.ADDRESS}/sido`
+    const URI = `${ROOT_URI.ADDRESS}/sido`
     req.get(URI, success);
   },
   getAddressBySido(sidoCode, success){
-    const URI = `${ACCOUNT_URI.ADDRESS}/sido/${sidoCode}`
+    const URI = `${ROOT_URI.ADDRESS}/sido/${sidoCode}`
     req.get(URI, success);
   },
   saveMyinfo(body, success, fail){
-    const URI = `${ACCOUNT_URI.ACCOUNT}/me/myinfo`
+    const URI = `${ROOT_URI.ACCOUNT}/me/myinfo`
     req.put(URI, body, success, fail);
   },
   getMyPointHistories(success, fail){
-    const URI = `${ACCOUNT_URI.ACCOUNT}/me/pointHistories`
+    const URI = `${ROOT_URI.ACCOUNT}/me/pointHistories`
     req.get(URI, success);
   },
-  saveCounsel(form, success){
-    const URI = `${COUNSEL_URI.COUNSEL}`
-    req.postMultipart(URI, form, success);
-  },
-  getCounselAll(param, success){
-    const URI = `${COUNSEL_URI.COUNSEL}?page=${param.page}&size=20`
-    req.get(URI, success);
-  }
 }
