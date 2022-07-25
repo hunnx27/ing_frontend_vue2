@@ -57,6 +57,6 @@ export default {
   },
   getCounselAll(param, success){
     const URI = `${COUNSEL_URI.COUNSEL}?page=${param.page}&size=20`
-    req.postMultipart(URI, form, success);
+    req.get(URI, success);
   }
 }
