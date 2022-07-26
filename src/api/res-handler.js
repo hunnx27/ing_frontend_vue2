@@ -1,6 +1,5 @@
 export default {
   handle (success, fail = (message) => { console.log(message) }) {
-    console.log(success, fail)
     return (res) => {
       // switch (res.data.header.code) {
       //   case 200: {

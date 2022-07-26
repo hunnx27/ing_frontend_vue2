@@ -2,7 +2,7 @@
   <!-- Wrap START -->
   <div class="home">
     <!-- section1 -->
-    <div @click="detailCounsel(item.id)">
+    <div @click="detailCounsel(item.id)" v-if="Object.keys(item).length>0">
       <v-container
         class="lighten-5 pa-0 ma-0 block"
         :style="{backgroundImage: `url('/resources/images/new_list_top.jpg')`}"
@@ -45,6 +45,14 @@
           </v-col>
         </v-row>
       </v-container>
+    </div>
+    <div class="text-center pa-10" v-else>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="40"
+        :width="7"
+      ></v-progress-circular>
     </div>
 
     <!-- section2 -->
@@ -120,50 +128,27 @@
         </v-row>
       </v-container>
     </div>
+    <div class="text-center loading-wrap" v-if="isLoading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="40"
+        :width="7"
+      ></v-progress-circular>
+    </div>
   </div>
   <!-- Wrap END -->
 </template>
 
-<style scoped>
-.container {
-}
-.block{
-    position:relative;
-    background-size: cover;
-}
-.block:before{
-  background-color:#33333388;
-  content: '';
-  display: block;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-.counsel-txt{
-  min-height:90px;
-}
-</style>
 <script>
 import counselApi from "@/api/counsel";
-var reqSample = {
-    id: 1,
-    accountId: 1,
-    counselStateCode: "A",
-    counselStateName: "답변완료",
-    createDate: "2022.07.25 05:03",
-    gubnName: "준비중",
-    inputTag: "#원앤집 #원앤집",
-    mine: true,
-    reportCnt: 0,
-    txt: "기관은 어디로갈지 고민입니다.\r\n어떻게 할까요?",
-}
 export default {
   name: "HomeItem",
   components: {},
   data() {
     return {
-      item: reqSample,
-      list: [reqSample],
+      item: {},
+      list: [],
       backgroundUrls: [
         'https://appstage.oneandzip.com/test/new_list00.jpg',
         'https://appstage.oneandzip.com/test/new_list01.jpg',
@@ -173,16 +158,33 @@ export default {
         'https://appstage.oneandzip.com/test/new_list05.jpg',
         'https://appstage.oneandzip.com/test/new_list06.jpg',
         'https://appstage.oneandzip.com/test/new_list07.jpg',
-      ]
+      ],
+      curpage:-1,
+      size:5,
+      isLoading: false,
     };
   },
   methods: {
     searchAllList(){
+      this.isLoading=true;
+      const reqpage = this.curpage+1;
+      console.log('START searchAllList ' + `req:${reqpage}, cur:${this.curpage}`);
       var param = {
-        page: 0
+        page: reqpage,
+        size: this.size
       }
-      counselApi.getCounselAll(param,(body)=>{
-        this.list = body!=null? body : [];
+      counselApi.getCounselAll(param,
+      (body)=>{
+        if(body!=null && body.length>0){
+          //this.list = body!=null? body : [];
+          this.list = this.list.concat(body);
+          this.curpage = reqpage;
+        }
+        this.isLoading=false;
+      },
+      (err)=>{
+        console.log(err);
+        this.isLoading=false;
       })
     },
     searchFirst(){
@@ -200,16 +202,50 @@ export default {
       return this.backgroundUrls[newidx];
     },
     detailCounsel(id){
-      alert(id);
+      //alert(id);
       ///counsel/counselDetail
       const URI = `/counsel/counselDetail/${id}`;
       this.$router.push(URI);
-
+    },
+    handleScroll(e){
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
+        // you're at the bottom of the page
+        this.searchAllList();
+        
+      }
     }
   },
   created(){
     this.searchFirst();
+    this.curpage=-1;
+    this.list=[];
     this.searchAllList();
+    window.addEventListener("scroll", this.handleScroll);
+
   }
 };
 </script>
+
+<style scoped>
+.block{
+    position:relative;
+    background-size: cover;
+}
+.block:before{
+  background-color:#33333388;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+.counsel-txt{
+  min-height:90px;
+}
+.loading-wrap{
+  position:absolute;
+  bottom:25px;
+  left:0;
+  width:100%;
+}
+</style>
