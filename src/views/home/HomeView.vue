@@ -160,8 +160,9 @@ export default {
         'https://appstage.oneandzip.com/test/new_list07.jpg',
       ],
       curpage:-1,
-      size:5,
+      size:2,
       isLoading: false,
+      lastScrollY: 0
     };
   },
   methods: {
@@ -208,10 +209,14 @@ export default {
       this.$router.push(URI);
     },
     handleScroll(e){
+      console.log(window.scrollY);
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
-        // you're at the bottom of the page
-        this.searchAllList();
-        
+        if(this.lastScrollY != window.scrollY){
+          this.lastScrollY = window.scrollY;
+          this.searchAllList();
+        }else{
+          this.lastScrollY = 0;
+        }
       }
     }
   },
@@ -243,9 +248,13 @@ export default {
   min-height:90px;
 }
 .loading-wrap{
-  position:absolute;
+  position:relative;
+  /* position:absolute;
   bottom:25px;
   left:0;
-  width:100%;
+  width:100%; */
+  min-height:110px;
+  background-color: #f2f2f2;
 }
+.loading-wrap .v-progress-circular {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
 </style>
