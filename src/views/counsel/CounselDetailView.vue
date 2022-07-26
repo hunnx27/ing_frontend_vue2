@@ -2,8 +2,8 @@
   <!-- Wrap START -->
   <div class="CounselDetailView">
     <!-- section1 -->
-    <div>
-      <div class="lighten-5 pa-0 ma-0" style="background-color: #333333dd">
+    <div v-if="Object.keys(item).length>0">
+      <div class="lighten-5 pa-0 ma-0 block" :style="{backgroundImage: `url('/resources/images/new_list_top.jpg')`}">
         <v-row no-gutters class="px-4 pt-4">
           <v-col class="text-left">
             <v-chip color="white" outlined v-if="item.counselStateCode=='R'">{{item.counselStateName}}</v-chip>
@@ -14,7 +14,7 @@
             <v-chip color="white" outlined v-else>{{item.gubnName}}</v-chip>
           </v-col>
         </v-row>
-        <v-row class="text-center pa-0 ma-0" style="width: 100%">
+        <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="py-0 px-3">
             <v-container class="px-9">
               <v-row no-gutters>
@@ -26,7 +26,7 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col class="pa-2 white--text">
+                <v-col class="pa-2 white--text counsel-txt">
                   <pre>{{item.txt}}</pre>
                 </v-col>
               </v-row>
@@ -43,6 +43,10 @@
         </v-row>
       </div>
     </div>
+    <LoadingItem isLoading="true" v-else></LoadingItem>
+    <v-btn @click="test">TEST</v-btn>
+    
+
 
     <div class="answer">
       <div class="answer-list">
@@ -104,14 +108,16 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import counselApi from "@/api/counsel";
+import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "CounselDetailView",
+  components:{LoadingItem},
   data() {
     return {
       expand: false,
       id: -1,
-      item: {}
+      item: {},
     };
   },
   methods: {
@@ -125,7 +131,19 @@ export default {
         (err)=>{
           console.log(err);
         })
-    }
+    },
+    test(){
+      const param = {
+        id:3
+      }
+      counselApi.getCounselAnswerAll(param,
+        (body)=>{
+          console.log(body);
+        },
+        (err)=>{
+          console.log(err);
+        })
+    },
   },
   computed: {
     ...mapGetters(["user"]),
@@ -146,6 +164,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.block{
+    position:relative;
+    background-size: cover;
+}
+.block:before{
+  background-color:#33333388;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
 .v-application ul {
   padding: 0;
 
@@ -204,6 +234,9 @@ export default {
       background: #e5e5e5;
     }
   }
+}
+.counsel-txt{
+  min-height:90px;
 }
 .modify {
   display: flex;

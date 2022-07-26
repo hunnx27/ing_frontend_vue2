@@ -75,4 +75,10 @@ export default {
       .then(handler.handle(success))
       .catch(fail)
   },
+  putMultipart (url, form, success, fail, config) {
+    const configAuth = appendAuth(config);
+    axios.put(wrap(url), form, appendMultipart(configAuth))
+      .then(handler.handle(success))
+      .catch(fail)
+  },
 }
