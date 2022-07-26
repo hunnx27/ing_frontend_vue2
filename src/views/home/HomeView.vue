@@ -46,14 +46,7 @@
         </v-row>
       </v-container>
     </div>
-    <div class="text-center pa-10" v-else>
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="40"
-        :width="7"
-      ></v-progress-circular>
-    </div>
+    <LoadingItem isLoading="true" v-else></LoadingItem>
 
     <!-- section2 -->
     <v-container class="lighten-5 text-center">
@@ -128,23 +121,17 @@
         </v-row>
       </v-container>
     </div>
-    <div class="text-center loading-wrap" v-if="isLoading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="40"
-        :width="7"
-      ></v-progress-circular>
-    </div>
+    <LoadingItem :isLoading="isLoading"></LoadingItem>
   </div>
   <!-- Wrap END -->
 </template>
 
 <script>
 import counselApi from "@/api/counsel";
+import LoadingItem from "@/components/common/LoadingItem.vue"
 export default {
   name: "HomeItem",
-  components: {},
+  components: {LoadingItem},
   data() {
     return {
       item: {},
@@ -209,7 +196,6 @@ export default {
       this.$router.push(URI);
     },
     handleScroll(e){
-      console.log(window.scrollY);
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
         if(this.lastScrollY != window.scrollY){
           this.lastScrollY = window.scrollY;
@@ -247,14 +233,5 @@ export default {
 .counsel-txt{
   min-height:90px;
 }
-.loading-wrap{
-  position:relative;
-  /* position:absolute;
-  bottom:25px;
-  left:0;
-  width:100%; */
-  min-height:110px;
-  background-color: #f2f2f2;
-}
-.loading-wrap .v-progress-circular {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+
 </style>
