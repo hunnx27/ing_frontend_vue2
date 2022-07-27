@@ -163,12 +163,13 @@ export default {
                 }
             })
           }
+          const id = body.id;
           const interestOrgName = body.interestOrgName;
           const relatedZone = body.relatedZone;
           const qnaItem = body.qnaItem;
           const txt = body.txt;
           const shortOpenYn = body.shortOpenYn;
-          this.setReqAll({addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
+          this.setReqAll({id, addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
           this.getFindAddressSido(relatedZone);
         },
         (err)=>{

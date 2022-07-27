@@ -2,6 +2,7 @@ import router from '@/router'
 
 const REQ_DATA = () => {
   return {
+    id: -1,
     addedTagData : null,
     interestOrgName : null,
     relatedZone : null,
@@ -34,10 +35,11 @@ export const Counsel = {
       state.reqData = reqData;
     },
     setReqAll(state, {
-      addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn
+      id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn
     }){
-      console.log('#mutaion.setReqAll : ', addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn);
+      console.log('#mutaion.setReqAll : ', id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn);
       const reqData = state.reqData;
+      reqData['id'] = id;
       reqData['interestOrgName'] = interestOrgName;
       reqData['relatedZone'] = relatedZone;
       reqData['addedTagData'] = addedTagData;
@@ -60,10 +62,10 @@ export const Counsel = {
       commit("setReq2", {qnaItem,txt,shortOpenYn});
     },
     setReqAll({commit}, 
-      {addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn}
+      {id, addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn}
     ){
-      console.log('#actions.setReqAll : ', addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn);
-      commit("setReqAll", {addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
+      console.log('#actions.setReqAll : ', id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn);
+      commit("setReqAll", {id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
     },
     clearReq({commit}){
       console.log('clearReq');

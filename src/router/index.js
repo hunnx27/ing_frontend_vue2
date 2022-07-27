@@ -25,6 +25,8 @@ import CounselReg3View from "../views/counsel/CounselReg3View.vue";
 import CounselDetailView from "../views/counsel/CounselDetailView.vue";
 import CounselDetailWrite from "../views/counsel/CounselDetailWrite.vue";
 import CounselComentWrite from "../views/counsel/CounselComentWrite.vue";
+import CounselUpdate1View from "../views/counsel/CounselUpdate1View.vue";
+import CounselUpdate2View from "../views/counsel/CounselUpdate2View.vue";
 
 // Review.company
 import CompanyReg1View from "../views/review/company/CompanyReg1View.vue";
@@ -222,6 +224,28 @@ const routes = [
         path: "",
         name: "CounselComentWrite",
         component: CounselComentWrite,
+      },
+    ],
+  },
+  {
+    path: "/counsel/counselUpdate1",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselUpdate1View",
+        component: CounselUpdate1View,
+      },
+    ],
+  },
+  {
+    path: "/counsel/counselUpdate2",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselUpdate2View",
+        component: CounselUpdate2View,
       },
     ],
   },
