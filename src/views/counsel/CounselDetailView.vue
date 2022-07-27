@@ -22,17 +22,36 @@
                   class="py-3 text-h7"
                   style="color: #039be5; font-weight: bolder"
                 >
-                  {{item.inputTag}}
+                  {{item.addedTagData}}
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col class="pa-2 white--text counsel-txt">
-                  <pre>{{item.txt}}</pre>
+                <v-col class="pa-2 white--text counsel-txt" v-html="item.txt.replaceAll('\n','<br/>')">
                 </v-col>
               </v-row>
             </v-container>
           </v-col>
         </v-row>
+        <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
+          <v-col class="pa-0 ma-0">
+            <v-container class="pa-0 ma-0">
+              <v-row no-gutters>
+                <v-col
+                  class="white--text"
+                  style="text-align:right;"
+                >
+                  <span style="cursor:pointer;padding:5px 20px" @click="updateCounsel">수정</span>
+                </v-col>
+              </v-row>
+              <v-row no-gutters class="pa-5 ma-0">
+                <v-col class=" white--text">
+                  기관 - 전체 | 지역 - {{findZoneName}}
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-col>
+        </v-row>
+        
       </div>
       <div class="ma-0 pa-0">
         <v-row no-gutters class="pa-3" style="background-color: #000000cc">
@@ -45,7 +64,6 @@
     </div>
     <LoadingItem isLoading="true" v-else></LoadingItem>
     <v-btn @click="test">TEST</v-btn>
-    
 
 
     <div class="answer">
@@ -107,10 +125,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import accountApi from "@/api/account";
 import counselApi from "@/api/counsel";
 import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
+
   name: "CounselDetailView",
   components:{LoadingItem},
   data() {
@@ -118,15 +138,38 @@ export default {
       expand: false,
       id: -1,
       item: {},
+      findZoneName: '선택안함'
     };
   },
   methods: {
     ...mapActions(["logout"]),
+    ...mapActions('Counsel',['setReqAll', 'clearReq']),
     getCounselInfo(){
+      this.clearReq();
       counselApi.getCounselInfo(this.id,
         (body)=>{
           console.log('body');
+          if(body==null) 
+            return;
+
           this.item = body!=null? body : {};
+          const addedTagData = [];
+          if(body.addedTagData!=null){
+            const inputTagArr = body.addedTagData.split(" ");
+            inputTagArr.forEach(inputTag => {
+              const tags = inputTag.split("#");
+                if(tags.length>1){
+                    addedTagData.push(tags[1]);
+                }
+            })
+          }
+          const interestOrgName = body.interestOrgName;
+          const relatedZone = body.relatedZone;
+          const qnaItem = body.qnaItem;
+          const txt = body.txt;
+          const shortOpenYn = body.shortOpenYn;
+          this.setReqAll({addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
+          this.getFindAddressSido(relatedZone);
         },
         (err)=>{
           console.log(err);
@@ -143,6 +186,24 @@ export default {
         (err)=>{
           console.log(err);
         })
+    },
+    goBack(){
+      const URI = `/`;
+      this.$router.push(URI);
+    },
+    updateCounsel(id){
+      const URI = `/counsel/counselUpdate2`;
+      this.$router.push(URI);
+    },
+    getFindAddressSido(relatedZone){
+      accountApi.getAddressSido((body)=>{
+        if(body == null) return;
+        const findZone = body.find((sido) =>{
+          const findCode = relatedZone!=null && relatedZone!='' ? relatedZone.substr(0, 2) : null;
+          return sido.sidoCode == findCode;
+        })
+        this.findZoneName = findZone!=null? findZone.sidoName : '선택안함';
+      });
     },
   },
   computed: {
@@ -192,7 +253,7 @@ export default {
       left: 10px;
       top: -27px;
       padding: 5px;
-      line-height: 20px;
+      line-height: 25px;
       background: #6200ea;
       color: #fff;
     }
@@ -236,7 +297,7 @@ export default {
   }
 }
 .counsel-txt{
-  min-height:90px;
+  min-height:70px;
 }
 .modify {
   display: flex;

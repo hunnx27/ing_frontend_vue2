@@ -29,8 +29,8 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col class="pa-2 white--text counsel-txt">
-                  <pre>{{item.txt}}</pre>
+                <v-col class="pa-2 white--text counsel-txt" v-html="item.txt.replaceAll('\n','<br/>')">
+                  
                 </v-col>
               </v-row>
             </v-container>
@@ -104,8 +104,8 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col class="pa-2 white--text counsel-txt">
-                  <pre>{{item.txt}}</pre>
+                <v-col class="pa-2 white--text counsel-txt" v-html="item.txt.replaceAll('\n','<br/>')">
+                  
                 </v-col>
               </v-row>
             </v-container>

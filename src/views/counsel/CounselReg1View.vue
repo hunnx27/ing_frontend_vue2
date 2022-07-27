@@ -9,7 +9,7 @@
     <CheckOrgItem :selected="interestOrgName" isShowAll='false' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
 
     <div class="step-title">질문과 관련된 지역을 선택하세요.</div>
-    <SelectAddressZone :selected='interestZone' @change="onChangeZone" ref="selectAddressZone"></SelectAddressZone>
+    <SelectAddressZone :selected='relatedZone' @change="onChangeZone" ref="selectAddressZone"></SelectAddressZone>
     
 
     <div class="step-title">#태그입력</div>
@@ -76,16 +76,16 @@ export default {
       addedTagData: [],
       addingTagData: [],
       interestOrgName: null,
-      interestZone: null,
+      relatedZone: null,
     };
   },
   methods: {
     ...mapActions('Counsel',['setReq']),
     doNext() {
       const interestOrgName = this.interestOrgName;
-      const interestZone = this.interestZone;
+      const relatedZone = this.relatedZone;
       const addedTagData = this.addedTagData
-      this.setReq({interestOrgName, interestZone, addedTagData});
+      this.setReq({interestOrgName, relatedZone, addedTagData});
       this.$router.push("/counsel/counselReg2");
     },
     getAddressSido(){
@@ -124,7 +124,7 @@ export default {
       this.interestOrgName = value;
     },
     onChangeZone(value){
-      this.interestZone = value;
+      this.relatedZone = value;
     }
   },
   computed: {
