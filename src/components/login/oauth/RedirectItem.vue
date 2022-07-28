@@ -1,9 +1,10 @@
 <template>
-  <div>Loading...</div>
+  <LoadingItem isLoading="true" style="height:100%"></LoadingItem>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapGetters } from 'vuex'
+import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   data(){
@@ -11,6 +12,7 @@ export default {
       hellouser2: null
     }
   },
+  components: {LoadingItem},
   created () {
     const token = this.$route.query.token;
     const userId = this.$route.query.userId;
