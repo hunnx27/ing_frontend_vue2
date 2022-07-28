@@ -212,7 +212,10 @@ export default {
     this.list=[];
     this.searchAllList();
     window.addEventListener("scroll", this.handleScroll);
-
+  },
+  destroyed() {
+    console.log('destroyed');
+    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>
