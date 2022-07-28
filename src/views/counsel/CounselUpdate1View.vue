@@ -77,7 +77,7 @@ export default {
       addingTagData: [],
       interestOrgName: null,
       relatedZone: null,
-      id: 1,
+      id: -1,
     };
   },
   methods: {
@@ -158,6 +158,7 @@ export default {
       this.interestOrgName = this.reqData.interestOrgName;
       this.addedTagData = [...this.reqData.addedTagData];
       this.relatedZone = this.reqData.relatedZone;
+      this.id = this.reqData.id;
     }
   },
 };
