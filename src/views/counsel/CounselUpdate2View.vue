@@ -97,6 +97,7 @@ export default {
   name: "counselReg2View",
   data() {
     return {
+      id:null,
       rules: [
         (value) =>
           !value ||
@@ -118,6 +119,7 @@ export default {
       // images: '',
       url: null,
       image: null,
+      
     };
   },
   methods: {
@@ -155,7 +157,7 @@ export default {
         (body) => {
           console.log("succss.body : ", body);
           alert('상담이 저장되었습니다.');
-          this.$router.push("/counsel/counselReg3");
+          this.$router.push(`/counsel/counselDetail/${this.id}`);
         },
         (err) =>{
           console.log(err);

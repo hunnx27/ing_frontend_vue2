@@ -23,7 +23,7 @@ import CounselReg1View from "../views/counsel/CounselReg1View.vue";
 import CounselReg2View from "../views/counsel/CounselReg2View.vue";
 import CounselReg3View from "../views/counsel/CounselReg3View.vue";
 import CounselDetailView from "../views/counsel/CounselDetailView.vue";
-import CounselDetailWrite from "../views/counsel/CounselDetailWrite.vue";
+import CounselAnswerWrite from "../views/counsel/CounselAnswerWrite.vue";
 import CounselComentWrite from "../views/counsel/CounselComentWrite.vue";
 import CounselUpdate1View from "../views/counsel/CounselUpdate1View.vue";
 import CounselUpdate2View from "../views/counsel/CounselUpdate2View.vue";
@@ -206,13 +206,13 @@ const routes = [
     ],
   },
   {
-    path: "/counsel/counselDetailWrite",
+    path: "/counsel/CounselAnswerWrite",
     component: TempLayout,
     children: [
       {
         path: "",
-        name: "CounselDetailWrite",
-        component: CounselDetailWrite,
+        name: "CounselAnswerWrite",
+        component: CounselAnswerWrite,
       },
     ],
   },

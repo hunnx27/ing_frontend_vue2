@@ -29,11 +29,11 @@ export default {
     req.get(URI, success, fail);
   },
   getAnswerAll(param, success, fail){
-    const id = param.id;
+    const counselId = param.counselId;
     const page = param.page!=null? param.page : 0;
     const size = param.size!=null? param.size : 20;
     const sort = param.sort!=null? param.sort : 'createdAt,desc';
-    const URI = `${ROOT_URI.COUNSEL}/answer/${id}?page=${page}&size=${size}&sort=${sort}`
+    const URI = `${ROOT_URI.COUNSEL}/${counselId}/answer?page=${page}&size=${size}&sort=${sort}`
     req.get(URI, success, fail);
   },
   saveAnswer(form, success, fail){

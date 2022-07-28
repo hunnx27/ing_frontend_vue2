@@ -63,17 +63,15 @@
       </div>
     </div>
     <LoadingItem isLoading="true" v-else></LoadingItem>
-    <v-btn @click="test">TEST</v-btn>
-
 
     <div class="answer">
       <div class="answer-list">
         <p v-if="item.reportCnt">답변, <span class="answer-total">{{item.reportCnt}}</span>건이 있습니다.</p>
         <p v-else>답변이 필요합니다.</p>
-        <v-btn v-if="!item.isMine" rounded class="purple darken-1 btn-answer">답변하기</v-btn>
+        <v-btn v-if="!item.isMine" rounded class="purple darken-1 btn-answer" @click="writeAnswer">답변하기</v-btn>
       </div>
       <ul>
-        <li>
+        <li v-for="item in answerList" :key="item.id">
           <span class="answer-label">내답변</span>
           <div class="user-adopt">
             <div class="user">유아교사</div>
@@ -85,15 +83,12 @@
             <span class="ago"><span class="time">0</span>분전</span>
             <v-btn
               rounded
-              v-bind:key="expand"
-              @click="expand = !expand"
               class="purple-text darken-1"
               >수정</v-btn
             >
           </div>
-
-          <div v-show="expand" class="reply-comment">
-            <p>test</p>
+          <div class="reply-comment">
+            <p v-html="item.txt.replaceAll('\n','<br/>')"></p>
             <div class="comment">
               <div>
                 <span class="reply-num reply-num--on">댓글 (0)</span>
@@ -104,19 +99,6 @@
           </div>
         </li>
 
-        <li>
-          <span class="answer-label">내답변</span>
-          <div class="user-adopt">
-            <div class="user">유아교사</div>
-            <div class="adopt">
-              채택 답변수<span class="answer-total">0</span>건
-            </div>
-          </div>
-          <div class="modify">
-            <span class="ago"><span class="time">0</span>분전</span>
-            <v-btn rounded class="purple-text darken-1">수정</v-btn>
-          </div>
-        </li>
       </ul>
     </div>
   </div>
@@ -135,10 +117,10 @@ export default {
   components:{LoadingItem},
   data() {
     return {
-      expand: false,
       id: -1,
       item: {},
-      findZoneName: '선택안함'
+      findZoneName: '선택안함',
+      answerList:[],
     };
   },
   methods: {
@@ -171,18 +153,20 @@ export default {
           const shortOpenYn = body.shortOpenYn;
           this.setReqAll({id, addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
           this.getFindAddressSido(relatedZone);
+          this.getAnswerList();
         },
         (err)=>{
           console.log(err);
         })
     },
-    test(){
+    getAnswerList(){
       const param = {
-        id:3
+        counselId:this.id
       }
-      counselApi.getCounselAnswerAll(param,
+      counselApi.getAnswerAll(param,
         (body)=>{
           console.log(body);
+          this.answerList = body;
         },
         (err)=>{
           console.log(err);
@@ -206,6 +190,10 @@ export default {
         this.findZoneName = findZone!=null? findZone.sidoName : '선택안함';
       });
     },
+    writeAnswer(){
+      const URI = `/counsel/counselAnswerWrite`;
+      this.$router.push(URI);
+    }
   },
   computed: {
     ...mapGetters(["user"]),
