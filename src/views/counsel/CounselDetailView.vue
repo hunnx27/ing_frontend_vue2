@@ -72,15 +72,15 @@
       </div>
       <ul>
         <li v-for="item in answerList" :key="item.id">
-          <span class="answer-label">내답변</span>
+          <span class="answer-label" v-show="item.isMine==true">내답변</span>
           <div class="user-adopt">
-            <div class="user">유아교사</div>
+            <div class="user">{{item.gubnName}}</div>
             <div class="adopt">
-              채택 답변수<span class="answer-total">0</span>건
+              채택 답변수<span class="answer-total">{{item.stateAdoptedCnt}}</span>건
             </div>
           </div>
           <div class="modify">
-            <span class="ago"><span class="time">0</span>분전</span>
+            <span class="ago">{{item.time}}</span>
             <v-btn
               rounded
               class="purple-text darken-1"
@@ -91,7 +91,7 @@
             <p v-html="item.txt.replaceAll('\n','<br/>')"></p>
             <div class="comment">
               <div>
-                <span class="reply-num reply-num--on">댓글 (0)</span>
+                <span class="reply-num reply-num--on">댓글 ({{item.commentCnt}})</span>
                 <span class="vote-num vote-num--on">추천 (0)</span>
               </div>
               <v-btn class="purple-text darken-1 report-reply">신고</v-btn>
