@@ -91,16 +91,29 @@
             <p v-html="item.txt.replaceAll('\n','<br/>')"></p>
             <div class="comment">
               <div>
-                <span class="reply-num reply-num--on">댓글 ({{item.commentCnt}})</span>
-                <span class="vote-num vote-num--on">추천 (0)</span>
+                <span class="reply-num reply-num--on" @click="writeComment(item.id)">댓글 ({{item.commentCnt}})</span>
+                <span class="vote-num vote-num--on" @click="recommandAnswer(item.id)">추천 ({{item.recommandCnt}})</span>
               </div>
-              <v-btn class="purple-text darken-1 report-reply">신고</v-btn>
+              <div>
+                <v-btn class="purple-text darken-1 report-reply" @click="dialog=true;selectedAnswerId=item.id;">채택하기</v-btn>
+                <v-btn class="purple-text darken-1 report-reply" @click="reportAnswer(item.id)">신고</v-btn>
+              </div>
             </div>
           </div>
         </li>
 
       </ul>
     </div>
+
+    <TextareaDialogItem
+      v-model="dialog"
+      title="답변채택"
+      msg="따뜻한 원&집을 만들어요.<br/>답변 채택 메시지를 남겨주세요."
+      @ok="saveAdopt($event)"
+      @cancel="cancelAdopt($event)"
+    >
+    </TextareaDialogItem>
+
   </div>
   <!-- Wrap END -->
 </template>
@@ -110,17 +123,20 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 import counselApi from "@/api/counsel";
 import LoadingItem from "@/components/common/LoadingItem.vue"
+import TextareaDialogItem from "@/components/common/dialog/TextareaDialogItem.vue"
 
 export default {
 
   name: "CounselDetailView",
-  components:{LoadingItem},
+  components:{LoadingItem, TextareaDialogItem},
   data() {
     return {
       id: -1,
       item: {},
       findZoneName: '선택안함',
       answerList:[],
+      dialog:false,
+      selectedAnswerId:-1
     };
   },
   methods: {
@@ -193,7 +209,46 @@ export default {
     writeAnswer(){
       const URI = `/counsel/counselAnswerWrite`;
       this.$router.push(URI);
-    }
+    },
+    writeComment(id){
+      const URI = `/counsel/counselCommentWrite/${id}`;
+      this.$router.push(URI);
+    },
+    recommandAnswer(id){
+
+    },
+    adoptAnswer(id){
+      
+    },
+    saveAdopt(e){
+
+      const answerId = this.selectedAnswerId;
+      const parentCounselId = this.id;
+      const commentTxt = e;
+      const answerAccountId = null; //FIXME 정의필요
+      counselApi.adoptAnswer(
+        answerId,
+        {
+          answerId: answerId,
+          commentTxt: commentTxt,
+          parentCounselId: parentCounselId,
+          answerAccountId: answerAccountId
+        },
+        (body)=>{
+          console.log(body);
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+      this.selectedAnswerId = -1;
+    },
+    cancelAdopt(e){
+      this.selectedAnswerId = -1;
+    },
+    reportAnswer(id){
+
+    },
   },
   computed: {
     ...mapGetters(["user"]),

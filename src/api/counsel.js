@@ -48,6 +48,11 @@ export default {
     const URI = `${ROOT_URI.COUNSEL}/answer/${id}`
     req.delete(URI, success, fail);
   },
+  adoptAnswer(id, body, success, fail){
+    ///counsel/answer/{id}/adopt
+    const URI = `${ROOT_URI.COUNSEL}/answer/${id}/adopt`
+    req.put(URI, body, success, fail);
+  },
   getCommentAll(answerId, param, success, fail){
     const page = param.page!=null? param.page : 0;
     const size = param.size!=null? param.size : 20;

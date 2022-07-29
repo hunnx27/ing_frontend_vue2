@@ -276,7 +276,7 @@ label {
 }
 .v-card__actions > .v-btn.v-btn {
   margin: 0 !important;
-  padding: 0;
+  padding: 28px 0;
   width: 50%;
   background: #f7f7f7;
   border-radius: 0;
