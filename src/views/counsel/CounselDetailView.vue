@@ -40,7 +40,7 @@
                   class="white--text"
                   style="text-align:right;"
                 >
-                  <span style="cursor:pointer;padding:5px 20px" @click="updateCounsel">수정</span>
+                  <span style="cursor:pointer;padding:5px 20px" v-if="item.isMine==true" @click="updateCounsel">수정</span>
                 </v-col>
               </v-row>
               <v-row no-gutters class="pa-5 ma-0">
@@ -71,32 +71,43 @@
         <v-btn v-if="!item.isMine" rounded class="purple darken-1 btn-answer" @click="writeAnswer">답변하기</v-btn>
       </div>
       <ul>
-        <li v-for="item in answerList" :key="item.id">
-          <span class="answer-label" v-show="item.isMine==true">내답변</span>
+        <li v-for="answerItem in answerList" :key="answerItem.id">
+          <div class="answer-label-wrap">
+            <v-chip label color="red" text-color="white" style="margin-right:5px" v-show="answerItem.isMine==true">내답변</v-chip>
+            <v-chip label color="#6200ea" text-color="white" v-show="answerItem.counselStateCode=='A'">질문자채택</v-chip>
+          </div>
           <div class="user-adopt">
-            <div class="user">{{item.gubnName}}</div>
+            <div class="user">{{answerItem.gubnName}}</div>
             <div class="adopt">
-              채택 답변수<span class="answer-total">{{item.stateAdoptedCnt}}</span>건
+              채택 답변수<span class="answer-total">{{answerItem.stateAdoptedCnt}}</span>건
             </div>
           </div>
           <div class="modify">
-            <span class="ago">{{item.time}}</span>
+            <span class="ago">{{answerItem.time}}</span>
             <v-btn
               rounded
+              v-if="answerItem.isMine==true && item.counselStateCode!='A'"
               class="purple-text darken-1"
               >수정</v-btn
             >
+            <span v-if="answerItem.isMine==true && item.counselStateCode=='A'">수정기간만료</span>
+          </div>
+          <div v-show="answerItem.counselStateCode=='A'" style="padding: 10px;border-top: 1px solid #6200ea;font-weight: bolder;display: flex;">
+            <span><v-icon color="orange" style="font-size:16px">mdi-chevron-right</v-icon></span>
+            <span>질문자 : {{answerItem.commentTxt}}</span>
           </div>
           <div class="reply-comment">
-            <p v-html="item.txt.replaceAll('\n','<br/>')"></p>
+            <p v-html="answerItem.txt.replaceAll('\n','<br/>')"></p>
             <div class="comment">
               <div>
-                <span class="reply-num reply-num--on" @click="writeComment(item.id)">댓글 ({{item.commentCnt}})</span>
-                <span class="vote-num vote-num--on" @click="recommandAnswer(item.id)">추천 ({{item.recommandCnt}})</span>
+                <span class="reply-num reply-num--on" @click="writeComment(answerItem.id)">댓글 ({{answerItem.commentCnt}})</span>
+                <span class="vote-num vote-num--on" @click="recommandAnswer(answerItem.id)">추천 ({{answerItem.recommandCnt}})</span>
               </div>
               <div>
-                <v-btn class="purple-text darken-1 report-reply" @click="dialog=true;selectedAnswerId=item.id;">채택하기</v-btn>
-                <v-btn class="purple-text darken-1 report-reply" @click="reportAnswer(item.id)">신고</v-btn>
+                <v-btn class="purple-text darken-1 report-reply"  
+                    v-if="item.counselStateCode!='A' && item.isMine==true" 
+                    @click="dialog=true;selectedAnswerId=answerItem.id;">채택하기</v-btn>
+                <v-btn class="purple-text darken-1 report-reply" @click="reportAnswer(answerItem.id)">신고</v-btn>
               </div>
             </div>
           </div>
@@ -292,14 +303,21 @@ export default {
     border-bottom: 3px solid #e5e5e5;
     background: #fff;
 
-    .answer-label {
-      position: absolute;
-      left: 10px;
-      top: -27px;
-      padding: 5px;
+    div.answer-label-wrap{
+      position:absolute; 
+      top:-23px; 
+      margin-left:10px; 
+      width:100%;
+
+      .answer-label {
+      // position: absolute;
+      position: relative;
+      padding: 8px;
+      margin-right:5px;
       line-height: 25px;
       background: #6200ea;
       color: #fff;
+    }
     }
   }
 }
