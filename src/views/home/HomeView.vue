@@ -3,7 +3,7 @@
   <div class="home">
     <!-- section1 -->
     <div @click="detailCounsel(item.id)" v-if="Object.keys(item).length>0">
-      <v-container
+      <div
         class="lighten-5 pa-0 ma-0 block"
         :style="{backgroundImage: `url('/resources/images/new_list_top.jpg')`}"
       >
@@ -19,7 +19,7 @@
         </v-row>
         <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="py-0 px-3">
-            <v-container class="px-9">
+            <div class="px-9">
               <v-row no-gutters>
                 <v-col
                   class="py-3 text-h7"
@@ -33,23 +33,23 @@
                   
                 </v-col>
               </v-row>
-            </v-container>
+            </div>
           </v-col>
         </v-row>
-      </v-container>
-      <v-container class="ma-0 pa-0">
+      </div>
+      <div class="ma-0 pa-0">
         <v-row no-gutters class="pa-3" style="background-color: #000000cc">
           <v-col class="text-left white--text"> {{item.createDate}} </v-col>
           <v-col class="text-right white--text">
             답변({{item.reportCnt}}) 포인트(답변10/채택100)
           </v-col>
         </v-row>
-      </v-container>
+      </div>
     </div>
     <LoadingItem isLoading="true" v-else></LoadingItem>
 
     <!-- section2 -->
-    <v-container class="lighten-5 text-center">
+    <div class="lighten-5 text-center">
       <v-row no-gutters class="pa-3">
         <v-col>
           <v-chip color="" outlined label>넘나 고민되는 것</v-chip>
@@ -58,27 +58,27 @@
       <v-row no-gutters class="pa-1">
         <v-col class="text-h5"> 마음 속 이야기 </v-col>
       </v-row>
-    </v-container>
+    </div>
 
     <v-divider></v-divider>
 
     <!-- section3 -->
-    <v-container class="lighten-5 text-center">
+    <div class="lighten-5 text-center">
       <v-row no-gutters>
-        <v-col> #고민</v-col>
-        <v-col> #휴가 </v-col>
-        <v-col> #호봉 </v-col>
+        <v-col style="padding: 13px 0;"><v-icon style="margin-top: -3px;font-size: 21px;color: #444;">mdi-pound</v-icon>고민</v-col>
+        <v-col style="padding: 13px 0;"><v-icon style="margin-top: -3px;font-size: 21px;color: #444;">mdi-pound</v-icon>휴가</v-col>
+        <v-col style="padding: 13px 0;"><v-icon style="margin-top: -3px;font-size: 21px;color: #444;">mdi-pound</v-icon>호봉</v-col>
       </v-row>
       <v-row no-gutters>
-        <v-col> #임용 </v-col>
-        <v-col> #보조 </v-col>
-        <v-col> #평가인증 </v-col>
+        <v-col style="padding: 13px 0;"><v-icon style="margin-top: -3px;font-size: 21px;color: #444;">mdi-pound</v-icon>임용</v-col>
+        <v-col style="padding: 13px 0;"><v-icon style="margin-top: -3px;font-size: 21px;color: #444;">mdi-pound</v-icon>보조 </v-col>
+        <v-col style="padding: 13px 0;"><v-icon style="margin-top: -3px;font-size: 21px;color: #444;">mdi-pound</v-icon>평가인증 </v-col>
       </v-row>
-    </v-container>
+    </div>
 
     <!-- section4 리스트 반복 -->
     <div v-for="(item, index) in list" :key="item.id" @click="detailCounsel(item.id)">
-      <v-container
+      <div
         class="lighten-5 pa-0 ma-0 block"
         :style="{backgroundImage: `url('${getBackgroundUrl(index)}')`}"
       >
@@ -94,7 +94,7 @@
         </v-row>
         <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="py-0 px-3">
-            <v-container class="px-9">
+            <div class="px-9">
               <v-row no-gutters>
                 <v-col
                   class="py-3 text-h7 white--text"
@@ -108,18 +108,18 @@
                   
                 </v-col>
               </v-row>
-            </v-container>
+            </div>
           </v-col>
         </v-row>
-      </v-container>
-      <v-container class="ma-0 pa-0">
+      </div>
+      <div class="ma-0 pa-0">
         <v-row no-gutters class="pa-3" style="background-color: #000000cc">
           <v-col class="text-left white--text"> {{item.createDate}} </v-col>
           <v-col class="text-right white--text">
             답변({{item.reportCnt}}) 포인트(답변10/채택100)
           </v-col>
         </v-row>
-      </v-container>
+      </div>
     </div>
     <LoadingItem :isLoading="isLoading"></LoadingItem>
   </div>

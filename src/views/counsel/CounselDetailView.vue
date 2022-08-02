@@ -16,7 +16,7 @@
         </v-row>
         <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="py-0 px-3">
-            <v-container class="px-9">
+            <div class="px-9">
               <v-row no-gutters>
                 <v-col
                   class="py-3 text-h7"
@@ -29,12 +29,12 @@
                 <v-col class="pa-2 white--text counsel-txt" v-html="item.txt.replaceAll('\n','<br/>')">
                 </v-col>
               </v-row>
-            </v-container>
+            </div>
           </v-col>
         </v-row>
         <v-row class="text-center pa-0 ma-0" style="width: 100%;position:relative">
           <v-col class="pa-0 ma-0">
-            <v-container class="pa-0 ma-0">
+            <div class="pa-0 ma-0">
               <v-row no-gutters>
                 <v-col
                   class="white--text"
@@ -48,7 +48,7 @@
                   기관 - 전체 | 지역 - {{findZoneName}}
                 </v-col>
               </v-row>
-            </v-container>
+            </div>
           </v-col>
         </v-row>
         
