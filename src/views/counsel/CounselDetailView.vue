@@ -87,6 +87,7 @@
             <v-btn
               rounded
               v-if="answerItem.isMine==true && item.counselStateCode!='A'"
+              @click="updateAnswer(answerItem.id)"
               class="purple-text darken-1"
               >수정</v-btn
             >
@@ -219,6 +220,10 @@ export default {
     },
     writeAnswer(){
       const URI = `/counsel/counselAnswerWrite`;
+      this.$router.push(URI);
+    },
+    updateAnswer(id){
+      const URI = `/counsel/counselAnswerUpdate/${id}`;
       this.$router.push(URI);
     },
     writeComment(id){

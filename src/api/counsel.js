@@ -40,6 +40,10 @@ export default {
     const URI = `${ROOT_URI.COUNSEL}/answer`
     req.postMultipart(URI, form, success, fail);
   },
+  getAnswerInfo(id, success, fail){
+    const URI = `${ROOT_URI.COUNSEL}/answer/${id}`
+    req.get(URI, success, fail);
+  },
   updateAnswer(id, form, success, fail){
     const URI = `${ROOT_URI.COUNSEL}/answer/${id}`
     req.putMultipart(URI, form, success, fail);

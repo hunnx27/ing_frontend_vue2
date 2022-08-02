@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="CounselComentWrite page-wrap">
+  <div class="CounselCommentWrite page-wrap">
     <div class="step-title">
       <span class="btn-rect">원문보기</span>
     </div>
@@ -52,7 +52,7 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 
 export default {
-  name: "CounselCommentlWrite",
+  name: "CounselCommentWrite",
   data() {
     return {};
   },

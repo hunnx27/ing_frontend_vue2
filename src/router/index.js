@@ -24,7 +24,8 @@ import CounselReg2View from "../views/counsel/CounselReg2View.vue";
 import CounselReg3View from "../views/counsel/CounselReg3View.vue";
 import CounselDetailView from "../views/counsel/CounselDetailView.vue";
 import CounselAnswerWrite from "../views/counsel/CounselAnswerWrite.vue";
-import CounselComentWrite from "../views/counsel/CounselComentWrite.vue";
+import CounselAnswerUpdate from "../views/counsel/CounselAnswerUpdate.vue";
+import CounselCommentWrite from "../views/counsel/CounselCommentWrite.vue";
 import CounselUpdate1View from "../views/counsel/CounselUpdate1View.vue";
 import CounselUpdate2View from "../views/counsel/CounselUpdate2View.vue";
 
@@ -206,7 +207,7 @@ const routes = [
     ],
   },
   {
-    path: "/counsel/CounselAnswerWrite",
+    path: "/counsel/counselAnswerWrite",
     component: TempLayout,
     children: [
       {
@@ -217,13 +218,24 @@ const routes = [
     ],
   },
   {
-    path: "/counsel/CounselComentWrite",
+    path: "/counsel/counselAnswerUpdate/:id",
     component: TempLayout,
     children: [
       {
         path: "",
-        name: "CounselComentWrite",
-        component: CounselComentWrite,
+        name: "CounselAnswerUpdate",
+        component: CounselAnswerUpdate,
+      },
+    ],
+  },
+  {
+    path: "/counsel/counselCommentWrite/:id",
+    component: TempLayout,
+    children: [
+      {
+        path: "",
+        name: "CounselCommentWrite",
+        component: CounselCommentWrite,
       },
     ],
   },
