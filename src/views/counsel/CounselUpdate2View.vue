@@ -63,24 +63,9 @@
 
     <div class="btn-wrap">
       <div class="step-title">공개설정</div>
-      <div>
-        <input
-          v-model="shortOpenYn"
-          name="shortOpenYn"
-          type="radio"
-          value="Y"
-        />
-        <label for="kindergartenChoice">비공개</label>
-        <input
-          v-model="shortOpenYn"
-          name="shortOpenYn"
-          type="radio"
-          value="N"
-        />
-        <label for="kindergartenChoice">공개</label>
-      </div>
+      <CheckOpenYNItem style="flex: 0.5 1 auto;" :selected="shortOpenYn=='Y'?'N':'Y'" @change="onChangeOpenYn"></CheckOpenYNItem>
     </div>
-    <v-card v-if="shortOpenYn=='Y'">
+    <v-card style="margin-top: 20px;" v-if="shortOpenYn=='Y'">
         <v-card-text>비공개글은 등록 후 24시간만 공개되며,<br/>
         답변이 완료되면 질문자와 답변자의 마이페이지>상담내역 에서만 확인할 수 있습니다.
         </v-card-text>
@@ -92,9 +77,11 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import counselApi from "@/api/counsel";
+import CheckOpenYNItem from "@/components/common/CheckOpenYNItem.vue";
 
 export default {
   name: "counselReg2View",
+  components: {CheckOpenYNItem},
   data() {
     return {
       id:null,
@@ -164,6 +151,9 @@ export default {
           alert('상담 등록 시스템 오류가 있습니다.');
         }
       );
+    },
+    onChangeOpenYn(value){
+      this.shortOpenYn = value=='Y'?'N':'Y';
     },
   },
   computed: {
@@ -275,14 +265,14 @@ select {
   }
 }
 .btn-wrap {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
-  text-align: right;
   .step-title {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translate(0, -50%);
+    // position: absolute;
+    // left: 0;
+    // top: 50%;
+    // transform: translate(0, -50%);
     margin-top: 0;
   }
 }

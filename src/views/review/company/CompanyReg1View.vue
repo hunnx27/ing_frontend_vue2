@@ -6,55 +6,23 @@
       <p style="color:black;margin-bottom:5px">철저한 익명을 보장합니다.</p>
       <p>원앤집 리뷰는 작성자 추정이 되지 않습니다. 기관에 대한 진솔한 정보를 공유하세요.</p>
     </div>
-    <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
-    <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeOrg" ref="CheckCompanyItem"></CheckCompanyItem>
+    <div class="step-title">관심기관</div>
+    <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeCompany" ref="CheckCompanyItem"></CheckCompanyItem>
+    <div class="column" style="margin-top: 10px">
+      <input type="text" class="line" name="" readonly placeholder="기관명을 두 글자 이상 입력하세요." @click="searchCompany"/>
+    </div>
 
-    <div class="step-title">질문과 관련된 지역을 선택하세요.</div>
-    <SelectAddressZone :selected='relatedZone' @change="onChangeZone" ref="selectAddressZone"></SelectAddressZone>
+    <div class="step-title">근무시 교사연차</div>
+    <div class="column" style="margin-top: 10px">
+      <input type="text" class="line" name="" placeholder="근무시 마지막 연차를 입력하세요."/>
+      <p>재직중이면 현재 연차를 입력해요(3년차는 3)</p>
+    </div>
+
+    <div class="btn-wrap">
+      <div class="step-title">연차공개설정</div>
+      <CheckOpenYNItem style="flex: 0.5 1 auto;" :selected="workExpOpenYn" @change="onChangeWorkExpOpenYn"></CheckOpenYNItem>
+    </div>
     
-
-    <div class="step-title">#태그입력</div>
-    <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <div class="column">
-          <input
-            type="text"
-            class="line"
-            name="majorSchool"
-            :value="addedTagDataStr"
-            readonly
-            v-bind="attrs" v-on="on"
-          />
-        </div>
-      </template>
-
-      <v-card>
-        <div class="layerpopup--tag">
-          <div class="pop-title">태그입력</div>
-          <div class="pop-body">
-            <div>
-              <span v-for="(item, idx) in addedTagData" :key="idx" class="btn-tag btn-tag--green">#{{item}}</span>
-              <span v-for="(item, idx) in addingTagData" :key="idx+'adding'" class="btn-tag btn-tag--green">#{{item}}</span>
-            </div>
-            <div class="wrap-inputbtn">
-              <input
-                type="text"
-                class="line"
-                name="taginput"
-                v-model="addTagData"
-              />
-              <button type="button" @click="addTag">추가</button>
-            </div>
-          </div>
-        </div>
-
-        <v-card-actions>
-          <v-btn color="primary" text @click="dialog = false">취소</v-btn>
-          <v-btn color="primary" text @click="confirmTagInput();dialog = false">확인</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
   </div>
   <!-- Wrap END -->
 </template>
@@ -63,12 +31,12 @@
 import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 import CheckCompanyItem from "@/components/common/CheckCompanyItem.vue";
-import SelectAddressZone from "@/components/common/SelectAddressZone.vue";
+import CheckOpenYNItem from "@/components/common/CheckOpenYNItem.vue";
 
 export default {
   name: "CompanyReg1View",
   components:{
-    CheckCompanyItem,SelectAddressZone
+    CheckCompanyItem, CheckOpenYNItem
   },
   data() {
     return {
@@ -78,66 +46,65 @@ export default {
       addingTagData: [],
       interestCompanyName: null,
       relatedZone: null,
+      workExpOpenYn: 'N',
     };
   },
   methods: {
     ...mapActions('Counsel',['setReq']),
-    doNext() {
-      const interestCompanyName = this.interestCompanyName;
-      const relatedZone = this.relatedZone;
-      const addedTagData = this.addedTagData
-      this.setReq({interestCompanyName, relatedZone, addedTagData});
-      this.$router.push("/counsel/counselReg2");
+    searchCompany(){
+      console.log('구현');
     },
-    getAddressSido(){
-      accountApi.getAddressSido((body)=>{
-        console.log(body);
-        this.sidoList = body;
-        this.getAddressBySido();
-      });
-    },
-    getAddressBySido(){
-      if(this.interestSidoCode){
-        accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
-          console.log(body);
-          this.sigugunList = body;
-        });
-      }
-    },
-    addTag(){
-      if(this.addedTagData.includes(this.addTagData)){
-        alert('이미 등록된 태그입니다.');
-        return;
-      }
-      if(this.addingTagData.includes(this.addTagData)){
-        alert('이미 등록된 태그입니다.');
-        return;
-      }
+    // doNext() {
+    //   const interestCompanyName = this.interestCompanyName;
+    //   const relatedZone = this.relatedZone;
+    //   const addedTagData = this.addedTagData
+    //   this.setReq({interestCompanyName, relatedZone, addedTagData});
+    //   this.$router.push("/counsel/counselReg2");
+    // },
+    // getAddressSido(){
+    //   accountApi.getAddressSido((body)=>{
+    //     console.log(body);
+    //     this.sidoList = body;
+    //     this.getAddressBySido();
+    //   });
+    // },
+    // getAddressBySido(){
+    //   if(this.interestSidoCode){
+    //     accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
+    //       console.log(body);
+    //       this.sigugunList = body;
+    //     });
+    //   }
+    // },
+    // addTag(){
+    //   if(this.addedTagData.includes(this.addTagData)){
+    //     alert('이미 등록된 태그입니다.');
+    //     return;
+    //   }
+    //   if(this.addingTagData.includes(this.addTagData)){
+    //     alert('이미 등록된 태그입니다.');
+    //     return;
+    //   }
       
-      this.addingTagData.push(this.addTagData);
-      this.addTagData = null;
-    },
-    confirmTagInput(){
-      this.addedTagData.push(...this.addingTagData);
-      this.addingTagData = [];
-    },
-    onChangeOrg(value){
+    //   this.addingTagData.push(this.addTagData);
+    //   this.addTagData = null;
+    // },
+    // confirmTagInput(){
+    //   this.addedTagData.push(...this.addingTagData);
+    //   this.addingTagData = [];
+    // },
+    onChangeCompany(value){
       this.interestCompanyName = value;
     },
-    onChangeZone(value){
-      this.relatedZone = value;
+    // onChangeZone(value){
+    //   this.relatedZone = value;
+    // }
+    onChangeWorkExpOpenYn(value){
+      this.workExpOpenYn = value;
     }
   },
   computed: {
     ...mapGetters(["user"]),
-    addedTagDataStr(){
-      var rs = "";
-      this.addedTagData.forEach((data, idx)=>{
-        rs+=`#${data}`;
-        if(idx != this.addedTagData.length-1) rs += ' '
-      })
-      return rs;
-    }
   },
   created() {
     const title = "기관리뷰 작성";
@@ -199,6 +166,20 @@ select {
     select {
       width: 50%;
     }
+  }
+}
+
+.btn-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  .step-title {
+    margin-top:0
+    // position: absolute;
+    // left: 0;
+    // top: 50%;
+    // transform: translate(0, -50%);
+    // margin-top: 0;
   }
 }
 

@@ -14,7 +14,6 @@
     <div class="column" style="margin-top: 10px">
       <input type="text" class="line" name="" readonly />
     </div>
-    <!-- label radio custom version [e] -->
 
     <div class="step-title">근무시 교사연차</div>
     <div class="column">
@@ -98,41 +97,6 @@ export default {
 .step-title {
   font-size: 20px;
   font-weight: 600;
-}
-
-.radio-wrap {
-  /* label radio custom version */
-  display: flex;
-  justify-content: space-between;
-
-  span {
-    display: flex;
-    width: 100%;
-
-    input[type="radio"] {
-      display: none;
-    }
-    label {
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
-      border: 1px solid #6200ea;
-      box-sizing: border-box;
-      text-align: center;
-      background: #fff;
-      color: #6200ea;
-    }
-    label.sm {
-      height: 30px;
-      line-height: 30px;
-      font-size: 13px;
-    }
-
-    input[type="radio"]:checked + label {
-      background: #6200ea;
-      color: #fff;
-    }
-  }
 }
 
 input[type="text"],
