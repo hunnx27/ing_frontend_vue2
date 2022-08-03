@@ -57,16 +57,13 @@ export default {
     const URI = `${ROOT_URI.COUNSEL}/answer/${id}/adopt`
     req.put(URI, body, success, fail);
   },
-  getCommentAll(answerId, param, success, fail){
-    const page = param.page!=null? param.page : 0;
-    const size = param.size!=null? param.size : 20;
-    const sort = param.sort!=null? param.sort : 'createdAt,desc';
-    const URI = `${ROOT_URI.COUNSEL}/comment/answer/${answerId}?page=${page}&size=${size}&sort=${sort}`
+  getCommentByAnswerId(answerId, success, fail){
+    const URI = `${ROOT_URI.COUNSEL}/comment/answer/${answerId}`
     req.get(URI, success, fail);
   },
   saveComment(form, success, fail){
     const URI = `${ROOT_URI.COUNSEL}/comment`
-    req.postMultipart(URI, form, success, fail);
+    req.post(URI, form, success, fail);
   },
   updateComment(id, form, success, fail){
     const URI = `${ROOT_URI.COUNSEL}/comment/${id}`
