@@ -73,4 +73,14 @@ export default {
     const URI = `${ROOT_URI.COUNSEL}/comment/${id}`
     req.delete(URI, success, fail);
   },
+  recommendAnswer(id, success, fail){
+    ///counsel/answer/{id}/adopt
+    const URI = `${ROOT_URI.COUNSEL}/answer/${id}/recommend`
+    req.post(URI, {}, success, fail);
+  },
+  noticeAnswer(id, success, fail){
+    ///counsel/answer/{id}/adopt
+    const URI = `${ROOT_URI.COUNSEL}/answer/${id}/notice`
+    req.post(URI, {}, success, fail);
+  },
 }

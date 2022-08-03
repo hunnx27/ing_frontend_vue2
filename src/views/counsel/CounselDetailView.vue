@@ -102,13 +102,13 @@
             <div class="comment">
               <div>
                 <span class="reply-num reply-num--on" @click="writeComment(answerItem.id)">댓글 ({{answerItem.commentCnt}})</span>
-                <span class="vote-num vote-num--on" @click="recommandAnswer(answerItem.id)">추천 ({{answerItem.recommandCnt}})</span>
+                <span class="vote-num vote-num--on" @click="recommendAnswer(answerItem.id, answerItem.isRecommend, answerItem.isMine)">추천 ({{answerItem.recommendCnt}})</span>
               </div>
               <div>
                 <v-btn class="purple-text darken-1 report-reply"  
                     v-if="item.counselStateCode!='A' && item.isMine==true" 
                     @click="dialog=true;selectedAnswerId=answerItem.id;">채택하기</v-btn>
-                <v-btn class="purple-text darken-1 report-reply" @click="reportAnswer(answerItem.id)">신고</v-btn>
+                <v-btn class="purple-text darken-1 report-reply" @click="noticeAnswer(answerItem.id, answerItem.isNotice)">신고</v-btn>
               </div>
             </div>
           </div>
@@ -230,11 +230,49 @@ export default {
       const URI = `/counsel/counselCommentWrite/${id}`;
       this.$router.push(URI);
     },
-    recommandAnswer(id){
-
-    },
-    adoptAnswer(id){
+    recommendAnswer(answerId, isRecommend, isMine){
       
+      if(isRecommend == true){
+        alert('이미추천되었습니다.');
+        return;
+      }
+      if(isMine == true){
+        alert('내글은 추천할 수 없습니다.');
+        return;
+      }
+      
+      counselApi.recommendAnswer(
+        answerId,
+        (body)=>{
+          console.log(body);
+          alert('추천되었습니다.');
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+    },
+    noticeAnswer(answerId, isNotice){
+      if(isNotice==true){
+        alert('이미 신고가 되었습니다.');
+        return;
+      }
+      const isConfirm = confirm('신고를 하시겠습니까?');
+      
+      if(!isConfirm){
+        return
+      }
+
+      counselApi.noticeAnswer(
+        answerId,
+        (body)=>{
+          console.log(body);
+          alert("신고되었습니다.");
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
     },
     saveAdopt(e){
 
