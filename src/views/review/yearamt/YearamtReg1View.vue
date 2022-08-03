@@ -14,8 +14,8 @@
     <div class="radio-wrap">
       <span>
         <input
-          v-model="interestOrgName"
-          name="interestOrg"
+          v-model="interestCompanyName"
+          name="interestCompany"
           type="radio"
           value=""
           id="kindergartenChoice"
@@ -24,8 +24,8 @@
       </span>
       <span>
         <input
-          v-model="interestOrgName"
-          name="interestOrg"
+          v-model="interestCompanyName"
+          name="interestCompany"
           type="radio"
           value=""
           id="careCenterChoice"
@@ -49,7 +49,7 @@
       <div class="radio-wrap">
         <span>
           <input
-            v-model="interestOrgName"
+            v-model="interestCompanyName"
             name="exposedSet"
             type="radio"
             value=""
@@ -59,7 +59,7 @@
         </span>
         <span>
           <input
-            v-model="interestOrgName"
+            v-model="interestCompanyName"
             name="exposedSet"
             type="radio"
             value=""

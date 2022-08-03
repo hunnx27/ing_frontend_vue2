@@ -174,12 +174,12 @@ export default {
             })
           }
           const id = body.id;
-          const interestOrgName = body.interestOrgName;
+          const interestCompanyName = body.interestCompanyName;
           const relatedZone = body.relatedZone;
           const qnaItem = body.qnaItem;
           const txt = body.txt;
           const shortOpenYn = body.shortOpenYn;
-          this.setReqAll({id, addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
+          this.setReqAll({id, addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn});
           this.getFindAddressSido(relatedZone);
           this.getAnswerList();
         },

@@ -6,7 +6,7 @@
       <p>유아교사(멘토)를 찾는데 활용됩니다.</p>
     </div>
     <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
-    <CheckOrgItem :selected="interestOrgName" isShowAll='false' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
+    <CheckOrgItem :selected="interestCompanyName" isShowAll='false' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
 
     <div class="step-title">질문과 관련된 지역을 선택하세요.</div>
     <SelectAddressZone :selected='relatedZone' @change="onChangeZone" ref="selectAddressZone"></SelectAddressZone>
@@ -75,7 +75,7 @@ export default {
       addTagData: null,
       addedTagData: [],
       addingTagData: [],
-      interestOrgName: null,
+      interestCompanyName: null,
       relatedZone: null,
       id: -1,
     };
@@ -83,10 +83,10 @@ export default {
   methods: {
     ...mapActions('Counsel',['setReq']),
     doNext() {
-      const interestOrgName = this.interestOrgName;
+      const interestCompanyName = this.interestCompanyName;
       const relatedZone = this.relatedZone;
       const addedTagData = this.addedTagData
-      this.setReq({interestOrgName, relatedZone, addedTagData});
+      this.setReq({interestCompanyName, relatedZone, addedTagData});
       this.$router.push("/counsel/counselUpdate2");
     },
     goBack(){
@@ -127,7 +127,7 @@ export default {
       this.addingTagData = [];
     },
     onChangeOrg(value){
-      this.interestOrgName = value;
+      this.interestCompanyName = value;
     },
     onChangeZone(value){
       this.relatedZone = value;
@@ -155,7 +155,7 @@ export default {
     this.$emit("setLayout", title, options);
 
     if(this.reqData!=null){
-      this.interestOrgName = this.reqData.interestOrgName;
+      this.interestCompanyName = this.reqData.interestCompanyName;
       this.addedTagData = [...this.reqData.addedTagData];
       this.relatedZone = this.reqData.relatedZone;
       this.id = this.reqData.id;

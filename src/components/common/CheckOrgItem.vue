@@ -2,7 +2,7 @@
   <div>
       <template v-if="isShowAll == 'true'">
         <input
-          v-model="interestOrgName"
+          v-model="interestCompanyName"
           type="radio"
           value="all"
           @change="onDataChanged"
@@ -10,14 +10,14 @@
         <label for="allChoice">전체</label>
       </template>
       <input
-        v-model="interestOrgName"
+        v-model="interestCompanyName"
         type="radio"
         value="kindergarten"
         @change="onDataChanged"
       />
       <label for="kindergartenChoice">유치원</label>
       <input
-        v-model="interestOrgName"
+        v-model="interestCompanyName"
         type="radio"
         value="daycarecenter"
         @change="onDataChanged"
@@ -33,12 +33,12 @@ export default {
   props: ['selected','isShowAll'],
   data() {
     return {
-      interestOrgName: this.selected,
+      interestCompanyName: this.selected,
     };
   },
   methods: {
     onDataChanged() {
-      this.$emit('change', this.interestOrgName) // input 이벤트 발생
+      this.$emit('change', this.interestCompanyName) // input 이벤트 발생
     }
   },
 };

@@ -4,7 +4,7 @@ const REQ_DATA = () => {
   return {
     id: -1,
     addedTagData : null,
-    interestOrgName : null,
+    interestCompanyName : null,
     relatedZone : null,
     qnaItem: null,
     txt:null,
@@ -18,10 +18,10 @@ export const Counsel = {
     reqData: REQ_DATA()
   },
   mutations: {
-    setReq(state, {interestOrgName, relatedZone, addedTagData}){
-      console.log('#mutaion.setReq : ', interestOrgName, relatedZone, addedTagData);
+    setReq(state, {interestCompanyName, relatedZone, addedTagData}){
+      console.log('#mutaion.setReq : ', interestCompanyName, relatedZone, addedTagData);
       const reqData = state.reqData;
-      reqData['interestOrgName'] = interestOrgName;
+      reqData['interestCompanyName'] = interestCompanyName;
       reqData['relatedZone'] = relatedZone;
       reqData['addedTagData'] = addedTagData;
       state.reqData = reqData;
@@ -35,12 +35,12 @@ export const Counsel = {
       state.reqData = reqData;
     },
     setReqAll(state, {
-      id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn
+      id,addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn
     }){
-      console.log('#mutaion.setReqAll : ', id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn);
+      console.log('#mutaion.setReqAll : ', id,addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn);
       const reqData = state.reqData;
       reqData['id'] = id;
-      reqData['interestOrgName'] = interestOrgName;
+      reqData['interestCompanyName'] = interestCompanyName;
       reqData['relatedZone'] = relatedZone;
       reqData['addedTagData'] = addedTagData;
       reqData['qnaItem'] = qnaItem;
@@ -53,19 +53,19 @@ export const Counsel = {
     }
   },
   actions: {
-    setReq({commit}, {interestOrgName, relatedZone, addedTagData}){
-      console.log('#actions.setReq : ', interestOrgName, relatedZone, addedTagData);
-      commit("setReq", {interestOrgName, relatedZone, addedTagData});
+    setReq({commit}, {interestCompanyName, relatedZone, addedTagData}){
+      console.log('#actions.setReq : ', interestCompanyName, relatedZone, addedTagData);
+      commit("setReq", {interestCompanyName, relatedZone, addedTagData});
     },
     setReq2({commit}, {qnaItem,txt,shortOpenYn}){
       console.log('#actions.setReq2 : ', qnaItem,txt,shortOpenYn);
       commit("setReq2", {qnaItem,txt,shortOpenYn});
     },
     setReqAll({commit}, 
-      {id, addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn}
+      {id, addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn}
     ){
-      console.log('#actions.setReqAll : ', id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn);
-      commit("setReqAll", {id,addedTagData,interestOrgName,relatedZone,qnaItem,txt,shortOpenYn});
+      console.log('#actions.setReqAll : ', id,addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn);
+      commit("setReqAll", {id,addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn});
     },
     clearReq({commit}){
       console.log('clearReq');
