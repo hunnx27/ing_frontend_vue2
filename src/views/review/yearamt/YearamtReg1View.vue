@@ -10,29 +10,7 @@
       </p>
     </div>
     <div class="step-title">관심기관</div>
-    <!-- label radio custom version [s] -->
-    <div class="radio-wrap">
-      <span>
-        <input
-          v-model="interestCompanyName"
-          name="interestCompany"
-          type="radio"
-          value=""
-          id="kindergartenChoice"
-        />
-        <label for="kindergartenChoice">유치원</label>
-      </span>
-      <span>
-        <input
-          v-model="interestCompanyName"
-          name="interestCompany"
-          type="radio"
-          value=""
-          id="careCenterChoice"
-        />
-        <label for="careCenterChoice">어린이집</label>
-      </span>
-    </div>
+    <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeOrg" ref="CheckCompanyItem"></CheckCompanyItem>
     <div class="column" style="margin-top: 10px">
       <input type="text" class="line" name="" readonly />
     </div>
@@ -80,7 +58,9 @@ import accountApi from "@/api/account";
 export default {
   name: "TempView",
   data() {
-    return {};
+    return {
+      interestCompanyName:null,
+    };
   },
   methods: {
     ...mapActions(["logout"]),

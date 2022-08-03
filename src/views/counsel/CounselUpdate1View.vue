@@ -6,7 +6,7 @@
       <p>유아교사(멘토)를 찾는데 활용됩니다.</p>
     </div>
     <div class="step-title">질문과 관련된 기관을 선택하세요.</div>
-    <CheckOrgItem :selected="interestCompanyName" isShowAll='false' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
+    <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeOrg" ref="CheckCompanyItem"></CheckCompanyItem>
 
     <div class="step-title">질문과 관련된 지역을 선택하세요.</div>
     <SelectAddressZone :selected='relatedZone' @change="onChangeZone" ref="selectAddressZone"></SelectAddressZone>
@@ -61,13 +61,13 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
-import CheckOrgItem from "@/components/common/CheckOrgItem.vue";
+import CheckCompanyItem from "@/components/common/CheckCompanyItem.vue";
 import SelectAddressZone from "@/components/common/SelectAddressZone.vue";
 
 export default {
   name: "counselReg1View",
   components:{
-    CheckOrgItem,SelectAddressZone
+    CheckCompanyItem,SelectAddressZone
   },
   data() {
     return {

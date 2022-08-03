@@ -2,7 +2,7 @@
   <!-- Wrap START -->
   <div class="myinfo page-wrap">
     <div class="step-title">관심기관</div>
-    <CheckOrgItem :selected="interestCompanyName" isShowAll='true' @change="onChangeOrg" ref="checkOrgItem"></CheckOrgItem>
+    <CheckCompanyItem :selected="interestCompanyName" isShowAll='true' @change="onChangeOrg" ref="CheckCompanyItem"></CheckCompanyItem>
 
     <div class="step-title">출생연도</div>
     <div class="column">
@@ -47,13 +47,13 @@
 <script>
 import accountApi from '@/api/account'
 import { mapActions, mapMutations, mapGetters } from "vuex";
-import CheckOrgItem from "@/components/common/CheckOrgItem.vue";
+import CheckCompanyItem from "@/components/common/CheckCompanyItem.vue";
 import SelectAddressZone from "@/components/common/SelectAddressZone.vue";
 
 export default {
   name: 'myinfoView',
   components:{
-    CheckOrgItem,SelectAddressZone
+    CheckCompanyItem,SelectAddressZone
   },
   data(){
     return{
