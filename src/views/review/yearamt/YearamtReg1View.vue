@@ -10,41 +10,20 @@
       </p>
     </div>
     <div class="step-title">관심기관</div>
-    <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeOrg" ref="CheckCompanyItem"></CheckCompanyItem>
+    <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeCompany" ref="CheckCompanyItem"></CheckCompanyItem>
     <div class="column" style="margin-top: 10px">
-      <input type="text" class="line" name="" readonly />
+      <input type="text" class="line" name="" readonly placeholder="기관명을 두 글자 이상 입력하세요." @click="searchCompany" v-model="companyName" style="text-align:center;font-weight:bolder;cursor:pointer;"/>
     </div>
 
     <div class="step-title">근무시 교사연차</div>
     <div class="column">
-      <input type="number" class="line" name="" readonly />
+      <input type="number" class="line" name="" @change="onChangeWorkExp($event)" :value="workExp"/>
       <p class="discription">재직중이면 현재 연차를 입력해요(3년차는 3)</p>
     </div>
 
-    <div class="column exposed-setting">
+    <div class="btn-wrap">
       <div class="step-title">연차공개설정</div>
-      <div class="radio-wrap">
-        <span>
-          <input
-            v-model="interestCompanyName"
-            name="exposedSet"
-            type="radio"
-            value=""
-            id="unExposed"
-          />
-          <label for="unExposed" class="sm">비공개</label>
-        </span>
-        <span>
-          <input
-            v-model="interestCompanyName"
-            name="exposedSet"
-            type="radio"
-            value=""
-            id="exposed"
-          />
-          <label for="exposed" class="sm">공개</label>
-        </span>
-      </div>
+      <CheckOpenYNItem style="flex: 0.5 1 auto;" :selected="workExpOpenYn" @change="onChangeWorkExpOpenYn"></CheckOpenYNItem>
     </div>
   </div>
   <!-- Wrap END -->
@@ -53,28 +32,79 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
+import CheckCompanyItem from "@/components/common/CheckCompanyItem.vue";
+import CheckOpenYNItem from "@/components/common/CheckOpenYNItem.vue";
 
 export default {
   name: "TempView",
   data() {
     return {
-      interestCompanyName:null,
+      interestCompanyName:'kindergarten',
+      workExpOpenYn:'Y',
+      workExp:null,
+      zone:null,
+      companyName:null,
     };
+  },
+  components:{
+    CheckCompanyItem, CheckOpenYNItem
   },
   methods: {
     ...mapActions(["logout"]),
+    ...mapActions('YearamtReview',['setReq1', 'clearReq']),
+    doNext() {
+      //FIXME need Validation
+      this.setStore();
+      this.$router.push("/review/yearamt/yearamtReg2");
+    },
+    goBack(){
+      this.clearReq();
+      this.$router.go(-1);
+    },
+    searchCompany(){
+      this.$router.push('/common/searchCompany')
+      
+    },
+    onChangeCompany(value){
+      this.interestCompanyName = value;
+      this.setStore();
+    },
+    onChangeWorkExp(event){
+      this.workExp = event.target.value;
+      this.setStore();
+    },
+    onChangeWorkExpOpenYn(value){
+      this.workExpOpenYn = value;
+      this.setStore();
+    },
+    setStore(){
+      const interestCompanyName = this.interestCompanyName;
+      const workExp = this.workExp
+      const workExpOpenYn = this.workExpOpenYn
+      const zone = this.zone
+      this.setReq1({interestCompanyName, workExp, workExpOpenYn, zone})
+    }
+
   },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters("YearamtReview",["reqData"]),
   },
   created() {
-    const title = "연봉리뷰등록1";
+    const title = "연봉리뷰 등록";
     const options = {
       isShowCheckBtn: false,
-      isShowNextBtn: false,
+      isShowNextBtn: true,
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    if (this.reqData != null) {
+      const yearamt = this.reqData;
+      if(yearamt.interestCompanyName) this.interestCompanyName = yearamt.interestCompanyName;
+      if(yearamt.workExp) this.workExp = yearamt.workExp;
+      if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
+      if(yearamt.zone) this.zone = yearamt.zone;
+      if(yearamt.companyName) this.companyName = yearamt.companyName;
+    }
   },
 };
 </script>
