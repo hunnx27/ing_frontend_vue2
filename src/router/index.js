@@ -7,7 +7,8 @@ import LoginView from "../views/login/LoginView.vue";
 import SignupView from "../views/signup/SignupView.vue";
 import MenuLayout from "../layouts/MenuLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
-import TempLayout from "../layouts/TempLayout.vue";
+import StepLayout from "../layouts/StepLayout.vue";
+import SearchLayout from "../layouts/SearchLayout.vue";
 import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
 // Menu
@@ -44,6 +45,9 @@ import InterviewReg3View from "../views/review/interview/InterviewReg3View.vue";
 import YearamtReg1View from "../views/review/yearamt/YearamtReg1View.vue";
 import YearamtReg2View from "../views/review/yearamt/YearamtReg2View.vue";
 import YearamtReg3View from "../views/review/yearamt/YearamtReg3View.vue";
+
+// Common
+import SearchCompanyView from "../views/common/SearchCompanyView.vue";
 
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
@@ -99,7 +103,7 @@ const routes = [
   },
   {
     path: "/signup",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -110,11 +114,26 @@ const routes = [
   },
 
   /**
+   * Common
+   */
+  //SearchCompanyView
+  {
+    path: "/common/searchCompany",
+    component: SearchLayout,
+    children: [
+      {
+        path: "",
+        name: "searchCompanyView",
+        component: SearchCompanyView,
+      },
+    ],
+  },
+  /**
    * Menu.mypage
    */
   {
     path: "/menu/mypage",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -125,7 +144,7 @@ const routes = [
   },
   {
     path: "/menu/mypage/myinfo",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -136,7 +155,7 @@ const routes = [
   },
   {
     path: "/menu/mypage/pointHistory",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -150,7 +169,7 @@ const routes = [
    */
   {
     path: "/menu/accountManage",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -164,7 +183,7 @@ const routes = [
    */
   {
     path: "/counsel/counselReg1",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -175,7 +194,7 @@ const routes = [
   },
   {
     path: "/counsel/counselReg2",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -186,7 +205,7 @@ const routes = [
   },
   {
     path: "/counsel/counselReg3",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -197,7 +216,7 @@ const routes = [
   },
   {
     path: "/counsel/counselDetail/:id",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -208,7 +227,7 @@ const routes = [
   },
   {
     path: "/counsel/counselAnswerWrite",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -219,7 +238,7 @@ const routes = [
   },
   {
     path: "/counsel/counselAnswerUpdate/:id",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -230,7 +249,7 @@ const routes = [
   },
   {
     path: "/counsel/counselCommentWrite/:id",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -241,7 +260,7 @@ const routes = [
   },
   {
     path: "/counsel/counselUpdate1",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -252,7 +271,7 @@ const routes = [
   },
   {
     path: "/counsel/counselUpdate2",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -267,7 +286,7 @@ const routes = [
    */
   {
     path: "/review/company/companyReg1",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -278,7 +297,7 @@ const routes = [
   },
   {
     path: "/review/company/companyReg2",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -289,7 +308,7 @@ const routes = [
   },
   {
     path: "/review/company/companyReg3",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -300,7 +319,7 @@ const routes = [
   },
   {
     path: "/review/company/companyReg4",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -315,7 +334,7 @@ const routes = [
    */
   {
     path: "/review/interview/interviewReg1",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -326,7 +345,7 @@ const routes = [
   },
   {
     path: "/review/interview/interviewReg2",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -337,7 +356,7 @@ const routes = [
   },
   {
     path: "/review/interview/interviewReg3",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -352,7 +371,7 @@ const routes = [
    */
   {
     path: "/review/yearamt/yearamtReg1",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -363,7 +382,7 @@ const routes = [
   },
   {
     path: "/review/yearamt/yearamtReg2",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -374,7 +393,7 @@ const routes = [
   },
   {
     path: "/review/yearamt/yearamtReg3",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -436,7 +455,7 @@ const routes = [
   },
   {
     path: "/sample/ImageUpload",
-    component: TempLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
