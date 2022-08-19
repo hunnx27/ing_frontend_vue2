@@ -62,6 +62,8 @@ export default {
       // FIXME 어찌할까?
 
       this.$router.replace({name: prev, query: {companyId: companyId, companyName: companyName}})
+
+      // FIXME SearchCompany Store를 만들어서 공통으로 사용함!
       
     }
   },
