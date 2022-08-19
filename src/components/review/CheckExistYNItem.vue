@@ -11,7 +11,7 @@
             @change="onDataChanged"
             :id="uid+'-existY'"
           />
-          <img style="width:200px" :for="uid+'-existY'" :src="yesBtnUrl"/>
+          <img :for="uid+'-existY'" :src="yesBtnUrl"/>
         </label>
         
       </span>
@@ -26,7 +26,7 @@
             @change="onDataChanged"
             :id="uid+'-existN'"
           />
-          <img style="width:200px" :for="uid+'-existN'" :src="noBtnUrl"/>
+          <img :for="uid+'-existN'" :src="noBtnUrl"/>
         </label>
       </span>
       
@@ -73,17 +73,19 @@ export default {
 .radio-wrap {
   /* label radio custom version */
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  flex-shrink:0;
 
   span {
-    display: flex;
-    width: 100%;
-    input[type="radio"] {
-      display: none;
-    }
-    label {
-      display:inline-flex;
-      width: 100%;
+    label{
+
+      input[type="radio"] {
+        display: none;
+      }
+      img{
+        width:95%;
+        max-height:100px;
+      }
     }
   }
 }
