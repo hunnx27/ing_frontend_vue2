@@ -22,6 +22,7 @@ export default {
   name: "TempView",
   data() {
     return {
+      prevRoute:null,
       interestCompanyName:null,
       interestZone: null,
     };
@@ -31,7 +32,9 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
-    ...mapActions('YearamtReview',['setCompany']),
+    ...mapActions('CompanyReview',{setCompanyInCompanyReview:'setCompany'}),
+    ...mapActions('YearamtReview',{setCompanyInYearamtReview:'setCompany'}),
+    ...mapActions('InterviewReview',{setCompanyInInterReview:'setCompany'}),
     searchCompany(){
       this.$router.push('/searchCompany')
     },
@@ -39,8 +42,27 @@ export default {
       this.interestZone = value;
     },
     selectCompany(companyId, companyName){
-      this.setCompany({companyId, companyName})
-      this.$router.go(-1);
+      const path = this.prevRoute.path;
+      const prev = this.prevRoute.name;
+      debugger;
+
+      // FIXME 선택할것
+      // switch(prev){
+      //   case 'CompanyReg1View':
+      //     this.setCompanyInCompanyReview({companyId, companyName})
+      //     break;
+      //   case 'YearamtReg1View':
+      //     this.setCompanyInYearamtReview({companyId, companyName})
+      //     break;
+      //   case 'InterviewReg1View':
+      //     this.setCompanyInInterReview({companyId, companyName})
+      //     break;
+      // }
+      //this.$router.go(-1);
+      // FIXME 어찌할까?
+
+      this.$router.replace({name: prev, query: {companyId: companyId, companyName: companyName}})
+      
     }
   },
   computed: {
@@ -55,6 +77,11 @@ export default {
     };
     this.$emit("setLayout", title, options);
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
+},
 };
 </script>
 

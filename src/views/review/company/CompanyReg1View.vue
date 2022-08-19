@@ -1,28 +1,30 @@
 <template>
-  
   <!-- Wrap START -->
   <div class="CompanyReg1View page-wrap">
     <div class="page-txt">
-      <p style="color:black;margin-bottom:5px">철저한 익명을 보장합니다.</p>
-      <p>원앤집 리뷰는 작성자 추정이 되지 않습니다. 기관에 대한 진솔한 정보를 공유하세요.</p>
+      <p>
+        <span style="color: #000">철저한 익명을 보장합니다.</span>
+        <br />
+        원앤집 리뷰는 작성자 추정이 되지 않습니다. 기관에 대한 진솔한 정보를
+        공유하세요.
+      </p>
     </div>
     <div class="step-title">관심기관</div>
     <CheckCompanyItem :selected="interestCompanyName" isShowAll='false' @change="onChangeCompany" ref="CheckCompanyItem"></CheckCompanyItem>
     <div class="column" style="margin-top: 10px">
-      <input type="text" class="line" name="" readonly placeholder="기관명을 두 글자 이상 입력하세요." @click="searchCompany"/>
+      <input type="text" class="line" name="" readonly placeholder="기관명을 두 글자 이상 입력하세요." @click="searchCompany" v-model="companyName" style="text-align:center;font-weight:bolder;cursor:pointer;"/>
     </div>
 
     <div class="step-title">근무시 교사연차</div>
-    <div class="column" style="margin-top: 10px">
-      <input type="text" class="line" name="" placeholder="근무시 마지막 연차를 입력하세요."/>
-      <p>재직중이면 현재 연차를 입력해요(3년차는 3)</p>
+    <div class="column">
+      <input type="number" class="line" name="" @change="onChangeWorkExp($event)" :value="workExp"/>
+      <p class="discription">재직중이면 현재 연차를 입력해요(3년차는 3)</p>
     </div>
 
     <div class="btn-wrap">
       <div class="step-title">연차공개설정</div>
       <CheckOpenYNItem style="flex: 0.5 1 auto;" :selected="workExpOpenYn" @change="onChangeWorkExpOpenYn"></CheckOpenYNItem>
     </div>
-    
   </div>
   <!-- Wrap END -->
 </template>
@@ -35,85 +37,75 @@ import CheckOpenYNItem from "@/components/common/CheckOpenYNItem.vue";
 
 export default {
   name: "CompanyReg1View",
+  data() {
+    return {
+      interestCompanyName:'kindergarten',
+      workExpOpenYn:'Y',
+      workExp:null,
+      companyName:null,
+    };
+  },
   components:{
     CheckCompanyItem, CheckOpenYNItem
   },
-  data() {
-    return {
-      dialog: false,
-      addTagData: null,
-      addedTagData: [],
-      addingTagData: [],
-      interestCompanyName: null,
-      relatedZone: null,
-      workExpOpenYn: 'N',
-    };
-  },
   methods: {
-    ...mapActions('Counsel',['setReq']),
-    searchCompany(){
-      console.log('구현');
+    ...mapActions(["logout"]),
+    ...mapActions('CompanyReview',['setReq1', 'clearReq']),
+    doNext() {
+      //FIXME need Validation
+      this.setStore();
+      this.$router.push("/review/company/companyReg2");
     },
-    // doNext() {
-    //   const interestCompanyName = this.interestCompanyName;
-    //   const relatedZone = this.relatedZone;
-    //   const addedTagData = this.addedTagData
-    //   this.setReq({interestCompanyName, relatedZone, addedTagData});
-    //   this.$router.push("/counsel/counselReg2");
-    // },
-    // getAddressSido(){
-    //   accountApi.getAddressSido((body)=>{
-    //     console.log(body);
-    //     this.sidoList = body;
-    //     this.getAddressBySido();
-    //   });
-    // },
-    // getAddressBySido(){
-    //   if(this.interestSidoCode){
-    //     accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
-    //       console.log(body);
-    //       this.sigugunList = body;
-    //     });
-    //   }
-    // },
-    // addTag(){
-    //   if(this.addedTagData.includes(this.addTagData)){
-    //     alert('이미 등록된 태그입니다.');
-    //     return;
-    //   }
-    //   if(this.addingTagData.includes(this.addTagData)){
-    //     alert('이미 등록된 태그입니다.');
-    //     return;
-    //   }
+    goBack(){
+      this.clearReq();
+      this.$router.go(-1);
+    },
+    searchCompany(){
+      this.$router.push('/common/searchCompany')
       
-    //   this.addingTagData.push(this.addTagData);
-    //   this.addTagData = null;
-    // },
-    // confirmTagInput(){
-    //   this.addedTagData.push(...this.addingTagData);
-    //   this.addingTagData = [];
-    // },
+    },
     onChangeCompany(value){
       this.interestCompanyName = value;
+      this.setStore();
     },
-    // onChangeZone(value){
-    //   this.relatedZone = value;
-    // }
+    onChangeWorkExp(event){
+      this.workExp = event.target.value;
+      this.setStore();
+    },
     onChangeWorkExpOpenYn(value){
       this.workExpOpenYn = value;
+      this.setStore();
+    },
+    setStore(){
+      const interestCompanyName = this.interestCompanyName;
+      const workExp = this.workExp
+      const workExpOpenYn = this.workExpOpenYn
+      this.setReq1({interestCompanyName, workExp, workExpOpenYn})
     }
+
   },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters("CompanyReview",["reqData"]),
+  },
+  mounted(){
+console.log(this.$route.query)
   },
   created() {
-    const title = "기관리뷰 작성";
+    console.log(this.$route.params)
+    const title = "기관리뷰 등록";
     const options = {
       isShowCheckBtn: false,
       isShowNextBtn: true,
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    if (this.reqData != null) {
+      const company = this.reqData;
+      if(company.interestCompanyName) this.interestCompanyName = company.interestCompanyName;
+      if(company.workExp) this.workExp = company.workExp;
+      if(company.workExpOpenYn) this.workExpOpenYn = company.workExpOpenYn;
+      if(company.companyName) this.companyName = company.companyName;
+    }
   },
 };
 </script>
@@ -137,12 +129,9 @@ export default {
   font-size: 20px;
   font-weight: 600;
 }
-input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-}
-input[type="text"] {
+
+input[type="text"],
+input[type="number"] {
   padding: 10px;
   background: #fff;
   box-sizing: border-box;
@@ -153,7 +142,8 @@ select {
   box-sizing: border-box;
 }
 .column {
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"] {
     width: 100%;
   }
   select {
@@ -167,104 +157,21 @@ select {
       width: 50%;
     }
   }
-}
+  &.exposed-setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.btn-wrap {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  .step-title {
-    margin-top:0
-    // position: absolute;
-    // left: 0;
-    // top: 50%;
-    // transform: translate(0, -50%);
-    // margin-top: 0;
-  }
-}
-
-label {
-  margin-right: 10px;
-}
-
-.v-dialog {
-  overflow: hidden;
-  border-radius: 15px;
-}
-.layerpopup {
-  &--tag {
-    background: #fff;
-
-    .pop-title {
-      height: 90px;
-      line-height: 90px;
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      background: #e4034f;
-      color: #fff;
+    .step-title {
+      margin-top: 0;
     }
-
-    .pop-body {
-      padding: 20px;
-    }
-
-    .btn-tag {
-      display: inline-block;
-      margin: 10px 10px 0 10px;
+    .radio-wrap {
       width: 100px;
-      height: 30px;
-      font-size: 15px;
-      line-height: 30px;
-      color: #fff;
-      text-align: center;
-      &--purple {
-        background: #673bb7;
-      }
-      &--blue {
-        background: #465a65;
-      }
-      &--green {
-        background: #689f39;
-      }
-      &--gray {
-        background: #607d8b;
-      }
-    }
-
-    .wrap-inputbtn {
-      position: relative;
-      margin-top: 20px;
-      padding-right: 60px;
-      input {
-        width: 100%;
-      }
-      button {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 55px;
-        height: 46px;
-        line-height: 46px;
-        background: #009788;
-        color: #fff;
-      }
     }
   }
 }
-
-.v-dialog > .v-card > .v-card__actions {
-  padding: 0;
-}
-.v-card__actions > .v-btn.v-btn {
-  margin: 0 !important;
-  padding: 28px 0;
-  width: 50%;
-  background: #f7f7f7;
-  border-radius: 0;
-  box-sizing: border-box;
-  color: #8c8c8c !important;
-  font-weight: 600;
-  border: 1px solid #b5b5b5;
+.discription {
+  font-size: 14px;
+  color: #6200ea;
 }
 </style>

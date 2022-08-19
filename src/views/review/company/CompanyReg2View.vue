@@ -1,26 +1,31 @@
 <template>
   
   <!-- Wrap START -->
-  <div class="CompanyReg2View page-wrap">
-    <div class="page-txt">
-      <p style="color:red;margin-bottom:5px">원앤집은 선택형 리뷰 시스템으로</p>
-      <p style="color:red"><span style="color:orange">익명</span>을 보장합니다.</p>
+  <div class="CompanyReg2View">
+    <div class="page-txt" style="padding:30px 15px 15px">
+      <p>
+        <span style="color: red">원앤집은 선택형 리뷰 시스템으로</span><br />
+        <span style="color: orange">익명을 보장합니다.</span>
+      </p>
+    </div>
+    <div class="page_txt" style="height:150px;position:relative;background-size:cover;background-repeat: no-repeat;" :style="{backgroundImage: `url('/resources/images/review_bg.jpg')`}">
+      <p style="color:white;line-height:26px;text-align:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
+        <span style="font-size:20px;font-weight:bolder">{{companyName}}</span><br/>
+        <span style="">경기도 고양시 덕양구{{sigugunName}}</span><br/>
+        <span style="">국공립{{establishmentTypeName}}</span><br/>
+      </p>
     </div>
 
-    <div class="page-txt">
-      <p>고향시립원흥어린이집</p>
-      <p>경기도 고양시 덕양구</p>
-      <p>국공립</p>
-    </div>
+    <div class="page-wrap">
+      <div class="step-title">한줄평가</div>
+      <div class="column" style="margin-top: 10px">
+        <textarea></textarea>
+      </div>
 
-    <div class="step-title">한줄평가</div>
-    <div class="column" style="margin-top: 10px">
-      <textarea></textarea>
+      
+      <div class="step-title">계속 근무하고 싶나요?</div>
+      <CheckLikeItem style="flex: 0.5 1 auto;" :selected="likeCode" @change="onChangeLikeCode"></CheckLikeItem>
     </div>
-
-    
-    <div class="step-title">계속 근무하고 싶나요?</div>
-    <CheckLikeItem style="flex: 0.5 1 auto;" :selected="likeCode" @change="onChangeLikeCode"></CheckLikeItem>
     
   </div>
   <!-- Wrap END -->
@@ -55,12 +60,24 @@ export default {
   },
   computed: {
     ...mapGetters(["user"]),
+    ...mapGetters("CompanyReview",["reqData"]),
   },
   created() {
-    const title = "기관리뷰 작성";
+    if (this.reqData != null) {
+      const yearamt = this.reqData;
+      //if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
+      if(yearamt.amt) this.amt = yearamt.amt;
+      if(yearamt.etcYn) this.etcYn = yearamt.etcYn;
+      if(yearamt.endYn) this.endYn = yearamt.endYn;
+      if(yearamt.etcTemp)this.etcTemp = yearamt.etcTemp;
+      if(yearamt.etcObj)this.etcObj = yearamt.etcObj;
+      if(yearamt.etcObj)this.etcItem = Object.keys(yearamt.etcObj).map(item=>Number(item));
+      if(yearamt.companyName) this.companyName = yearamt.companyName;
+    }
+    const title = this.companyName? this.companyName : "-";
     const options = {
-      isShowCheckBtn: false,
-      isShowNextBtn: true,
+      isShowCheckBtn: true,
+      isShowNextBtn: false,
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
