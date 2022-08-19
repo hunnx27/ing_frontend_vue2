@@ -1,6 +1,6 @@
 <template>
   <!-- Wrap START -->
-  <div class="TempView page-wrap">
+  <div class="YearamtReg1View page-wrap">
     <div class="page-txt">
       <p>
         <span style="color: #000">철저한 익명을 보장합니다.</span>
@@ -36,13 +36,12 @@ import CheckCompanyItem from "@/components/common/CheckCompanyItem.vue";
 import CheckOpenYNItem from "@/components/common/CheckOpenYNItem.vue";
 
 export default {
-  name: "TempView",
+  name: "YearamtReg1View",
   data() {
     return {
       interestCompanyName:'kindergarten',
       workExpOpenYn:'Y',
       workExp:null,
-      zone:null,
       companyName:null,
     };
   },
@@ -81,8 +80,7 @@ export default {
       const interestCompanyName = this.interestCompanyName;
       const workExp = this.workExp
       const workExpOpenYn = this.workExpOpenYn
-      const zone = this.zone
-      this.setReq1({interestCompanyName, workExp, workExpOpenYn, zone})
+      this.setReq1({interestCompanyName, workExp, workExpOpenYn})
     }
 
   },
@@ -102,7 +100,6 @@ export default {
       if(yearamt.interestCompanyName) this.interestCompanyName = yearamt.interestCompanyName;
       if(yearamt.workExp) this.workExp = yearamt.workExp;
       if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
-      if(yearamt.zone) this.zone = yearamt.zone;
       if(yearamt.companyName) this.companyName = yearamt.companyName;
     }
   },

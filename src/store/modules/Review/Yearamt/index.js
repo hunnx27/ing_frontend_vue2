@@ -5,9 +5,13 @@ const REQ_DATA = () => {
     interestCompanyName:null,
     workExp:null,
     workExpOpenYn:null,
-    zone:null,
     companyId:null,
     companyName:null,
+    amt:null, 
+    etcYn:null, 
+    endYn:null, 
+    etcObj:null, 
+    etcTemp:null,
   }
 }
 
@@ -17,13 +21,12 @@ export const YearamtReview = {
     reqData: REQ_DATA()
   },
   mutations: {
-    setReq1(state, {interestCompanyName, workExp, workExpOpenYn, zone}){
+    setReq1(state, {interestCompanyName, workExp, workExpOpenYn}){
       console.log('#mutaion.setReq : ', interestCompanyName, workExp, workExpOpenYn);
       const reqData = state.reqData;
       reqData['interestCompanyName'] = interestCompanyName;
       reqData['workExp'] = workExp;
       reqData['workExpOpenYn'] = workExpOpenYn;
-      reqData['zone'] = zone;
       state.reqData = reqData;
     },
     setCompany(state, {companyId, companyName}){
@@ -33,18 +36,33 @@ export const YearamtReview = {
       reqData['companyName'] = companyName;
       state.reqData = reqData;
     },
+    setReq2(state, {amt, etcYn, endYn, etcObj, etcTemp}){
+      console.log('#mutaion.setReq2 : ', amt, etcYn, endYn, etcObj, etcTemp);
+      const reqData = state.reqData;
+      reqData['amt'] = amt;
+      reqData['etcYn'] = etcYn;
+      reqData['endYn'] = endYn;
+      reqData['etcObj'] = etcObj;
+      reqData['etcTemp'] = etcTemp;
+      state.reqData = reqData;
+    },
     clearReq(state){
       state.reqData = REQ_DATA();
     }
   },
   actions: {
-    setReq1({commit}, {interestCompanyName, workExp, workExpOpenYn, zone}){
-      console.log('#actions.setReq : ', interestCompanyName, workExp, workExpOpenYn, zone);
-      commit("setReq1", {interestCompanyName, workExp, workExpOpenYn, zone});
+    setReq1({commit}, {interestCompanyName, workExp, workExpOpenYn}){
+      console.log('#actions.setReq : ', interestCompanyName, workExp, workExpOpenYn);
+      commit("setReq1", {interestCompanyName, workExp, workExpOpenYn});
     },
     setCompany({commit}, {companyId, companyName}){
       console.log('#actions.setCompany : ', companyId, companyName);
       commit("setCompany", {companyId, companyName});
+    },
+    setReq2({commit}, {amt, etcYn, endYn, etcObj, etcTemp}){
+      
+      console.log('#actions.setReq2 : ', amt, etcYn, endYn, etcObj, etcTemp);
+      commit("setReq2", {amt, etcYn, endYn, etcObj, etcTemp});
     },
     clearReq({commit}){
       commit("clearReq");
