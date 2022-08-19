@@ -54,6 +54,11 @@ export default {
   },
   methods: {
     ...mapActions('Counsel',['setReq']),
+    doNext() {
+      //FIXME need Validation
+      //this.setStore();
+      this.$router.push("/review/company/companyReg3");
+    },
     onChangeLikeCode(value){
       this.likeCode = value;
     }
@@ -76,8 +81,8 @@ export default {
     }
     const title = this.companyName? this.companyName : "-";
     const options = {
-      isShowCheckBtn: true,
-      isShowNextBtn: false,
+      isShowCheckBtn: false,
+      isShowNextBtn: true,
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
