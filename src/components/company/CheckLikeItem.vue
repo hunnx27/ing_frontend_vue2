@@ -114,7 +114,7 @@ export default {
 .radio-wrap {
   /* label radio custom version */
   display: flex;
-  justify-content: end;
+  justify-content: space-around;
   flex-shrink:0;
 
   p {
