@@ -16,15 +16,18 @@
       </p>
     </div>
 
-    <div class="page-wrap">
-      <div class="step-title">한줄평가</div>
+    <div class="page-wrap" style="padding-top:15px;">
+      <div class="step-title" style="display:flex;justify-content: space-between;align-items: center;">
+        한줄평가
+        <span style="font-weight: normal;font-size: 14px;color: #888;">최소20자 최대300자</span>
+      </div>
       <div class="column" style="margin-top: 10px">
-        <textarea></textarea>
+        <textarea v-model="txt" name="" id="" cols="0" rows="0"></textarea>
       </div>
 
       
       <div class="step-title">계속 근무하고 싶나요?</div>
-      <CheckLikeItem style="flex: 0.5 1 auto;" :selected="likeCode" @change="onChangeLikeCode"></CheckLikeItem>
+      <CheckLikeItem style="flex: 0.5 1 auto;margin-top:20px;" :selected="likeCode" uid="work" @change="onChangeLikeCode"></CheckLikeItem>
     </div>
     
   </div>
@@ -43,24 +46,28 @@ export default {
   },
   data() {
     return {
-      dialog: false,
-      addTagData: null,
-      addedTagData: [],
-      addingTagData: [],
-      interestCompanyName: null,
-      relatedZone: null,
-      likeCode: null,
+      companyName:null, //선택한 기관명
+      sigugunName: null, //선택한 기관의 시군구명
+      establishmentTypeName: null,//선택한 기관의 기관유형
+
+      txt:null, //한줄평가
+      likeCode: null, //좋아요
     };
   },
   methods: {
-    ...mapActions('Counsel',['setReq']),
+    ...mapActions('CompanyReview',['setReq2']),
     doNext() {
       //FIXME need Validation
-      //this.setStore();
+      this.setStore();
       this.$router.push("/review/company/companyReg3");
     },
     onChangeLikeCode(value){
       this.likeCode = value;
+    },
+    setStore(){
+      const txt = this.txt;
+      const likeCode = this.likeCode
+      this.setReq2({txt, likeCode})
     }
   },
   computed: {
@@ -69,15 +76,14 @@ export default {
   },
   created() {
     if (this.reqData != null) {
-      const yearamt = this.reqData;
+      const company = this.reqData;
       //if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
-      if(yearamt.amt) this.amt = yearamt.amt;
-      if(yearamt.etcYn) this.etcYn = yearamt.etcYn;
-      if(yearamt.endYn) this.endYn = yearamt.endYn;
-      if(yearamt.etcTemp)this.etcTemp = yearamt.etcTemp;
-      if(yearamt.etcObj)this.etcObj = yearamt.etcObj;
-      if(yearamt.etcObj)this.etcItem = Object.keys(yearamt.etcObj).map(item=>Number(item));
-      if(yearamt.companyName) this.companyName = yearamt.companyName;
+      if(company.txt) this.txt = company.txt;
+      if(company.likeCode) this.likeCode = company.likeCode;
+      
+      if(company.companyName) this.companyName = company.companyName;
+      if(company.sigugunName) this.sigugunName = company.sigugunName;
+      if(company.establishmentTypeName) this.establishmentTypeName = company.establishmentTypeName;
     }
     const title = this.companyName? this.companyName : "-";
     const options = {
@@ -168,84 +174,4 @@ label {
   margin-right: 10px;
 }
 
-.v-dialog {
-  overflow: hidden;
-  border-radius: 15px;
-}
-.layerpopup {
-  &--tag {
-    background: #fff;
-
-    .pop-title {
-      height: 90px;
-      line-height: 90px;
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      background: #e4034f;
-      color: #fff;
-    }
-
-    .pop-body {
-      padding: 20px;
-    }
-
-    .btn-tag {
-      display: inline-block;
-      margin: 10px 10px 0 10px;
-      width: 100px;
-      height: 30px;
-      font-size: 15px;
-      line-height: 30px;
-      color: #fff;
-      text-align: center;
-      &--purple {
-        background: #673bb7;
-      }
-      &--blue {
-        background: #465a65;
-      }
-      &--green {
-        background: #689f39;
-      }
-      &--gray {
-        background: #607d8b;
-      }
-    }
-
-    .wrap-inputbtn {
-      position: relative;
-      margin-top: 20px;
-      padding-right: 60px;
-      input {
-        width: 100%;
-      }
-      button {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 55px;
-        height: 46px;
-        line-height: 46px;
-        background: #009788;
-        color: #fff;
-      }
-    }
-  }
-}
-
-.v-dialog > .v-card > .v-card__actions {
-  padding: 0;
-}
-.v-card__actions > .v-btn.v-btn {
-  margin: 0 !important;
-  padding: 28px 0;
-  width: 50%;
-  background: #f7f7f7;
-  border-radius: 0;
-  box-sizing: border-box;
-  color: #8c8c8c !important;
-  font-weight: 600;
-  border: 1px solid #b5b5b5;
-}
 </style>

@@ -2,16 +2,16 @@ import router from '@/router'
 
 const REQ_DATA = () => {
   return {
+    //Req1
     interestCompanyName:null,
     workExp:null,
     workExpOpenYn:null,
     companyId:null,
     companyName:null,
-    amt:null, 
-    etcYn:null, 
-    endYn:null, 
-    etcObj:null, 
-    etcTemp:null,
+    //Req2
+    txt:null,
+    likeCode:null,
+    //Req3
   }
 }
 
@@ -36,14 +36,11 @@ export const CompanyReview = {
       reqData['companyName'] = companyName;
       state.reqData = reqData;
     },
-    setReq2(state, {amt, etcYn, endYn, etcObj, etcTemp}){
-      console.log('#mutaion.setReq2 : ', amt, etcYn, endYn, etcObj, etcTemp);
+    setReq2(state, {txt, likeCode}){
+      console.log('#mutaion.setReq2 : ', txt, likeCode);
       const reqData = state.reqData;
-      reqData['amt'] = amt;
-      reqData['etcYn'] = etcYn;
-      reqData['endYn'] = endYn;
-      reqData['etcObj'] = etcObj;
-      reqData['etcTemp'] = etcTemp;
+      reqData['txt'] = txt;
+      reqData['likeCode'] = likeCode;
       state.reqData = reqData;
     },
     clearReq(state){
@@ -59,10 +56,10 @@ export const CompanyReview = {
       console.log('#actions.setCompany : ', companyId, companyName);
       commit("setCompany", {companyId, companyName});
     },
-    setReq2({commit}, {amt, etcYn, endYn, etcObj, etcTemp}){
+    setReq2({commit}, {txt, likeCode}){
       
-      console.log('#actions.setReq2 : ', amt, etcYn, endYn, etcObj, etcTemp);
-      commit("setReq2", {amt, etcYn, endYn, etcObj, etcTemp});
+      console.log('#actions.setReq2 : ', txt, likeCode);
+      commit("setReq2", {txt, likeCode});
     },
     clearReq({commit}){
       commit("clearReq");
