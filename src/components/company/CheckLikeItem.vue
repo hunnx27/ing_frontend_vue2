@@ -1,6 +1,7 @@
 <template>
   <div class="radio-wrap">
-      <span>
+    <p>
+      <label for="first">
         <input
           v-model="likeCode"
           type="radio"
@@ -8,9 +9,12 @@
           @change="onDataChanged"
           id="first"
         />
-        <label for="first">물론이죠</label>
-      </span>
-      <span>
+        <img :for="uid+'-like'" :src="likeBtnUrl"/>
+        <span>물론이죠</span>
+      </label>
+    </p>
+    <p>
+      <label for="second">
         <input
           v-model="likeCode"
           type="radio"
@@ -18,9 +22,12 @@
           @change="onDataChanged"
           id="second"
         />
-        <label for="second">글쎄요</label>
-      </span>
-      <span>
+        <img :for="uid+'-normal'" :src="normalBtnUrl"/>
+        <span>글쎄요</span>
+      </label>
+    </p>
+    <p>
+      <label for="third">
         <input
           v-model="likeCode"
           type="radio"
@@ -28,26 +35,77 @@
           @change="onDataChanged"
           id="third"
         />
-        <label for="third">싫어요</label>
-      </span>
-    </div>
+        <img :for="uid+'-hate'" :src="hateBtnUrl"/>
+        <span>싫어요</span>
+      </label>
+    </p>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "CheckOpenYNItem",
+  name: "CheckLikeItem",
   components: {},
-  props: ['selected'],
+  props: ['selected', 'uid'],
   data() {
     return {
       likeCode: this.selected,
+      likeBtnUrl: null,
+      normalBtnUrl: null,
+      hateBtnUrl: null,
     };
   },
   methods: {
     onDataChanged() {
+      switch(this.likeCode){
+        case 'A101':
+          this.likeBtnUrl = '/resources/images/ic_review_like_on.png';
+          this.normalBtnUrl = '/resources/images/ic_review_normal_off.png';
+          this.hateBtnUrl = '/resources/images/ic_review_hate_off.png';
+          break;
+        case 'A102':
+          this.likeBtnUrl = '/resources/images/ic_review_like_off.png';
+          this.normalBtnUrl = '/resources/images/ic_review_normal_on.png';
+          this.hateBtnUrl = '/resources/images/ic_review_hate_off.png';
+          break;
+        case 'A103':
+          this.likeBtnUrl = '/resources/images/ic_review_like_off.png';
+          this.normalBtnUrl = '/resources/images/ic_review_normal_off.png';
+          this.hateBtnUrl = '/resources/images/ic_review_hate_on.png';
+          break;
+        default:
+          this.likeBtnUrl = '/resources/images/ic_review_like_off.png';
+          this.normalBtnUrl = '/resources/images/ic_review_normal_off.png';
+          this.hateBtnUrl = '/resources/images/ic_review_hate_off.png';
+          break;
+      }
       this.$emit('change', this.likeCode) // input 이벤트 발생
     }
   },
+  created(){
+    switch(this.likeCode){
+      case 'A101':
+        this.likeBtnUrl = '/resources/images/ic_review_like_on.png';
+        this.normalBtnUrl = '/resources/images/ic_review_normal_off.png';
+        this.hateBtnUrl = '/resources/images/ic_review_hate_off.png';
+        break;
+      case 'A102':
+        this.likeBtnUrl = '/resources/images/ic_review_like_off.png';
+        this.normalBtnUrl = '/resources/images/ic_review_normal_on.png';
+        this.hateBtnUrl = '/resources/images/ic_review_hate_off.png';
+        break;
+      case 'A103':
+        this.likeBtnUrl = '/resources/images/ic_review_like_off.png';
+        this.normalBtnUrl = '/resources/images/ic_review_normal_off.png';
+        this.hateBtnUrl = '/resources/images/ic_review_hate_on.png';
+        break;
+      default:
+        this.likeBtnUrl = '/resources/images/ic_review_like_off.png';
+        this.normalBtnUrl = '/resources/images/ic_review_normal_off.png';
+        this.hateBtnUrl = '/resources/images/ic_review_hate_off.png';
+        break;
+    }
+  }
 };
 </script>
 
@@ -56,34 +114,24 @@ export default {
 .radio-wrap {
   /* label radio custom version */
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  flex-shrink:0;
 
-  span {
-    display: flex;
-    width: 100%;
-
-    input[type="radio"] {
-      display: none;
-    }
-    label {
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
-      border: 1px solid #6200ea;
-      box-sizing: border-box;
-      text-align: center;
-      background: #fff;
-      color: #6200ea;
-    }
-    label.sm {
-      height: 30px;
-      line-height: 30px;
-      font-size: 13px;
-    }
-
-    input[type="radio"]:checked + label {
-      background: #6200ea;
-      color: #fff;
+  p {
+    label{
+      display: flex;
+      flex-direction: column;
+      input[type="radio"] {
+        display: none;
+      }
+      img{
+        width:95%;
+        max-height:100px;
+      }
+      span{
+        text-align: center;
+        margin-top: 10px;
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="radio-wrap">
       <span>
         
-        <label :for="uid+'-existY'" class="pop">
+        <label :for="uid+'-existY'">
           <input
             class="trigger"
             v-model="existYn"
@@ -16,7 +16,7 @@
         
       </span>
       <span>
-        <label :for="uid+'-existN'" class="pop">
+        <label :for="uid+'-existN'">
 
           <input
             class="trigger"
