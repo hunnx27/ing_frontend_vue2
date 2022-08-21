@@ -91,7 +91,6 @@ export default {
 console.log(this.$route.query)
   },
   created() {
-    console.log(this.$route.params)
     const title = "기관리뷰 등록";
     const options = {
       isShowCheckBtn: false,
