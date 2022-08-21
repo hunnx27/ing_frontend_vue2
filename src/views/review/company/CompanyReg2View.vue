@@ -11,8 +11,8 @@
     <div class="page_txt" style="height:150px;position:relative;background-size:cover;background-repeat: no-repeat;" :style="{backgroundImage: `url('/resources/images/review_bg.jpg')`}">
       <p style="color:white;line-height:26px;text-align:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
         <span style="font-size:20px;font-weight:bolder">{{companyName}}</span><br/>
-        <span style="">경기도 고양시 덕양구{{sigugunName}}</span><br/>
-        <span style="">국공립{{establishmentTypeName}}</span><br/>
+        <span style="">{{sigugunName}}</span><br/>
+        <span style="">{{establishmentTypeName}}</span><br/>
       </p>
     </div>
 
@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     ...mapActions('CompanyReview',['setReq2']),
+    ...mapActions('CompanySearch',{setCompanySearchReq:'setReq'}),
     doNext() {
       //FIXME need Validation
       this.setStore();
@@ -73,6 +74,7 @@ export default {
   computed: {
     ...mapGetters(["user"]),
     ...mapGetters("CompanyReview",["reqData"]),
+    ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
     if (this.reqData != null) {
@@ -80,10 +82,12 @@ export default {
       //if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
       if(company.txt) this.txt = company.txt;
       if(company.likeCode) this.likeCode = company.likeCode;
-      
-      if(company.companyName) this.companyName = company.companyName;
-      if(company.sigugunName) this.sigugunName = company.sigugunName;
-      if(company.establishmentTypeName) this.establishmentTypeName = company.establishmentTypeName;
+    }
+    if(this.companySearch != null){
+      const companySearch = this.companySearch;
+      if(companySearch.companyName) this.companyName = companySearch.companyName;
+      if(companySearch.sigugunName) this.sigugunName = companySearch.sigugunName;
+      if(companySearch.establishmentTypeName) this.establishmentTypeName = companySearch.establishmentTypeName;
     }
     const title = this.companyName? this.companyName : "-";
     const options = {

@@ -5,7 +5,7 @@
     <br/>
 
     <ul class="search-wrap">
-        <li v-for="n in 20" :key="n" class="search-item" @click="selectCompany(45208, '고양시립원흥어린이집')"><span class="search-item-left">고양시립원흥어린이집</span><span class="search-item-right">경기도 고양시 덕양구</span></li>
+        <li v-for="n in 20" :key="n" class="search-item" @click="selectCompany(45208, '고양시립원흥어린이집', '인천시 계양구', '국공립')"><span class="search-item-left">고양시립원흥어린이집</span><span class="search-item-right">경기도 고양시 덕양구</span></li>
     </ul>
 
     
@@ -32,39 +32,16 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
-    ...mapActions('CompanyReview',{setCompanyInCompanyReview:'setCompany'}),
-    ...mapActions('YearamtReview',{setCompanyInYearamtReview:'setCompany'}),
-    ...mapActions('InterviewReview',{setCompanyInInterReview:'setCompany'}),
+    ...mapActions('CompanySearch',{setReq:'setReq'}),
     searchCompany(){
       this.$router.push('/searchCompany')
     },
     onChangeZone(value){
       this.interestZone = value;
     },
-    selectCompany(companyId, companyName){
-      const path = this.prevRoute.path;
-      const prev = this.prevRoute.name;
-      debugger;
-
-      // FIXME 선택할것
-      // switch(prev){
-      //   case 'CompanyReg1View':
-      //     this.setCompanyInCompanyReview({companyId, companyName})
-      //     break;
-      //   case 'YearamtReg1View':
-      //     this.setCompanyInYearamtReview({companyId, companyName})
-      //     break;
-      //   case 'InterviewReg1View':
-      //     this.setCompanyInInterReview({companyId, companyName})
-      //     break;
-      // }
-      //this.$router.go(-1);
-      // FIXME 어찌할까?
-
-      this.$router.replace({name: prev, query: {companyId: companyId, companyName: companyName}})
-
-      // FIXME SearchCompany Store를 만들어서 공통으로 사용함!
-      
+    selectCompany(companyId, companyName, sigugunName, establishmentTypeName){
+      this.setReq({companyId, companyName, sigugunName, establishmentTypeName})
+      this.$router.go(-1);      
     }
   },
   computed: {

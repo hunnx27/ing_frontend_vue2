@@ -9,39 +9,39 @@
 
     <div class="step-title">업무량</div>
     <div class="column">
-      <v-select v-model="item_b1" :items="getListByCode('B10')" label="행사 횟수" item-text="value" item-value="code" 
+      <v-select v-model="itemB1" :items="getListByCode('B10')" label="행사 횟수" item-text="value" item-value="code" 
         persistent-hint solo  hint="생일잔치는 행사횟수에 포함하지 않아요"></v-select>
     </div>
     <div class="column">
-      <v-select v-model="item_b2" :items="getListByCode('B20')" label="서류업무" item-text="value" item-value="code" 
+      <v-select v-model="itemB2" :items="getListByCode('B20')" label="서류업무" item-text="value" item-value="code" 
        persistent-hintdense solo hide-details color="red"></v-select>
     </div>
     <div class="column">
-      <v-select v-model="item_b3" :items="getListByCode('B30')" label="일과 내 수업준비시간" item-text="value" item-value="code"
+      <v-select v-model="itemB3" :items="getListByCode('B30')" label="일과 내 수업준비시간" item-text="value" item-value="code"
        persistent-hint solo hide-details></v-select>
     </div>
 
     <div class="step-title">직무만족</div>
     <div class="column">
-      <v-select v-model="item_c1" :items="getListByCode('C10')" label="개인PC" item-text="value" item-value="code" 
+      <v-select v-model="itemC1" :items="getListByCode('C10')" label="개인PC" item-text="value" item-value="code" 
        persistent-hint solo hide-details></v-select>
     </div>
     <div class="column">
-      <v-select item-color="red" v-model="item_c2" :items="getListByCode('C20')" label="자기개발" item-text="value" item-value="code"
+      <v-select v-model="itemC2" :items="getListByCode('C20')" label="자기개발" item-text="value" item-value="code"
        persistent-hint solo hide-details></v-select>
     </div>
     <div class="column">
-      <v-select v-model="item_c3" :items="getListByCode('C30')" label="육아휴직 허용 분위기" item-text="value" item-value="code" 
+      <v-select v-model="itemC3" :items="getListByCode('C30')" label="육아휴직 허용 분위기" item-text="value" item-value="code" 
        persistent-hint solo hide-details></v-select>
     </div>
 
     <div class="step-title">원내분위기</div>
     <div class="column">
-      <v-select v-model="item_d1" :items="getListByCode('D10')" label="동료관계" item-text="value" item-value="code" 
+      <v-select v-model="itemD1" :items="getListByCode('D10')" label="동료관계" item-text="value" item-value="code" 
        persistent-hint solo hide-details></v-select>
     </div>
     <div class="column">
-      <v-select v-model="item_d2" :items="getListByCode('D20')" label="원장리더쉽" item-text="value" item-value="code" 
+      <v-select v-model="itemD2" :items="getListByCode('D20')" label="원장리더쉽" item-text="value" item-value="code" 
        persistent-hint solo hide-details></v-select>
     </div>
 
@@ -71,17 +71,18 @@ export default {
   name: "CompanyReg3View",
   data() {
     return {
+      companyName: null,
       list: ["test1","test2"],
       url: null,
       image: null,
-      item_b1: null,
-      item_b2: null,
-      item_b3: null,
-      item_c1: null,
-      item_c2: null,
-      item_c3: null,
-      item_d1: null,
-      item_d2: null,
+      itemB1: null,
+      itemB2: null,
+      itemB3: null,
+      itemC1: null,
+      itemC2: null,
+      itemC3: null,
+      itemD1: null,
+      itemD2: null,
       codeList: [
         {"code":"B101","value":"연 4회 이하"},
         {"code":"B102","value":"연 5~10회"},
@@ -134,9 +135,9 @@ export default {
   computed: {
     ...mapGetters(["user"]),
     ...mapGetters("CompanyReview",["reqData"]),
+    ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
-    const title = "기관리뷰등록3";
     const options = {
       isShowCheckBtn: true,
       isShowNextBtn: false,
@@ -148,17 +149,20 @@ export default {
       if(company.workExp) this.workExp = company.workExp;
       if(company.workExpOpenYn) this.workExpOpenYn = company.workExpOpenYn;
 
-      if(company.item_b1) this.item_b1 = company.item_b1;
-      if(company.item_b2) this.item_b2 = company.item_b2;
-      if(company.item_b3) this.item_b3 = company.item_b3;
-      if(company.item_c1) this.item_c1 = company.item_c1;
-      if(company.item_c2) this.item_c2 = company.item_c2;
-      if(company.item_c3) this.item_c3 = company.item_c3;
-      if(company.item_d1) this.item_d1 = company.item_d1;
-      if(company.item_d2) this.item_d2 = company.item_d2;
-
-      if(company.companyName) this.companyName = company.companyName;
+      if(company.itemB1) this.itemB1 = company.itemB1;
+      if(company.itemB2) this.itemB2 = company.itemB2;
+      if(company.itemB3) this.itemB3 = company.itemB3;
+      if(company.itemC1) this.itemC1 = company.itemC1;
+      if(company.itemC2) this.itemC2 = company.itemC2;
+      if(company.itemC3) this.itemC3 = company.itemC3;
+      if(company.itemD1) this.itemD1 = company.itemD1;
+      if(company.itemD2) this.itemD2 = company.itemD2;
     }
+    if(this.companySearch != null){
+      const companySearch = this.companySearch;
+      if(companySearch.companyName) this.companyName = companySearch.companyName;
+    }
+    const title = this.companyName? this.companyName : "-";
     this.$emit("setLayout", title, options);
   },
 };

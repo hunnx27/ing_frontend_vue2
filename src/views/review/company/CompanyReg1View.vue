@@ -51,6 +51,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     ...mapActions('CompanyReview',['setReq1', 'clearReq']),
+    ...mapActions('CompanySearch',{clearCompanySearch: 'clearReq'}),
     doNext() {
       //FIXME need Validation
       this.setStore();
@@ -58,6 +59,7 @@ export default {
     },
     goBack(){
       this.clearReq();
+      this.clearCompanySearch();
       this.$router.go(-1);
     },
     searchCompany(){
@@ -86,9 +88,7 @@ export default {
   },
   computed: {
     ...mapGetters("CompanyReview",["reqData"]),
-  },
-  mounted(){
-console.log(this.$route.query)
+    ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
     const title = "기관리뷰 등록";
@@ -103,7 +103,10 @@ console.log(this.$route.query)
       if(company.interestCompanyName) this.interestCompanyName = company.interestCompanyName;
       if(company.workExp) this.workExp = company.workExp;
       if(company.workExpOpenYn) this.workExpOpenYn = company.workExpOpenYn;
-      if(company.companyName) this.companyName = company.companyName;
+    }
+    if(this.companySearch != null){
+      const companySearch = this.companySearch;
+      if(companySearch.companyName) this.companyName = companySearch.companyName;
     }
   },
 };
