@@ -120,6 +120,12 @@ export default {
     ...mapActions('CompanyReview',['setReq3', 'clearReq']),
     doCheck(){
       console.log('doCheck!');
+      this.setStore();
+      this.submit();
+    },
+    submit(){
+      //FIXME API CALL 추가
+      this.$router.push("/review/company/companyReg4");
     },
     getListByCode(code){
       return this.codeList.filter(item => item.code.substring(0,3) == code);

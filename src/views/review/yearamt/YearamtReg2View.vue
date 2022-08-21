@@ -80,7 +80,11 @@ export default {
       //FIXME need Validation
       this.setStore();
       //FIXME Call Save API;
-
+      this.submit();
+    },
+    submit(){
+      //FIXME API CALL 추가
+      this.$router.push("/review/yearamt/yearamtReg3");
     },
     goBack(){
       //this.clearReq();

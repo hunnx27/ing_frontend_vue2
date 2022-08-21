@@ -50,14 +50,19 @@ export default {
   },
   computed: {
     ...mapGetters(["user"]),
+    ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
-    const title = "기관리뷰등록4페이지)";
     const options = {
       isShowCheckBtn: true,
       isShowNextBtn: false,
       isShowSearchBtn: false,
     };
+    if(this.companySearch != null){
+      const companySearch = this.companySearch;
+      if(companySearch.companyName) this.companyName = companySearch.companyName;
+    }
+    const title = this.companyName? this.companyName : "-";
     this.$emit("setLayout", title, options);
   },
 };
