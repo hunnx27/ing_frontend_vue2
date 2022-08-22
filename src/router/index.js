@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/home/HomeView.vue";
 import HomeView2 from "../views/home/HomeView2.vue";
-import ReviewView from "../views/review/ReviewView.vue";
+import ReviewView from "../views/review/total/ReviewView.vue";
 import LoginView from "../views/login/LoginView.vue";
 import SignupView from "../views/signup/SignupView.vue";
 import MenuLayout from "../layouts/MenuLayout.vue";
