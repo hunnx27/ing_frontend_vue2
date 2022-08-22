@@ -1,13 +1,19 @@
-import accountApi from '@/api/account'
 import router from '@/router'
 
 const REQ_DATA = () => {
   return {
+    //Req1
     interestCompanyName:null,
     workExp:null,
     workExpOpenYn:null,
-    zone:null,
-    companyId:null,
+    //Req2
+    item1Yn:null,
+    item1:null,
+    item2:null,
+    item3:null,
+    item4:null,
+    item5:null,
+    qlist:null,
   }
 }
 
@@ -17,19 +23,24 @@ export const InterviewReview = {
     reqData: REQ_DATA()
   },
   mutations: {
-    setReq1(state, {interestCompanyName, workExp, workExpOpenYn, zone}){
+    setReq1(state, {interestCompanyName, workExp, workExpOpenYn}){
       console.log('#mutaion.setReq : ', interestCompanyName, workExp, workExpOpenYn);
       const reqData = state.reqData;
       reqData['interestCompanyName'] = interestCompanyName;
       reqData['workExp'] = workExp;
       reqData['workExpOpenYn'] = workExpOpenYn;
-      reqData['zone'] = zone;
       state.reqData = reqData;
     },
-    setCompanyId(state, {companyId}){
-      console.log('#mutaion.setCompanyId : ', companyId);
+    setReq2(state, {item1Yn, item1, item2, item3, item4, item5, qlist}){
+      console.log('#mutaion.setReq2 : ', item1Yn, item1, item2, item3, item4, item5, qlist);
       const reqData = state.reqData;
-      reqData['companyId'] = companyId;
+      reqData['item1Yn'] = item1Yn;
+      reqData['item1'] = item1;
+      reqData['item2'] = item2;
+      reqData['item3'] = item3;
+      reqData['item4'] = item4;
+      reqData['item5'] = item5;
+      reqData['qlist'] = qlist;
       state.reqData = reqData;
     },
     clearReq(state){
@@ -37,13 +48,14 @@ export const InterviewReview = {
     }
   },
   actions: {
-    setReq1({commit}, {interestCompanyName, workExp, workExpOpenYn, zone}){
-      console.log('#actions.setReq : ', interestCompanyName, workExp, workExpOpenYn, zone);
-      commit("setReq1", {interestCompanyName, workExp, workExpOpenYn, zone});
+    setReq1({commit}, {interestCompanyName, workExp, workExpOpenYn}){
+      console.log('#actions.setReq : ', interestCompanyName, workExp, workExpOpenYn);
+      commit("setReq1", {interestCompanyName, workExp, workExpOpenYn});
     },
-    setCompanyId({commit}, {companyId}){
-      console.log('#actions.setCompanyId : ', companyId);
-      commit("setCompanyId", {companyId});
+    setReq2({commit}, {item1Yn, item1, item2, item3, item4, item5, qlist}){
+      
+      console.log('#actions.setReq2 : ', item1Yn, item1, item2, item3, item4, item5, qlist);
+      commit("setReq2", {item1Yn, item1, item2, item3, item4, item5, qlist});
     },
     clearReq({commit}){
       commit("clearReq");

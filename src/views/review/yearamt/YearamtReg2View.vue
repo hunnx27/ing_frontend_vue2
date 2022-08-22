@@ -13,8 +13,8 @@
     <div class="page_txt" style="height:150px;position:relative;background-size:cover;background-repeat: no-repeat;" :style="{backgroundImage: `url('/resources/images/review_bg.jpg')`}">
       <p style="color:white;line-height:26px;text-align:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
         <span style="font-size:20px;font-weight:bolder">{{companyName}}</span><br/>
-        <span style="">경기도 고양시 덕양구{{sigugunName}}</span><br/>
-        <span style="">국공립{{establishmentTypeName}}</span><br/>
+        <span style="">{{sigugunName}}</span><br/>
+        <span style="">{{establishmentTypeName}}</span><br/>
       </p>
     </div>
     
@@ -153,6 +153,7 @@ export default {
   },
   computed: {
     ...mapGetters("YearamtReview",["reqData"]),
+    ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
     if (this.reqData != null) {
@@ -164,7 +165,12 @@ export default {
       if(yearamt.etcTemp)this.etcTemp = yearamt.etcTemp;
       if(yearamt.etcObj)this.etcObj = yearamt.etcObj;
       if(yearamt.etcObj)this.etcItem = Object.keys(yearamt.etcObj).map(item=>Number(item));
-      if(yearamt.companyName) this.companyName = yearamt.companyName;
+    }
+    if(this.companySearch != null){
+      const companySearch = this.companySearch;
+      if(companySearch.companyName) this.companyName = companySearch.companyName;
+      if(companySearch.sigugunName) this.sigugunName = companySearch.sigugunName;
+      if(companySearch.establishmentTypeName) this.establishmentTypeName = companySearch.establishmentTypeName;
     }
     const title = this.companyName? this.companyName : "-";
     const options = {
