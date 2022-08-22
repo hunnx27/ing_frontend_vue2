@@ -25,7 +25,7 @@
       </div>
       <div v-show="item1Yn=='Y'" style="display:flex;flex-direction:column;justify-content:start;">
         <v-select multiple v-model="item1" :items="item1Options" @change="onChangeItem1"
-          chips item-text="value" item-value="key" :menu-props="{closeOnClick: true,}" ref="selectItem1">
+          chips deletable-chips item-text="value" item-value="key" :menu-props="{closeOnClick: true,}" ref="selectItem1">
           <template #append-item>
             <div style="display: flex;justify-content: end;">
               <v-btn color="primary" style="margin:10px;" @click="closeSelectItem1($event)">확인</v-btn>
@@ -42,7 +42,7 @@
         <CheckExistYNItem style="" :selected="item3" uid="item3" @change="onChangeItem3"></CheckExistYNItem>
       </div>
 
-      <div class="step-title add">면접질문/답변 입력하기(최대3개) <v-btn icon @click="addInterview"><v-icon>mdi-plus-thick</v-icon></v-btn></div>
+      <div class="step-title add">면접질문/답변 입력하기(최대5개) <v-btn icon @click="addInterview"><v-icon>mdi-plus-thick</v-icon></v-btn></div>
       <div class="column interview-item" v-for="(item, idx) in qlist" :key="idx">
         <div class="interview-wrap" style="">
           <div class="interview-title">면접질문<v-btn icon v-show="idx>0" @click="removeInterview(idx)"><v-icon>mdi-minus-thick</v-icon></v-btn></div>
@@ -77,10 +77,10 @@ import { mapActions, mapGetters } from "vuex";
 import accountApi from "@/api/account";
 import CheckExistYNItem from "@/components/review/CheckExistYNItem.vue";
 import CheckLevelItem from "@/components/review/CheckLevelItem.vue";
-const qObj = {
-              q: null,
-              a: null,
-            }
+
+const qObj = {q: null,a: null,}
+const MAX_QUESTION = 5;
+
 export default {
   name: "InterviewReg2View",
   data() {
@@ -144,8 +144,8 @@ export default {
       this.$router.go(-1);
     },
     addInterview(){
-      if(this.qlist.length>=3){
-        alert('면접질문은 최대 3개까지 가능합니다.');
+      if(this.qlist.length>=MAX_QUESTION){
+        alert(`면접질문은 최대 ${MAX_QUESTION}개까지 가능합니다.`);
         return;
       }
       this.qlist.push(Object.assign({}, qObj));
