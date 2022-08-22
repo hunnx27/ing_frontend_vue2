@@ -76,13 +76,13 @@
     <div>
 
       <!-- -->
-      <div class="review-wrap" v-for="n in 10" :key="n">
+      <div class="review-wrap" v-for="id in 10" :key="id" >
         
-          <div class="review-item-wrap">
+          <div class="review-item-wrap" @click="detailReview(id)">
             <div class="review-item-header">
               <p class="ma-0 review-item-title">열린어린이집</p>
               <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px">
-                <v-icon style="color:orange">mdi-chevron-right</v-icon> 가정 <v-icon>mdi-chevron-right</v-icon> 경기도 화성시
+                <v-icon>mdi-chevron-right</v-icon> 가정 <v-icon>mdi-chevron-right</v-icon> 경기도 화성시
               </p>
             </div>
             
@@ -397,6 +397,12 @@ export default {
       const size = this.backgroundUrls.length;
       const newidx = idx%size;
       return this.backgroundUrls[newidx];
+    },
+    detailReview(id){
+      //FIXME 
+      id = 132;
+      const URI = `/review/reviewDetail/${id}`;
+      this.$router.push(URI);
     },
   }
 
