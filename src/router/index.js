@@ -2,12 +2,14 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/home/HomeView.vue";
 import HomeView2 from "../views/home/HomeView2.vue";
-import ReviewView from "../views/review/total/ReviewView.vue";
+import ReviewListView from "../views/review/total/ReviewListView.vue";
+import ReviewDetailView from "../views/review/total/ReviewDetailView.vue";
 import LoginView from "../views/login/LoginView.vue";
 import SignupView from "../views/signup/SignupView.vue";
 import MenuLayout from "../layouts/MenuLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import StepLayout from "../layouts/StepLayout.vue";
+import DetailLayout from "../layouts/DetailLayout.vue";
 import SearchLayout from "../layouts/SearchLayout.vue";
 import OauthRedirect from "@/components/login/oauth/RedirectItem";
 
@@ -81,7 +83,18 @@ const routes = [
       {
         path: "",
         name: "review",
-        component: ReviewView,
+        component: ReviewListView,
+      },
+    ],
+  },
+  {
+    path: "/review/reviewDetail/:id",
+    component: DetailLayout,
+    children: [
+      {
+        path: "",
+        name: "review",
+        component: ReviewDetailView,
       },
     ],
   },
