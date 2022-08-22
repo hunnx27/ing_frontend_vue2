@@ -20,7 +20,7 @@
       <span class="item" @click="writeYearamtReview">
         연봉 정보 작성하기
       </span>
-      <span class="item" @click="writeInterviewReview" style="background-color:#eee;color:#777">
+      <span class="item" @click="moreCompanyReview" style="background-color:#eee;color:#777">
         기관 리뷰 더보기
       </span>
     </div>
@@ -44,9 +44,9 @@ export default {
     writeYearamtReview(){
       this.$router.push("/review/yearamt/yearamtReg1");
     },
-    writeInterviewReview(){
-      this.$router.push("/review/interview/interviewReg1");
-    }
+    moreCompanyReview(){
+      this.$router.push("/review/");
+    },
   },
   computed: {
     ...mapGetters(["user"]),
