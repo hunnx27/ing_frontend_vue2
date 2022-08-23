@@ -4,7 +4,7 @@
   <div class="ReviewDetailView">
     <div
       class="lighten-5 ma-0 block"
-      :style="{backgroundImage: `url('${getBackgroundUrl()}')`}"
+      :style="{backgroundImage: `url('${backgroundUrl}')`}"
       style="display:flex;height:100%;align-items: stretch;justify-content: center;background-position: center;background-size: cover;padding:10px; flex-direction:column;"
     >
       <div style="display:flex;flex-direction:column;align-items:center;padding:10px;">
@@ -68,6 +68,7 @@ export default {
         '/resources/images/review_bg_02.jpg',
         '/resources/images/review_bg_03.jpg'
       ],
+      backgroundUrl: null,
       
     };
   },
@@ -104,6 +105,7 @@ export default {
     ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
+    this.backgroundUrl = this.getBackgroundUrl();
     if (this.reqData != null) {
       const company = this.reqData;
       //if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
