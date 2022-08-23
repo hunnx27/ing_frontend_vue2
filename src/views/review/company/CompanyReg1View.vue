@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
-    ...mapActions('CompanyReview',['setReq1', 'clearReq']),
+    ...mapActions('CompanyReview',['setReq1', 'clearReq', 'setCompany']),
     ...mapActions('CompanySearch',{clearCompanySearch: 'clearReq'}),
     doNext() {
       //FIXME need Validation
@@ -106,6 +106,7 @@ export default {
     }
     if(this.companySearch != null){
       const companySearch = this.companySearch;
+      if(companySearch.companyId) this.setCompany({companyId:companySearch.companyId});
       if(companySearch.companyName) this.companyName = companySearch.companyName;
     }
   },

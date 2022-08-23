@@ -6,12 +6,20 @@ const REQ_DATA = () => {
     interestCompanyName:null,
     workExp:null,
     workExpOpenYn:null,
+    //setCompany
     companyId:null,
-    companyName:null,
     //Req2
     txt:null,
     likeCode:null,
     //Req3
+    itemB1:null,
+    itemB2:null,
+    itemB3:null,
+    itemC1:null,
+    itemC2:null,
+    itemC3:null,
+    itemD1:null,
+    itemD2:null,
   }
 }
 
@@ -29,11 +37,10 @@ export const CompanyReview = {
       reqData['workExpOpenYn'] = workExpOpenYn;
       state.reqData = reqData;
     },
-    setCompany(state, {companyId, companyName}){
-      console.log('#mutaion.setCompany : ', companyId, companyName);
+    setCompany(state, {companyId}){
+      console.log('#mutaion.setCompany : ', companyId);
       const reqData = state.reqData;
       reqData['companyId'] = companyId;
-      reqData['companyName'] = companyName;
       state.reqData = reqData;
     },
     setReq2(state, {txt, likeCode}){
@@ -41,6 +48,18 @@ export const CompanyReview = {
       const reqData = state.reqData;
       reqData['txt'] = txt;
       reqData['likeCode'] = likeCode;
+      state.reqData = reqData;
+    },
+    setReq3(state, {itemB1, itemB2, itemB3, itemC1, itemC2, itemC3, itemD1, itemD2}){
+      const reqData = state.reqData;
+      reqData['itemB1'] = itemB1;
+      reqData['itemB2'] = itemB2;
+      reqData['itemB3'] = itemB3;
+      reqData['itemC1'] = itemC1;
+      reqData['itemC2'] = itemC2;
+      reqData['itemC3'] = itemC3;
+      reqData['itemD1'] = itemD1;
+      reqData['itemD2'] = itemD2;
       state.reqData = reqData;
     },
     clearReq(state){
@@ -52,14 +71,18 @@ export const CompanyReview = {
       console.log('#actions.setReq : ', interestCompanyName, workExp, workExpOpenYn);
       commit("setReq1", {interestCompanyName, workExp, workExpOpenYn});
     },
-    setCompany({commit}, {companyId, companyName}){
-      console.log('#actions.setCompany : ', companyId, companyName);
-      commit("setCompany", {companyId, companyName});
+    setCompany({commit}, {companyId}){
+      console.log('#actions.setCompany : ', companyId);
+      commit("setCompany", {companyId});
     },
     setReq2({commit}, {txt, likeCode}){
       
       console.log('#actions.setReq2 : ', txt, likeCode);
       commit("setReq2", {txt, likeCode});
+    },
+    setReq3({commit}, {itemB1, itemB2, itemB3, itemC1, itemC2, itemC3, itemD1, itemD2}){
+      console.log('#actions.setReq3 : ', itemB1, itemB2, itemB3, itemC1, itemC2, itemC3, itemD1, itemD2);
+      commit("setReq3", {itemB1, itemB2, itemB3, itemC1, itemC2, itemC3, itemD1, itemD2});
     },
     clearReq({commit}){
       commit("clearReq");

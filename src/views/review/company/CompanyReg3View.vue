@@ -9,39 +9,39 @@
 
     <div class="step-title">업무량</div>
     <div class="column">
-      <v-select v-model="itemB1" :items="getListByCode('B10')" label="행사 횟수" item-text="value" item-value="code" 
+      <v-select v-model="itemB1" :items="getListByCode('B10')" label="행사 횟수" item-text="value" item-value="code"  @change="setStore"
         persistent-hint solo  hint="생일잔치는 행사횟수에 포함하지 않아요"></v-select>
     </div>
     <div class="column">
-      <v-select v-model="itemB2" :items="getListByCode('B20')" label="서류업무" item-text="value" item-value="code" 
+      <v-select v-model="itemB2" :items="getListByCode('B20')" label="서류업무" item-text="value" item-value="code" @change="setStore"
        persistent-hintdense solo hide-details color="red"></v-select>
     </div>
     <div class="column">
-      <v-select v-model="itemB3" :items="getListByCode('B30')" label="일과 내 수업준비시간" item-text="value" item-value="code"
+      <v-select v-model="itemB3" :items="getListByCode('B30')" label="일과 내 수업준비시간" item-text="value" item-value="code" @change="setStore"
        persistent-hint solo hide-details></v-select>
     </div>
 
     <div class="step-title">직무만족</div>
     <div class="column">
-      <v-select v-model="itemC1" :items="getListByCode('C10')" label="개인PC" item-text="value" item-value="code" 
+      <v-select v-model="itemC1" :items="getListByCode('C10')" label="개인PC" item-text="value" item-value="code" @change="setStore"
        persistent-hint solo hide-details></v-select>
     </div>
     <div class="column">
-      <v-select v-model="itemC2" :items="getListByCode('C20')" label="자기개발" item-text="value" item-value="code"
+      <v-select v-model="itemC2" :items="getListByCode('C20')" label="자기개발" item-text="value" item-value="code" @change="setStore"
        persistent-hint solo hide-details></v-select>
     </div>
     <div class="column">
-      <v-select v-model="itemC3" :items="getListByCode('C30')" label="육아휴직 허용 분위기" item-text="value" item-value="code" 
+      <v-select v-model="itemC3" :items="getListByCode('C30')" label="육아휴직 허용 분위기" item-text="value" item-value="code" @change="setStore"
        persistent-hint solo hide-details></v-select>
     </div>
 
     <div class="step-title">원내분위기</div>
     <div class="column">
-      <v-select v-model="itemD1" :items="getListByCode('D10')" label="동료관계" item-text="value" item-value="code" 
+      <v-select v-model="itemD1" :items="getListByCode('D10')" label="동료관계" item-text="value" item-value="code" @change="setStore"
        persistent-hint solo hide-details></v-select>
     </div>
     <div class="column">
-      <v-select v-model="itemD2" :items="getListByCode('D20')" label="원장리더쉽" item-text="value" item-value="code" 
+      <v-select v-model="itemD2" :items="getListByCode('D20')" label="원장리더쉽" item-text="value" item-value="code" @change="setStore"
        persistent-hint solo hide-details></v-select>
     </div>
 
@@ -131,11 +131,15 @@ export default {
       return this.codeList.filter(item => item.code.substring(0,3) == code);
     },
     setStore(){
-      // FIXME 
-      const interestCompanyName = this.interestCompanyName;
-      const workExp = this.workExp
-      const workExpOpenYn = this.workExpOpenYn
-      this.setReq3({interestCompanyName, workExp, workExpOpenYn})
+      const itemB1 = this.itemB1;
+      const itemB2 = this.itemB2;
+      const itemB3 = this.itemB3;
+      const itemC1 = this.itemC1;
+      const itemC2 = this.itemC2;
+      const itemC3 = this.itemC3;
+      const itemD1 = this.itemD1;
+      const itemD2 = this.itemD2;
+      this.setReq3({itemB1, itemB2, itemB3, itemC1, itemC2, itemC3, itemD1, itemD2})
     }
   },
   computed: {
