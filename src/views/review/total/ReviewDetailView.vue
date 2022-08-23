@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      selectedTab: 'ReviewTabItem',
+      selectedTab: 'CompanyInfoTabItem',
       companyName:null, //선택한 기관명
       sigugunName: null, //선택한 기관의 시군구명
       establishmentTypeName: null,//선택한 기관의 기관유형
