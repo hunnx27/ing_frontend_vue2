@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "CompanyInfoTabItem",
+  name: "YearamtTabItem",
   components: {},
   props: [],
   data() {
