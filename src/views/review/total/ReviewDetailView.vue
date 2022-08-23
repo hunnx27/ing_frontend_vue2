@@ -28,10 +28,10 @@
       color="black"
     >
       <v-tabs-slider color="orange"></v-tabs-slider>
-      <v-tab>기관정보</v-tab>
-      <v-tab>리뷰</v-tab>
-      <v-tab>면접</v-tab>
-      <v-tab>연봉</v-tab>
+      <v-tab >기관정보</v-tab>
+      <v-tab >리뷰</v-tab>
+      <v-tab >면접</v-tab>
+      <v-tab >연봉</v-tab>
     </v-tabs>
 
     <div class="page-wrap">
@@ -241,6 +241,11 @@ export default {
 };
 </script>
 
+<style>
+.v-slide-group__content .v-tab{
+  min-width:70px;
+}
+</style>
 <style lang="scss" scoped>
 .line {
   border: 1px solid #d8d8d8;
