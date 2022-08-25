@@ -74,7 +74,7 @@
     <!-- 메뉴 1,2 END -->
 
     <div>
-      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" ></CompanyReviewItem>
+      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
     </div>
 
     <!-- dailog1 START -->
@@ -292,6 +292,10 @@ export default {
       const newidx = idx%size;
       return this.backgroundUrls[newidx];
     },
+    detailReview(id){
+      const URI = `/review/reviewDetail/${id}`;
+      this.$router.push(URI);
+    }
   }
 
 }

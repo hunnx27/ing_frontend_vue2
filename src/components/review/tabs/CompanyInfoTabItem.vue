@@ -149,60 +149,6 @@ export default {
   margin-bottom:10px;
   border-bottom:1px solid #efefef;
 }
-// input[type="radio"] {
-//   width: 20px;
-//   height: 20px;
-//   vertical-align: middle;
-// }
-// input[type="text"] {
-//   padding: 10px;
-//   background: #fff;
-//   box-sizing: border-box;
-// }
-// select {
-//   padding: 10px;
-//   background: #fff;
-//   box-sizing: border-box;
-// }
-// .column {
-//   input[type="text"] {
-//     width: 100%;
-//   }
-//   select {
-//     width: 100%;
-//   }
-  
-//   textarea {
-//     width: 100%;
-//     height: 200px;
-//     padding: 10px;
-//     background: #fff;
-//     box-sizing: border-box;
-//     border: 1px solid #d8d8d8;
-//   }
-//   &--col2 {
-//     input[type="text"] {
-//       width: 50%;
-//     }
-//     select {
-//       width: 50%;
-//     }
-//   }
-// }
-
-// .btn-wrap {
-//   display: flex;
-//   justify-content: space-between;
-//   margin-top: 20px;
-//   .step-title {
-//     margin-top:0
-//   }
-// }
-
-// label {
-//   margin-right: 10px;
-// }
-
 .item-wrap{
   padding:10px;
   background-color:white;

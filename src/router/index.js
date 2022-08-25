@@ -37,6 +37,8 @@ import CompanyReg1View from "../views/review/company/CompanyReg1View.vue";
 import CompanyReg2View from "../views/review/company/CompanyReg2View.vue";
 import CompanyReg3View from "../views/review/company/CompanyReg3View.vue";
 import CompanyReg4View from "../views/review/company/CompanyReg4View.vue";
+import CompanyDetailView from "../views/review/company/CompanyDetailView.vue";
+import CompanyJipyoView from "../views/review/company/CompanyJipyoView.vue";
 
 // Review.interview
 import InterviewReg1View from "../views/review/interview/InterviewReg1View.vue";
@@ -341,6 +343,29 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/review/reviewDetail/:companyId/companyReview/:id",
+    component: DetailLayout,
+    children: [
+      {
+        path: "",
+        name: "CompanyDetailView",
+        component: CompanyDetailView,
+      },
+    ],
+  },
+  {
+    path: "/review/reviewDetail/:companyId/jipyo",
+    component: DetailLayout,
+    children: [
+      {
+        path: "",
+        name: "CompanyJipyoView",
+        component: CompanyJipyoView,
+      },
+    ],
+  },
+  
 
   /**
    * Review.Interview

@@ -17,7 +17,7 @@
         <p class="ma-0" style="text-align:center;">
           원앤집 지표<span style="color:red">81점</span>입니다.
         </p>
-        <p style="font-size: 15px;font-weight: bolder;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
+        <p @click="detailJipyo" style="font-size: 15px;font-weight: bolder;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
           <span>자세히보기</span><v-icon>mdi-chevron-right</v-icon>
         </p>
       </div>
@@ -55,6 +55,7 @@ export default {
   },
   data() {
     return {
+      id:1,
       selectedTab: 'CompanyInfoTabItem',
       companyName:null, //선택한 기관명
       sigugunName: null, //선택한 기관의 시군구명
@@ -92,6 +93,10 @@ export default {
       console.log(newidx);
       console.log(this.backgroundUrls[newidx]);
       return this.backgroundUrls[newidx];
+    },
+    detailJipyo(){
+      const URI = `/review/reviewDetail/${this.id}/jipyo`;
+      this.$router.push(URI);
     },
     setStore(){
       const txt = this.txt;

@@ -49,7 +49,7 @@
       <p style="margin:0;padding:15px 10px;font-size:13px;color:red;font-weight:bolder">기관리뷰쓰기</p>
     </div>
     <div>
-      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" ></CompanyReviewItem>
+      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
     </div>
   </div>
   <!--END item-wrap -->    
@@ -64,6 +64,7 @@ export default {
   props: [],
   data() {
     return {
+      companyId: null,
       selectedMenu1: '최신순',
       menu1Items: [
         { title: '전체리뷰보기' },
@@ -74,10 +75,14 @@ export default {
     };
   },
   methods: {
-    
+    detailReview(id){
+      const URI = `/review/reviewDetail/${this.companyId}/companyReview/${id}`;
+      this.$router.push(URI);
+    }
   },
   created(){
-    
+    console.log(this.$route.params.id);
+    this.companyId = this.$route.params.id;
   }
 };
 </script>
