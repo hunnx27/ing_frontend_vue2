@@ -74,9 +74,11 @@
     <!-- 메뉴 1,2 END -->
 
     <div>
-      <CompanyReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
+      <!-- <CompanyReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
       <InterviewReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></InterviewReviewItem>
       <YearamtReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></YearamtReviewItem>
+      <LoadingItem :isLoading="isLoading"></LoadingItem> -->
+      <component :is="getComponentName(item.type)" :data="item" uid="hello" v-for="(item) in list" :key="item.id" @detailReview="detailReview(item.id)"/>
     </div>
     <!-- dailog1 START -->
     <v-dialog
@@ -235,11 +237,14 @@
 import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
 import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
 import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
+import LoadingItem from "@/components/common/LoadingItem.vue"
+import reviewApi from "@/api/review";
 
 export default {
   name: 'ReviewItem',
   components:{
-    CompanyReviewItem, InterviewReviewItem, YearamtReviewItem
+    CompanyReviewItem, InterviewReviewItem, YearamtReviewItem, LoadingItem
+    
   },
   data(){
     return{
@@ -277,7 +282,13 @@ export default {
       ],
       menu2_items1:["전체", "국롱립", "사회복지법인"],
       menu2_items2:["전체", "서울특별시"],
-      menu2_items3:["전체", "강남구"]
+      menu2_items3:["전체", "강남구"],
+      item: {},
+      list: [],
+      curpage:-1,
+      size:2,
+      isLoading: false,
+      lastScrollY: 0
     }
   },
   methods:{
@@ -298,7 +309,74 @@ export default {
     detailReview(id){
       const URI = `/review/reviewDetail/${id}`;
       this.$router.push(URI);
+    },
+    searchAllList(){
+      this.isLoading=true;
+      const reqpage = this.curpage+1;
+      console.log('START searchAllList ' + `req:${reqpage}, cur:${this.curpage}`);
+      var param = {
+        page: reqpage,
+        size: this.size
+      }
+      reviewApi.getReviewAll(param,
+      (body)=>{
+        if(body!=null && body.length>0){
+          //this.list = body!=null? body : [];
+          this.list = this.list.concat(body);
+          this.curpage = reqpage;
+        }
+        this.isLoading=false;
+      },
+      (err)=>{
+        console.log(err);
+        this.isLoading=false;
+      })
+    },
+    searchTopList(){
+      var param = {
+        page: 0,
+        size: 1,
+      }
+      reviewApi.getReviewAll(param,(body)=>{
+        this.item = body!=null&&body.length>0? body[0] : [];
+      })
+    },
+    handleScroll(e){
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
+        if(this.lastScrollY != window.scrollY){
+          this.lastScrollY = window.scrollY;
+          this.searchAllList();
+        }else{
+          this.lastScrollY = 0;
+        }
+      }
+    },
+    getComponentName(type){
+      var componentName = 'CompanyReviewItem'
+      switch(type){
+        case 'COMPANY':
+          componentName = 'CompanyReviewItem';
+        break;
+        case 'INTERVIEW':
+          componentName = 'InterviewReviewItem';
+        break;
+        case 'AMT':
+          componentName = 'YearamtReviewItem';
+        break;
+      }
+      return componentName;
     }
+  },
+  created(){
+    this.searchTopList();
+    this.curpage=-1;
+    this.list=[];
+    this.searchAllList();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    console.log('destroyed');
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
 }

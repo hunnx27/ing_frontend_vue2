@@ -10,10 +10,7 @@
       </div>
     
       <div class="review-item-content" style="padding:10px" >
-          <p class="text--primary ma-0" style="font-size: 14px;">
-          애기 혼자놀다 다쳐도 교사탓 원장 참견심하고 교사컴퓨터1대로 3명돌아가면서 씀<br/>
-          원장이 기분파라 기분 맞추기 힘듬
-          </p>
+          <p class="text--primary ma-0" style="font-size: 14px;">{{txt}}</p>
       </div>
     
       <div class="review-item-bottom">
@@ -56,10 +53,10 @@
 export default {
   name: "YearamtTabItem",
   components: {},
-  props: ["uid"],
+  props: ["uid", "data"],
   data() {
     return {
-      
+      txt: null,
     };
   },
   methods: {
@@ -68,7 +65,10 @@ export default {
       this.$emit("detailReview",id);
     },
   },
-  created(){
+  created(){    
+    this.txt = this.$props.data.txt;
+  },
+  mounted(){
     
   }
 };
