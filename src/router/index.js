@@ -44,11 +44,14 @@ import CompanyJipyoView from "../views/review/company/CompanyJipyoView.vue";
 import InterviewReg1View from "../views/review/interview/InterviewReg1View.vue";
 import InterviewReg2View from "../views/review/interview/InterviewReg2View.vue";
 import InterviewReg3View from "../views/review/interview/InterviewReg3View.vue";
+import InterviewDetailView from "../views/review/interview/InterviewDetailView.vue";
+
 
 // Review.yearamt
 import YearamtReg1View from "../views/review/yearamt/YearamtReg1View.vue";
 import YearamtReg2View from "../views/review/yearamt/YearamtReg2View.vue";
 import YearamtReg3View from "../views/review/yearamt/YearamtReg3View.vue";
+import YearamtDetailView from "../views/review/yearamt/YearamtDetailView.vue";
 
 // Common
 import SearchCompanyView from "../views/common/SearchCompanyView.vue";
@@ -403,6 +406,17 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/review/reviewDetail/:companyId/interviewReview/:id",
+    component: DetailLayout,
+    children: [
+      {
+        path: "",
+        name: "InterviewDetailView",
+        component: InterviewDetailView,
+      },
+    ],
+  },
 
   /**
    * Review.Yearamt
@@ -437,6 +451,17 @@ const routes = [
         path: "",
         name: "YearamtReg3View",
         component: YearamtReg3View,
+      },
+    ],
+  },
+  {
+    path: "/review/reviewDetail/:companyId/yearamtReview/:id",
+    component: DetailLayout,
+    children: [
+      {
+        path: "",
+        name: "YearamtDetailView",
+        component: YearamtDetailView,
       },
     ],
   },

@@ -74,9 +74,10 @@
     <!-- 메뉴 1,2 END -->
 
     <div>
-      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
+      <CompanyReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
+      <InterviewReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></InterviewReviewItem>
+      <YearamtReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></YearamtReviewItem>
     </div>
-
     <!-- dailog1 START -->
     <v-dialog
       v-model="dialog1"
@@ -232,11 +233,13 @@
 </style>
 <script>
 import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
+import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
 
 export default {
   name: 'ReviewItem',
   components:{
-    CompanyReviewItem
+    CompanyReviewItem, InterviewReviewItem, YearamtReviewItem
   },
   data(){
     return{

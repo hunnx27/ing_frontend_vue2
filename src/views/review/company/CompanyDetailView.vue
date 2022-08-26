@@ -4,8 +4,8 @@
       <p class="ma-0" style="text-align:center;">
         원앤집 지표<span style="color:red">81점</span>입니다.
       </p>
-      <p style="color:#999;;font-size: 14px;font-weight: bolder;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
-        <span @click="detailJipyo">자세히보기</span><v-icon>mdi-chevron-right</v-icon>
+      <p style="color: #999;font-size: 12px;font-weight: bolder;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
+        <span @click="detailJipyo">자세히보기</span><v-icon style="font-size: 18px;">mdi-chevron-right</v-icon>
       </p>
     </div>
     

@@ -66,18 +66,18 @@
       <p style="margin:0;padding:15px 10px;font-size:13px;color:red;font-weight:bolder">연봉리뷰쓰기</p>
     </div>
     <div>
-      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
+      <YearamtReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></YearamtReviewItem>
     </div>
   </div>
   <!--END item-wrap -->    
 </template>
 
 <script>
-import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
 
 export default {
   name: "ReviewTabItem",
-  components: {CompanyReviewItem},
+  components: {YearamtReviewItem},
   props: [],
   data() {
     return {
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     detailReview(id){
-      const URI = `/review/reviewDetail/${this.companyId}/companyReview/${id}`;
+      const URI = `/review/reviewDetail/${this.companyId}/yearamtReview/${id}`;
       this.$router.push(URI);
     }
   },
