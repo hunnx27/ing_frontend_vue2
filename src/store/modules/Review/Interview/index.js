@@ -6,6 +6,8 @@ const REQ_DATA = () => {
     interestCompanyName:null,
     workExp:null,
     workExpOpenYn:null,
+    //setCompany
+    companyId:null,
     //Req2
     item1Yn:null,
     item1:null,
@@ -31,6 +33,12 @@ export const InterviewReview = {
       reqData['workExpOpenYn'] = workExpOpenYn;
       state.reqData = reqData;
     },
+    setCompany(state, {companyId}){
+      console.log('#mutaion.setCompany : ', companyId);
+      const reqData = state.reqData;
+      reqData['companyId'] = companyId;
+      state.reqData = reqData;
+    },
     setReq2(state, {item1Yn, item1, item2, item3, item4, item5, qlist}){
       console.log('#mutaion.setReq2 : ', item1Yn, item1, item2, item3, item4, item5, qlist);
       const reqData = state.reqData;
@@ -51,6 +59,10 @@ export const InterviewReview = {
     setReq1({commit}, {interestCompanyName, workExp, workExpOpenYn}){
       console.log('#actions.setReq : ', interestCompanyName, workExp, workExpOpenYn);
       commit("setReq1", {interestCompanyName, workExp, workExpOpenYn});
+    },
+    setCompany({commit}, {companyId}){
+      console.log('#actions.setCompany : ', companyId);
+      commit("setCompany", {companyId});
     },
     setReq2({commit}, {item1Yn, item1, item2, item3, item4, item5, qlist}){
       

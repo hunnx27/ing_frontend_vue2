@@ -10,7 +10,7 @@
     </div>
     <div class="page_txt" style="height:150px;position:relative;background-size:cover;background-repeat: no-repeat;" :style="{backgroundImage: `url('/resources/images/review_bg.jpg')`}">
       <p style="color:white;line-height:26px;text-align:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
-        <span style="font-size:20px;font-weight:bolder">{{companyName}}</span><br/>
+        <span style="font-size:18px;font-weight:bolder">{{companyName}}</span><br/>
         <span style="">{{sigugunName}}</span><br/>
         <span style="">{{establishmentTypeName}}</span><br/>
       </p>
@@ -110,7 +110,7 @@ export default {
   text-align: center;
 
   p {
-    font-size: 18px;
+    font-size: 14px;
     color: #f2a33c;
     font-weight: 600;
   }

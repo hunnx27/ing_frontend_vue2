@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
-    ...mapActions('YearamtReview',['setReq1', 'clearReq']),
+    ...mapActions('YearamtReview',['setReq1', 'clearReq', 'setCompany']),
     doNext() {
       //FIXME need Validation
       this.setStore();
@@ -86,6 +86,7 @@ export default {
   },
   computed: {
     ...mapGetters("YearamtReview",["reqData"]),
+    ...mapGetters("CompanySearch",{companySearch:"reqData"}),
   },
   created() {
     const title = "연봉리뷰 등록";
@@ -101,6 +102,11 @@ export default {
       if(yearamt.workExp) this.workExp = yearamt.workExp;
       if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
       if(yearamt.companyName) this.companyName = yearamt.companyName;
+    }
+    if(this.companySearch != null){
+      const companySearch = this.companySearch;
+      if(companySearch.companyId) this.setCompany({companyId:companySearch.companyId});
+      if(companySearch.companyName) this.companyName = companySearch.companyName;
     }
   },
 };

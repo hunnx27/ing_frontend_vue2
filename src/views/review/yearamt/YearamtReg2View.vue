@@ -50,7 +50,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import accountApi from "@/api/account";
+import reviewApi from "@/api/review";
 import CheckExistYNItem from "@/components/review/CheckExistYNItem.vue";
 
 export default {
@@ -76,6 +76,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     ...mapActions('YearamtReview',['setReq2', 'clearReq']),
+    ...mapActions('CompanySearch',{clearSearch: 'clearReq'}),
     doCheck() {
       //FIXME need Validation
       this.setStore();
@@ -83,8 +84,40 @@ export default {
       this.submit();
     },
     submit(){
-      //FIXME API CALL 추가
-      this.$router.push("/review/yearamt/yearamtReg3");
+
+      // 저장 데이터 셋팅
+      const p = this.reqData;
+      const keys = Object.keys(p.etcObj);
+      const values = Object.values(p.etcObj);
+      const  data ={
+        amt: p.amt,
+        companyId: p.companyId,
+        companyName: p.companyName,
+        endYn: p.endYn,
+        etcItems:keys.toString(),
+        etcAmt: values.toString(),
+        etcYn: p.etcYn,
+        workExp: p.workExp,
+        workExpOpenYn: p.workExpOpenYn,
+      }
+      
+      reviewApi.saveYearamt(
+        data,
+        (body) => {
+          console.log("succss.body : ", body);
+          this.clearSearch();
+          this.clearReq();
+          alert('연봉리뷰가 저장되었습니다.');
+          this.$router.push("/review/yearamt/yearamtReg3");
+        },
+        (err) =>{
+          console.log(err);
+          this.clearSearch();
+          this.clearReq();
+          alert('연봉리뷰 등록 시스템 오류가 있습니다.');
+        }
+      );
+      
     },
     goBack(){
       //this.clearReq();

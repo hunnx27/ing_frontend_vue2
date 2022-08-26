@@ -74,7 +74,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import accountApi from "@/api/account";
+import reviewApi from "@/api/review";
 import CheckExistYNItem from "@/components/review/CheckExistYNItem.vue";
 import CheckLevelItem from "@/components/review/CheckLevelItem.vue";
 
@@ -118,6 +118,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     ...mapActions('InterviewReview',['setReq2', 'clearReq']),
+    ...mapActions('CompanySearch',{clearSearch: 'clearReq'}),
     closeSelectItem1(e){
       this.item1.sort();
       console.log(this.item1);
@@ -136,8 +137,40 @@ export default {
       this.submit();
     },
     submit(){
-      //FIXME API CALL 추가
-      this.$router.push("/review/interview/interviewReg3");
+      // 저장 데이터 셋팅
+      const p = this.reqData;
+      debugger;
+      const  data ={
+        interviews: p.qlist,
+        companyId: p.companyId,
+        workExp: p.workExp,
+        item1: p.item1.toString(),
+        item1Yn: p.item1Yn,
+        item2: p.item2,
+        item3: p.item3,
+        item4: p.item4,
+        item5: p.item5,
+        item6: p.interestCompanyName,
+        workExpOpenYn: p.workExpOpenYn,
+      }
+      
+      reviewApi.saveInterview(
+        data,
+        (body) => {
+          console.log("succss.body : ", body);
+          this.clearSearch();
+          this.clearReq();
+          alert('면접리뷰가 저장되었습니다.');
+          this.$router.push("/review/interview/interviewReg3");
+        },
+        (err) =>{
+          console.log(err);
+          this.clearSearch();
+          this.clearReq();
+          alert('면접리뷰 등록 시스템 오류가 있습니다.');
+        }
+      );
+      
     },
     goBack(){
       //this.clearReq();

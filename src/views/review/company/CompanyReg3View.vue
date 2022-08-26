@@ -65,7 +65,7 @@
 <style></style>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import accountApi from "@/api/account";
+import reviewApi from "@/api/review";
 
 export default {
   name: "CompanyReg3View",
@@ -118,14 +118,55 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     ...mapActions('CompanyReview',['setReq3', 'clearReq']),
+    ...mapActions('CompanySearch',{clearSearch: 'clearReq'}),
     doCheck(){
       console.log('doCheck!');
       this.setStore();
       this.submit();
     },
     submit(){
-      //FIXME API CALL 추가
-      this.$router.push("/review/company/companyReg4");
+      let form = new FormData()
+
+      // Image File Setting
+      if(this.image){
+        for(let i=0; i<this.image.length; i++){
+          const file = this.image[i];
+          form.append(`files[${i}]`, file);
+        }
+      }
+      
+      // 저장 데이터 셋팅
+      const p = this.reqData;
+      form.append("txt", p.txt);
+      form.append("companyId", p.companyId);
+      form.append("workExp", p.workExp);
+      form.append("itemB1", p.itemB1);
+      form.append("itemB2", p.itemB2);
+      form.append("itemB3", p.itemB3);
+      form.append("itemC1", p.itemC1);
+      form.append("itemC2", p.itemC2);
+      form.append("itemC3", p.itemC3);
+      form.append("itemD1", p.itemD1);
+      form.append("itemD2", p.itemD2);
+      form.append("likeCode", p.likeCode);
+      form.append("workExpOpenYn", p.workExpOpenYn);
+      
+      reviewApi.saveCompany(
+        form,
+        (body) => {
+          console.log("succss.body : ", body);
+          this.clearSearch();
+          this.clearReq();
+          alert('기관리뷰가 저장되었습니다.');
+          this.$router.push("/review/company/companyReg4");
+        },
+        (err) =>{
+          console.log(err);
+          this.clearSearch();
+          this.clearReq();
+          alert('기관리뷰 등록 시스템 오류가 있습니다.');
+        }
+      );
     },
     getListByCode(code){
       return this.codeList.filter(item => item.code.substring(0,3) == code);

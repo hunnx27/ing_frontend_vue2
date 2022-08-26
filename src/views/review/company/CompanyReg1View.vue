@@ -123,7 +123,7 @@ export default {
   text-align: center;
 
   p {
-    font-size: 18px;
+    font-size: 14px;
     color: #f2a33c;
     font-weight: 600;
   }
