@@ -49,7 +49,7 @@
       <p style="margin:0;padding:15px 10px;font-size:13px;color:red;font-weight:bolder">기관리뷰쓰기</p>
     </div>
     <div>
-      <CompanyReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
+      <CompanyReviewItem uid="id" :data="{'txt': '여기 유치원은 절대 오지 마세요....ㅜㅜㅜㅜ'}" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
     </div>
   </div>
   <!--END item-wrap -->    
