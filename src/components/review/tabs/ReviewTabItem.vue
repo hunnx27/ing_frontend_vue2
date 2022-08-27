@@ -1,5 +1,5 @@
 <template>
-  <div class="ReviewTabItem-warp">
+  <div class="ReviewTabItem-warp" style="background: #f2f2f2;">
     <div class="score-wrap">
       <p>
         <span>40점</span>

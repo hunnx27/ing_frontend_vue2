@@ -28,13 +28,30 @@
       color="black"
     >
       <v-tabs-slider color="orange"></v-tabs-slider>
-      <v-tab @click="selectedTab='CompanyInfoTabItem'">기관정보</v-tab>
+      <!-- <v-tab @click="selectedTab='CompanyInfoTabItem'">기관정보</v-tab>
       <v-tab @click="selectedTab='ReviewTabItem'">리뷰</v-tab>
       <v-tab @click="selectedTab='InterviewTabItem'">면접</v-tab>
-      <v-tab @click="selectedTab='YearamtTabItem'">연봉</v-tab>
+      <v-tab @click="selectedTab='YearamtTabItem'">연봉</v-tab> -->
+      <v-tab>기관정보</v-tab>
+      <v-tab>리뷰</v-tab>
+      <v-tab>면접</v-tab>
+      <v-tab>연봉</v-tab>
+
+      <v-tab-item>
+        <CompanyInfoTabItem></CompanyInfoTabItem>
+      </v-tab-item>
+      <v-tab-item>
+        <ReviewTabItem></ReviewTabItem>
+      </v-tab-item>
+      <v-tab-item>
+        <InterviewTabItem></InterviewTabItem>
+      </v-tab-item>
+      <v-tab-item>
+        <YearamtTabItem></YearamtTabItem>
+      </v-tab-item>
     </v-tabs>
 
-    <component :is="selectedTab" />
+    <!-- <component :is="selectedTab" /> -->
     
   </div>
   <!-- Wrap END -->

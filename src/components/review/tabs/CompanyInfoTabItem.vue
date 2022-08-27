@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrap">
+  <div class="page-wrap" style="background: #f2f2f2;">
     <div class="item-wrap">
       <div class="item-row">
         <p>구분</p><p>a</p>
