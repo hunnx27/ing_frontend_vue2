@@ -50,37 +50,38 @@ export default {
     req.post(URI, body, success, fail);
   },
 
-
-// 컴퍼니 정보가져오기
-// /api/company/{id}
-
-// 단건조회
-// /api/reviews/company/{id}
-// /api/reviews/interview/{id}
-// /api/reviews/amt/{id}
-
-// 기관의 리스트가져오기
-// /api/reviews/company/companies/{companyId}
-// /api/reviews/interview/companies/{companyId}
-// /api/reviews/amt/companies/{companyId}
-  getCompanyInfo(id, success, fail){
-    
+  /* 
+  단건조회
+  */
+  getCompanyDetailInfo(id, success, fail){
     const URI = `${ROOT_URI.COMPANY}/${id}`
     req.get(URI, success, fail);
   },
-  getCompanyReviewListById(){
 
+  getInterviewDetailInfo(id, success, fail){
+    const URI = `${ROOT_URI.INTERVIEW}/${id}`
+    req.get(URI, success, fail);
   },
-  getInterviewReviewListById(){
-
+  getAmtDetailInfo(id, success, fail){
+    const URI = `${ROOT_URI.YEARAMT}/${id}`
+    req.get(URI, success, fail);
   },
-  getYearamtReviewListById(){
 
+  /*
+  기관의 리스트가져오기
+  */
+  getCompanyReviewListById(id, success, fail){
+    const URI = `${ROOT_URI.COMPANY}/companies/${id}`
+    req.get(URI, success, fail);
   },
-  getCompanyJipyoById(){
-
+  getInterviewReviewListById(id, success, fail){
+    const URI = `${ROOT_URI.INTERVIEW}/companies/${id}`
+    req.get(URI, success, fail);
   },
-  getCompanyDetailInfo(){
-
-  }
+  getYearamtReviewListById(id, success, fail){
+    const URI = `${ROOT_URI.YEARAMT}/companies/${id}`
+    req.get(URI, success, fail);
+  },
+  
+  
 }

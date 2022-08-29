@@ -78,7 +78,7 @@
       <InterviewReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></InterviewReviewItem>
       <YearamtReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></YearamtReviewItem>
       <LoadingItem :isLoading="isLoading"></LoadingItem> -->
-      <component :is="getComponentName(item.type)" :data="item" uid="hello" v-for="(item) in list" :key="item.id" @detailReview="detailReview(item.id)"/>
+      <component :is="getComponentName(item.type)" :data="item" uid="hello" v-for="(item) in list" :key="item.id" @detailReview="detailReview(item.company_Id)"/>
     </div>
     <!-- dailog1 START -->
     <v-dialog
@@ -306,8 +306,8 @@ export default {
       const newidx = idx%size;
       return this.backgroundUrls[newidx];
     },
-    detailReview(id){
-      const URI = `/review/reviewDetail/${id}`;
+    detailReview(companyId){
+      const URI = `/review/reviewDetail/companies/${companyId}`;
       this.$router.push(URI);
     },
     searchAllList(){

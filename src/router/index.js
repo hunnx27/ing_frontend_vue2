@@ -93,7 +93,7 @@ const routes = [
     ],
   },
   {
-    path: "/review/reviewDetail/:id",
+    path: "/review/reviewDetail/companies/:companyId",
     component: DetailLayout,
     children: [
       {

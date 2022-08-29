@@ -2,28 +2,28 @@
   <div class="page-wrap" style="background: #f2f2f2;">
     <div class="item-wrap">
       <div class="item-row">
-        <p>구분</p><p>a</p>
+        <p>구분</p><p>{{data.interestCompanyName}}</p>
       </div>
       <div class="item-row">
-        <p>주소</p><p>b</p>
+        <p>주소</p><p>{{data.juso}}</p>
       </div>
       <div class="item-row">
-        <p>지도</p><p></p>
+        <p>지도</p><p>{{data.gps_x}}, {{data.gps_y}}</p>
       </div>
       <div class="item-row">
-        <p>설립유형</p><p></p>
+        <p>설립유형</p><p>{{data.establishmentTypeName}}</p>
       </div>
       <div class="item-row">
-        <p>운영</p><p></p>
+        <p>운영</p><p>{{data.run}}</p>
       </div>
       <div class="item-row">
-        <p>원장</p><p></p>
+        <p>원장</p><p>{{data.director}}</p>
       </div>
       <div class="item-row">
-        <p>설립(개원)일</p><p></p>
+        <p>설립(개원)일</p><p>{{data.openDtStr}}</p>
       </div>
       <div class="item-row">
-        <p>평가인증</p><p></p>
+        <p>평가인증</p><p>{{data.evaluateYn}}</p>
       </div>
     </div>
 
@@ -31,11 +31,11 @@
       <div class="step-title">연령별 반 현황</div>
       <div class="mb-2 age-wrap">
         <div class="age-left-item">
-          87.27%
+          {{Math.round(data.currPeople / data.totPeople * 100 * 100)/100}}%
         </div>
         <div class="age-right-item">
-          <p>55명<span>정원</span></p>
-          <p>44명<span>현원</span></p>
+          <p>{{data.totPeople}}명<span>정원</span></p>
+          <p>{{data.currPeople}}명<span>현원</span></p>
         </div>
       </div>
       <div>
@@ -43,42 +43,42 @@
           <div class="detail-cnt-wrap mb-2">
             <p>
               <span>만0세</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[0]}}</span>
             </p>
             <p>
               <span>만1세</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[1]}}</span>
             </p>
             <p>
               <span>만2세</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[2]}}</span>
             </p>
             <p>
               <span>만3세</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[3]}}</span>
             </p>
             <p>
               <span>만4세</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[4]}}</span>
             </p>
             <p>
               <span>만5세</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[5]}}</span>
             </p>
           </div>
 
           <div class="detail-cnt-wrap">
             <p>
               <span>영아혼합</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[6]}}</span>
             </p>
             <p>
               <span>유아혼합</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[7]}}</span>
             </p>
             <p>
               <span>특수/장애아</span>
-              <span class="detail-cnt">9</span>
+              <span class="detail-cnt">{{agePeoples[8]}}</span>
             </p>
           </div>
         </div>
@@ -88,9 +88,7 @@
     <div class="item-wrap">
       <div class="step-title">기관 특성</div>
       <div class="character-wrap">
-        <p class="character-item">장애아 통합</p>
-        <p class="character-item">시간연장형</p>
-        <p class="character-item">일시보육</p>
+        <p class="character-item" v-for="item in charItems" :key="item">{{item}}</p>
       </div>
     </div>
 
@@ -102,16 +100,16 @@
         </div>
         <div class="staff-cnt-wrap">
           <div class="detail-cnt-wrap border-wrap mb-1">
-            <p><span>원장</span><span class="detail-cnt">1</span></p>
-            <p><span>보육교사</span><span class="detail-cnt">19</span></p>
-            <p><span>특수교사</span><span class="detail-cnt">0</span></p>
-            <p><span>치료사</span><span class="detail-cnt">0</span></p>
+            <p><span>원장</span><span class="detail-cnt">{{perItems[1]}}</span></p>
+            <p><span>보육교사</span><span class="detail-cnt">{{perItems[2]}}</span></p>
+            <p><span>특수교사</span><span class="detail-cnt">{{perItems[3]}}</span></p>
+            <p><span>치료사</span><span class="detail-cnt">{{perItems[4]}}</span></p>
           </div>
           <div class="detail-cnt-wrap border-wrap mb-1">
-            <p><span>영양사</span><span class="detail-cnt">1</span></p>
-            <p><span>간호사</span><span class="detail-cnt">0</span></p>
-            <p><span>조리원</span><span class="detail-cnt">1</span></p>
-            <p><span>사무원</span><span class="detail-cnt">0</span></p>
+            <p><span>영양사</span><span class="detail-cnt">{{perItems[5]}}</span></p>
+            <p><span>간호사</span><span class="detail-cnt">{{perItems[6]}}</span></p>
+            <p><span>조리원</span><span class="detail-cnt">{{perItems[7]}}</span></p>
+            <p><span>사무원</span><span class="detail-cnt">{{perItems[8]}}</span></p>
           </div>
         </div>
       </div>
@@ -124,7 +122,7 @@
 export default {
   name: "CompanyInfoTabItem",
   components: {},
-  props: [],
+  props: ['data'],
   data() {
     return {
       
@@ -133,9 +131,23 @@ export default {
   methods: {
     
   },
+  computed:{
+    agePeoples(){
+      return this.data.agePeoples!=null ? this.data.agePeoples.split(',') : new Array(10);
+    },
+    perItems(){
+      console.log(this.data.perItems)
+      return this.data.perItems!=null? this.data.perItems.split(',') : new Array(11);
+    },
+    charItems(){
+      console.log(this.data.charItems)
+      return this.data.charItems!=null? this.data.charItems.split(",") : new Array();
+    },
+    
+  },
   created(){
     
-  }
+  },
 };
 </script>
 
