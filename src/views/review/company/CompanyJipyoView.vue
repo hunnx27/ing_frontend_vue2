@@ -4,63 +4,68 @@
       class="lighten-5 ma-0 block"
       :style="{backgroundImage: `url('${backgroundUrl}')`}"
       style="background-position: center center;background-size: cover;padding: 20px 0;"
+      v-if="isJipyoLoading"
     >
-    <div class="" style="display:flex">
+    <div class="" style="display:flex" >
       <div class="circle" :style="{backgroundImage: `url('${iconUrl}')`}">
         <p class="mb-0" style="color:white;font-size:13px;">
           원앤집 지표
         </p>
         <p class="mb-1" style="color:white;font-size:38px;font-weight:bolder;">
-          <span>81점</span>
+          <span>{{jipyoData.jipyoScore}}점</span>
         </p>
         <p class="" style="color:orange;font-size:13px;font-weight:bolder;padding:1px 5px;background-color:white;border-radius:5px;">
-          1리뷰
+          {{jipyoData.reviewCount}}리뷰
         </p>
       </div>
     </div>
   </div>
-
+  <LoadingItem isLoading="true" v-else></LoadingItem>
 
   <div class="page-wrap">
     
     <div class="mb-2 card-wrap">
       <div class="step-title">
-        <p>계속 근무 희망</p>
-        <p>98점</p>
+        <p>평가인증</p>
+        <p>{{jipyoData.escore!=null?jipyoData.escore.scoreTot:'-'}}점</p>
       </div>
       <div class="staff-cnt-wrap">
-        <div class="detail-cnt-wrap border-wrap mb-1">
-          <p><span>보육환경</span><span class="detail-cnt">1</span></p>
-          <p><span>운영관리</span><span class="detail-cnt">19</span></p>
-          <p><span>보육과정</span><span class="detail-cnt">0</span></p>
+        <div class="detail-cnt-wrap border-wrap mb-1" v-if="isJipyoLoading">
+          <p><span>보육환경</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.escore.scoreCareEnv:'-'}}</span></p>
+          <p><span>운영관리</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.escore.scoreOprManage:'-'}}</span></p>
+          <p><span>보육과정</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.escore.scoreCareCourse:'-'}}</span></p>
         </div>
-        <div class="detail-cnt-wrap border-wrap mb-1">
-          <p><span>상호작용과 교수법</span><span class="detail-cnt">1</span></p>
-          <p><span>건강과영양</span><span class="detail-cnt">0</span></p>
-          <p><span>안전</span><span class="detail-cnt">1</span></p>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
+        <div class="detail-cnt-wrap border-wrap mb-1" v-if="isJipyoLoading">
+          <p><span>상호작용과 교수법</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.escore.scoreTeach:'-'}}</span></p>
+          <p><span>건강과영양</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.escore.scoreHealth:'-'}}</span></p>
+          <p><span>안전</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.escore.scoreSafty:'-'}}</span></p>
         </div>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
       </div>
     </div>
 
     <div class="mb-2 card-wrap" style="background-color:white">
       <div class="step-title">
         <p>유아교사 기관평가</p>
-        <p>98점</p>
+        <p>{{jipyoData.escore!=null?jipyoData.uscore.scoreTot:'-'}}점</p>
       </div>
       <div class="staff-cnt-wrap">
-        <div class="detail-cnt-wrap border-wrap mb-1">
-          <p><span>근속</span><span class="detail-cnt">98</span></p>
-          <p><span>행사</span><span class="detail-cnt">98</span></p>
-          <p><span>서류</span><span class="detail-cnt">98</span></p>
-          <p><span>수업준비</span><span class="detail-cnt">98</span></p>
-          <p><span>개인PC</span><span class="detail-cnt">98</span></p>
+        <div class="detail-cnt-wrap border-wrap mb-1" v-if="isJipyoLoading">
+          <p><span>근속</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreKeepWork:'-'}}</span></p>
+          <p><span>행사</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreEvent:'-'}}</span></p>
+          <p><span>서류</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreDcoWork:'-'}}</span></p>
+          <p><span>수업준비</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreReadyClass:'-'}}</span></p>
+          <p><span>개인PC</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scorePersonalPC:'-'}}</span></p>
         </div>
-        <div class="detail-cnt-wrap border-wrap mb-1">
-          <p><span>자기개발</span><span class="detail-cnt">98</span></p>
-          <p><span>육아휴직</span><span class="detail-cnt">98</span></p>
-          <p><span>동료관계</span><span class="detail-cnt">98</span></p>
-          <p><span>리더쉽</span><span class="detail-cnt">98</span></p>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
+        <div class="detail-cnt-wrap border-wrap mb-1" v-if="isJipyoLoading">
+          <p><span>자기개발</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreSelfDev:'-'}}</span></p>
+          <p><span>육아휴직</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreKizRest:'-'}}</span></p>
+          <p><span>동료관계</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scorePartnership:'-'}}</span></p>
+          <p><span>리더쉽</span><span class="detail-cnt">{{jipyoData.escore!=null?jipyoData.uscore.scoreLeadership:'-'}}</span></p>
         </div>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
       </div>
     </div>
 
@@ -75,11 +80,12 @@
 </template>
 
 <script>
-//import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import companyApi from "@/api/company";
+import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "CompanyDetailView",
-  components: {},
+  components: {LoadingItem},
   props: [],
   data() {
     return {
@@ -88,14 +94,35 @@ export default {
 
       id:null,
       companyId:null,
+      isJipyoLoading: false,
+      jipyoData:{},
     };
   },
   methods: {
-    
+    getComapnyJipyoData(){
+      companyApi.getCompanyJipyoById(
+        this.companyId, 
+        (body)=>{
+          this.jipyoData = body;
+          this.isJipyoLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+    },
   },
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
+    const title = this.companyName? this.companyName : "-";
+    const options = {
+      isShowCheckBtn: false,
+      isShowNextBtn: true,
+      isShowSearchBtn: false,
+    };
+    this.$emit("setLayout", title, options);
+    this.getComapnyJipyoData();
   }
 };
 </script>

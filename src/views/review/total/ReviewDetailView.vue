@@ -2,20 +2,20 @@
   
   <!-- Wrap START -->
   <div class="ReviewDetailView">
-    <div v-if="isCompanyLoading"
+    <div v-if="isJipyoLoading"
       class="lighten-5 ma-0 block"
       :style="{backgroundImage: `url('${backgroundUrl}')`}"
       style="display:flex;height:100%;align-items: stretch;justify-content: center;background-position: center;background-size: cover;padding:10px; flex-direction:column;"
     >
       <div style="display:flex;flex-direction:column;align-items:center;padding:10px;">
-        <h3 style="color:white;">{{companyInfo.officeName}}</h3>
+        <h3 style="color:white;">{{jipyoData.officeName}}</h3>
         <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px;color:white;">
-          <v-icon >mdi-chevron-right</v-icon> {{companyInfo.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{companyInfo.mapsidogunguName}}
+          <v-icon >mdi-chevron-right</v-icon> {{jipyoData.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{jipyoData.mapsidogunguName}}
         </p>
       </div>
       <div style="background-color: #fafafaaa;border-radius: 10px;padding: 10px;">
         <p class="ma-0" style="text-align:center;">
-          원앤집 지표<span style="color:red">81점</span>입니다.
+          원앤집 지표<span style="color:red">{{jipyoData.jipyoScore}}점</span>입니다.
         </p>
         <p @click="detailJipyo" style="font-size: 15px;font-weight: bolder;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
           <span>자세히보기</span><v-icon>mdi-chevron-right</v-icon>
@@ -96,6 +96,8 @@ export default {
         '/resources/images/review_bg_03.jpg'
       ],
       backgroundUrl: null,
+      isJipyoLoading: false,
+      jipyoData:{},
 
       isCompanyLoading: false,
       companyInfo:{},
@@ -124,6 +126,18 @@ export default {
       console.log(newidx);
       console.log(this.backgroundUrls[newidx]);
       return this.backgroundUrls[newidx];
+    },
+    getComapnyJipyoData(){
+      companyApi.getCompanyJipyoById(
+        this.companyId, 
+        (body)=>{
+          this.jipyoData = body;
+          this.isJipyoLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
     },
     getCompanyInfo(){
       companyApi.getCompanyInfo(
@@ -174,7 +188,7 @@ export default {
       )
     },
     detailJipyo(){
-      const URI = `/review/reviewDetail/${this.id}/jipyo`;
+      const URI = `/review/reviewDetail/${this.companyId}/jipyo`;
       this.$router.push(URI);
     },
     setStore(){
@@ -210,6 +224,7 @@ export default {
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    this.getComapnyJipyoData();
     this.getCompanyInfo();
   },
 };
