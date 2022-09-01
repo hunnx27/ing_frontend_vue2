@@ -11,7 +11,7 @@ export default {
   getReviewAll(param, success, fail){
     const page = param.page!=null? param.page : 0;
     const size = param.size!=null? param.size : 20;
-    const sort = param.sort!=null? param.sort : 'created_at,desc';
+    const sort = param.sort!=null? param.sort : 'createdAt,desc';
     const URI = `${ROOT_URI.REVIEW}/all?page=${page}&size=${size}&sort=${sort}`
     req.get(URI, success, fail);
   },

@@ -18,7 +18,7 @@
         <input
           v-model="likeCode"
           type="radio"
-          value="A102"
+          value="A103"
           @change="onDataChanged"
           id="second"
         />
@@ -31,7 +31,7 @@
         <input
           v-model="likeCode"
           type="radio"
-          value="A103"
+          value="A102"
           @change="onDataChanged"
           id="third"
         />
