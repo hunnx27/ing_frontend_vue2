@@ -2,7 +2,7 @@
   <div class="review-wrap">
         
     <div class="review-item-wrap" @click="detailReview(uid)">
-      <div class="review-item-header">
+      <div class="review-item-header" v-show="uid=='reviewlist'">
           <p class="ma-0 review-item-title">{{data.companyName}}</p>
           <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px">
           <v-icon>mdi-chevron-right</v-icon> {{data.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{data.mapsidogunguName}}

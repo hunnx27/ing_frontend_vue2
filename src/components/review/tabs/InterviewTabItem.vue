@@ -3,57 +3,73 @@
 
     <div class="summary-wrap pb-2">
       <div class="item-wrap">
-        <div class="main-item">
+        <div class="main-item" v-if="infoData.totalLevel=='highLevel'">
+          <p class="mb-0"><img :src="iconMap.highUp" style=""/></p>
+          <p class="mb-0">여유</p>
+        </div>
+        <div class="main-item" v-else-if="infoData.totalLevel=='midLevel'">
+          <p class="mb-0"><img :src="iconMap.midUp" style=""/></p>
+          <p class="mb-0">편안</p>
+        </div>
+        <div class="main-item" v-else>
           <p class="mb-0"><img :src="iconMap.lowUp" style=""/></p>
           <p class="mb-0">긴장</p>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" :class="{'active': infoData.totalLevel=='highLevel'}">
           <p>
             <span><img :src="iconMap.high"/></span>
             <span>여유</span>
-            <span>0%</span>
+            <span>{{infoData.highLevCount}}%</span>
           </p>
         </div>
-        <div class="sub-item active">
+        <div class="sub-item" :class="{'active': infoData.totalLevel=='midLevel'}">
           <p>
             <span><img :src="iconMap.mid"/></span>
             <span>편안</span>
-            <span>100%</span>
+            <span>{{infoData.midLevCount}}%</span>
           </p>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" :class="{'active': infoData.totalLevel=='lowLevel'}">
           <p>
             <span><img :src="iconMap.low"/></span>
             <span>긴장</span>
-            <span>0%</span>
+            <span>{{infoData.lowLevCount}}%</span>
           </p>
         </div>
       </div>
 
       <div class="item-wrap">
-        <div class="main-item">
+        <div class="main-item" v-if="infoData.totalGoal=='Goal'">
+          <p class="mb-0"><img :src="iconMap.highUp" style=""/></p>
+          <p class="mb-0">합격</p>
+        </div>
+        <div class="main-item" v-else-if="infoData.totalGoal=='Wait'">
+          <p class="mb-0"><img :src="iconMap.highUp" style=""/></p>
+          <p class="mb-0">대기</p>
+        </div>
+        <div class="main-item" v-else>
           <p class="mb-0"><img :src="iconMap.highUp" style=""/></p>
           <p class="mb-0">불합격</p>
         </div>
-        <div class="sub-item active">
+        <div class="sub-item" :class="{'active': infoData.totalGoal=='Goal'}">
           <p>
             <span><img :src="iconMap.high"/></span>
             <span>합격</span>
-            <span>100%</span>
+            <span>{{infoData.goalCount}}%</span>
           </p>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" :class="{'active': infoData.totalGoal=='Wait'}">
           <p>
             <span><img :src="iconMap.mid"/></span>
             <span>대기</span>
-            <span>0%</span>
+            <span>{{infoData.waitCount}}%</span>
           </p>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" :class="{'active': infoData.totalGoal=='Failed'}">
           <p>
             <span><img :src="iconMap.fail"/></span>
             <span>불합격</span>
-            <span>0%</span>
+            <span>{{infoData.noCount}}%</span>
           </p>
         </div>
       </div>
@@ -66,7 +82,7 @@
           <img :src="iconMap.simul"/>
         </p>
         <p>
-          <span>1명</span>
+          <span>{{infoData.mockCount}}명</span>
           <span>모의수업</span>
         </p>
       </div>
@@ -75,7 +91,7 @@
           <img :src="iconMap.write"/>
         </p>
         <p>
-          <span>2명</span>
+          <span>{{infoData.writCount}}명</span>
           <span>필기수업</span>
         </p>
       </div>
@@ -84,7 +100,7 @@
           <img :src="iconMap.test"/>
         </p>
         <p>
-          <span>1명</span>
+          <span>{{infoData.patCount}}명</span>
           <span>인적성검사</span>
         </p>
       </div>
@@ -138,7 +154,7 @@ import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
 export default {
   name: "ReviewTabItem",
   components: {InterviewReviewItem},
-  props: ['data', 'jipyoData'],
+  props: ['data', 'jipyoData', 'infoData'],
   data() {
     return {
       companyId: null,

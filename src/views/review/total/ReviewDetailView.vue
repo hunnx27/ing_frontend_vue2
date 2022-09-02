@@ -23,12 +23,7 @@
       </div>
     </div>
     <LoadingItem isLoading="true" v-else></LoadingItem>
-    <div style="border:3px solid red;">
-      <v-btn @click="getCompanyInfo">기관정보API</v-btn>
-      <v-btn @click="getCompanyReviewList">리뷰API</v-btn>
-      <v-btn @click="getInterviewReviewList">면접API</v-btn>
-      <v-btn @click="getYearamtReviewList">연봉API</v-btn>
-    </div>
+    
     <v-tabs
       centered
       color="black"
@@ -52,11 +47,11 @@
         <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
       <v-tab-item>
-        <InterviewTabItem :data="interviewReviewList" :jipyoData="jipyoData" v-if="isInterviewReviewLoading"></InterviewTabItem>
+        <InterviewTabItem :data="interviewReviewList" :jipyoData="jipyoData" :infoData="interviewInfo" v-if="isInterviewReviewLoading"></InterviewTabItem>
         <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
       <v-tab-item>
-        <YearamtTabItem :data="yearamtReviewList" :jipyoData="jipyoData" v-if="isYearamtReviewLoading"></YearamtTabItem>
+        <YearamtTabItem :data="yearamtReviewList" :jipyoData="jipyoData" :infoData="amtInfo" v-if="isYearamtReviewLoading"></YearamtTabItem>
         <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
     </v-tabs>
@@ -100,13 +95,19 @@ export default {
       ],
       backgroundUrl: null,
       isJipyoLoading: false,
-      jipyoData:{},
-
       isCompanyLoading: false,
+      isInterviewLoading: false,
+      isAmtLoading: false,
+
       isCompanyReviewLoading: false,
       isInterviewReviewLoading: false,
       isYearamtReviewLoading: false,
+
+      jipyoData:{},
       companyInfo:{},
+      interviewInfo:{},
+      amtInfo:{},
+      
       companyReviewList:[],
       interviewReviewList:[],
       yearamtReviewList:[],
@@ -158,7 +159,7 @@ export default {
       )
     },
     getCompanyReviewList(){
-      companyApi.getCompanyReviewListById(
+      companyApi.getCompanyReviewListByCompanyId(
         this.companyId, 
         (body)=>{
           console.log(body);
@@ -171,7 +172,7 @@ export default {
       )
     },
     getInterviewReviewList(){
-      companyApi.getInterviewReviewListById(
+      companyApi.getInterviewReviewListByCompanyId(
         this.companyId, 
         (body)=>{
           console.log(body);
@@ -184,12 +185,38 @@ export default {
       )
     },
     getYearamtReviewList(){
-      companyApi.getYearamtReviewListById(
+      companyApi.getYearamtReviewListByCompanyId(
         this.companyId, 
         (body)=>{
           console.log(body);
           this.yearamtReviewList = body;
           this.isYearamtReviewLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+    },
+    getInterviewReviewInfo(){
+      companyApi.getInterviewReviewInfoByCompanyId(
+        this.companyId, 
+        (body)=>{
+          console.log(body);
+          this.interviewInfo = body;
+          this.isInterviewLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+    },
+    getYearamtReviewInfo(){
+      companyApi.getAmtAvgByCompanyId(
+        this.companyId, 
+        (body)=>{
+          console.log(body);
+          this.amtInfo = body;
+          this.amtLoading = true;
         },
         (err)=>{
           console.log(err);
@@ -233,11 +260,16 @@ export default {
       isShowSearchBtn: false,
     };
     this.$emit("setLayout", title, options);
+    // 집계정보
     this.getComapnyJipyoData();
     this.getCompanyInfo();
+    this.getInterviewReviewInfo();
+    this.getYearamtReviewInfo();
+    // 목록정보
     this.getCompanyReviewList();
     this.getInterviewReviewList();
     this.getYearamtReviewList();
+    
   },
 };
 </script>

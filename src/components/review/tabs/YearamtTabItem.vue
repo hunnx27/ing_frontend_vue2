@@ -4,7 +4,7 @@
       <div class="avg-wrap">
         <p>
           <span>평균</span>
-          <span>3,000</span>
+          <span>{{infoData!=null? numberWithCommas(infoData.totalAmt) : 0}}</span>
           <span>만원</span>
         </p>
         <p>
@@ -16,17 +16,17 @@
           <v-slider
             hide-details
             readonly
-            min="2400"
-            max="4000"
-            value="3000"
+            :min="infoData.minAmt"
+            :max="infoData.maxAmt"
+            :value="infoData.totalAmt"
             track-color="#E1E4E9"
             thumb-color="white"
             color='#dfdfdf'
           ></v-slider>
         </p>
         <p>
-          <span>최저3000만원</span>
-          <span>최고3000만원</span>
+          <span>최저{{infoData.minAmt}}만원</span>
+          <span>최고{{infoData.maxAmt}}만원</span>
         </p>
       </div>
     </div>
@@ -78,7 +78,7 @@ import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
 export default {
   name: "ReviewTabItem",
   components: {YearamtReviewItem},
-  props: ['data', 'jipyoData'],
+  props: ['data', 'jipyoData', 'infoData'],
   data() {
     return {
       input:3000,
@@ -99,7 +99,10 @@ export default {
     detailReview(id){
       const URI = `/review/reviewDetail/${this.companyId}/yearamtReview/${id}`;
       this.$router.push(URI);
-    }
+    },
+    numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
   created(){
     console.log(this.$route.params.companyId);

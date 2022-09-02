@@ -78,7 +78,7 @@
       <InterviewReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></InterviewReviewItem>
       <YearamtReviewItem uid="id" v-for="id in 1" :key="id" @detailReview="detailReview(id)"></YearamtReviewItem>
       <LoadingItem :isLoading="isLoading"></LoadingItem> -->
-      <component :is="getComponentName(item.type)" :data="item" uid="hello" v-for="(item) in list" :key="item.id" @detailReview="detailReview(item.companyId)"/>
+      <component :is="getComponentName(item.type)" :data="item" uid="reviewlist" v-for="(item) in list" :key="item.id" @detailReview="detailReview(item.companyId)"/>
     </div>
     <!-- dailog1 START -->
     <v-dialog

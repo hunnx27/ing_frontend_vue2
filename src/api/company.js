@@ -36,19 +36,32 @@ export default {
   },
   
   /*
-  기관의 리스트가져오기
+  기관의 리뷰 리스트가져오기
   */
-  getCompanyReviewListById(companyId, success, fail){
+  getCompanyReviewListByCompanyId(companyId, success, fail){
     const URI = `${ROOT_URI.COMPANIES}/${companyId}/review/companies`
     req.get(URI, success, fail);
   },
-  getInterviewReviewListById(companyId, success, fail){
+  getInterviewReviewListByCompanyId(companyId, success, fail){
     const URI = `${ROOT_URI.COMPANIES}/${companyId}/review/interviews`
     req.get(URI, success, fail);
   },
-  getYearamtReviewListById(companyId, success, fail){
+  getYearamtReviewListByCompanyId(companyId, success, fail){
     const URI = `${ROOT_URI.COMPANIES}/${companyId}/review/amts`
     req.get(URI, success, fail);
   },
+
+  /**
+   * 기관의 리뷰 집계정보 가져오기
+   */
+   getInterviewReviewInfoByCompanyId(companyId, success, fail){
+    const URI = `${ROOT_URI.COMPANIES}/${companyId}/review/interviews/info`
+    req.get(URI, success, fail);
+  },
+  getAmtAvgByCompanyId(companyId, success, fail){
+    const URI = `${ROOT_URI.COMPANIES}/${companyId}/review/amts/avg`
+    req.get(URI, success, fail);
+  },
+
   
 }

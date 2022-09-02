@@ -2,7 +2,7 @@
   <div class="review-wrap">
         
     <div class="review-item-wrap" @click="detailReview(uid)">
-      <div class="review-item-header">
+      <div class="review-item-header" v-show="uid=='reviewlist'">
         <div>
           <div class="review-item">
             <p class="ma-0 review-item-title">{{data.companyName}}</p>
