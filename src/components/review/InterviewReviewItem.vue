@@ -5,13 +5,13 @@
       <div class="review-item-header">
         <div>
           <div class="review-item">
-            <p class="ma-0 review-item-title">열린어린이집</p>
+            <p class="ma-0 review-item-title">{{data.companyName}}</p>
             <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px">
-              <v-icon>mdi-chevron-right</v-icon> 가정 <v-icon>mdi-chevron-right</v-icon> 경기도 화성시
+              <v-icon>mdi-chevron-right</v-icon> {{data.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{data.mapsidogunguName}}
             </p>
           </div>
           <div class="review-item">
-            교사경력3년차
+            교사경력{{data.workExp}}년차
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
       <div class="review-item-content">
           <p class="text--primary">
             <span>면접질문</span>
-            <span>혼자왔니</span>
+            <span>{{data.q_1}}</span>
           </p>
       </div>
     
@@ -30,19 +30,19 @@
           <div class="review-test-wrap">
             <p>
               <span>면접분위기</span>
-              <span>긴장</span>
+              <span>{{data.itemMood}}</span>
             </p>
             <p>
               <span>모의시험</span>
-              <span>100</span>
+              <span>{{data.itemTest1}}</span>
             </p>
             <p>
               <span>필기시험</span>
-              <span>100</span>
+              <span>{{data.itemTest2}}</span>
             </p>
             <p>
               <span>인적성검사</span>
-              <span>100</span>
+              <span>{{data.itemTest3}}</span>
             </p>
           </div>
       </div>
@@ -52,6 +52,29 @@
   </div>
   <!--END item-wrap -->    
 </template>
+
+<script>
+export default {
+  name: "YearamtTabItem",
+  components: {},
+  props: ["uid", "data"],
+  data() {
+    return {
+      
+    };
+  },
+  methods: {
+    detailReview(id){
+      //FIXME 
+      this.$emit("detailReview",id);
+    },
+  },
+  created(){
+    
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 .review-wrap{
   
@@ -160,31 +183,3 @@
 }
 
 </style>
-
-
-
-
-
-
-
-<script>
-export default {
-  name: "YearamtTabItem",
-  components: {},
-  props: ["uid"],
-  data() {
-    return {
-      
-    };
-  },
-  methods: {
-    detailReview(id){
-      //FIXME 
-      this.$emit("detailReview",id);
-    },
-  },
-  created(){
-    
-  }
-};
-</script>

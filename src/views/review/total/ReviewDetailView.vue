@@ -48,13 +48,16 @@
         <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
       <v-tab-item>
-        <ReviewTabItem :data="companyReviewList"></ReviewTabItem>
+        <ReviewTabItem :data="companyReviewList" :jipyoData="jipyoData" v-if="isCompanyReviewLoading"></ReviewTabItem>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
       <v-tab-item>
-        <InterviewTabItem :data="interviewReviewList"></InterviewTabItem>
+        <InterviewTabItem :data="interviewReviewList" :jipyoData="jipyoData" v-if="isInterviewReviewLoading"></InterviewTabItem>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
       <v-tab-item>
-        <YearamtTabItem :data="yearamtReviewList"></YearamtTabItem>
+        <YearamtTabItem :data="yearamtReviewList" :jipyoData="jipyoData" v-if="isYearamtReviewLoading"></YearamtTabItem>
+        <LoadingItem isLoading="true" v-else></LoadingItem>
       </v-tab-item>
     </v-tabs>
 
@@ -100,6 +103,9 @@ export default {
       jipyoData:{},
 
       isCompanyLoading: false,
+      isCompanyReviewLoading: false,
+      isInterviewReviewLoading: false,
+      isYearamtReviewLoading: false,
       companyInfo:{},
       companyReviewList:[],
       interviewReviewList:[],
@@ -152,11 +158,12 @@ export default {
       )
     },
     getCompanyReviewList(){
-      reviewApi.getCompanyReviewListById(
+      companyApi.getCompanyReviewListById(
         this.companyId, 
         (body)=>{
           console.log(body);
           this.companyReviewList = body;
+          this.isCompanyReviewLoading = true;
         },
         (err)=>{
           console.log(err);
@@ -164,11 +171,12 @@ export default {
       )
     },
     getInterviewReviewList(){
-      reviewApi.getInterviewReviewListById(
+      companyApi.getInterviewReviewListById(
         this.companyId, 
         (body)=>{
           console.log(body);
           this.interviewReviewList = body;
+          this.isInterviewReviewLoading = true;
         },
         (err)=>{
           console.log(err);
@@ -176,11 +184,12 @@ export default {
       )
     },
     getYearamtReviewList(){
-      reviewApi.getYearamtReviewListById(
+      companyApi.getYearamtReviewListById(
         this.companyId, 
         (body)=>{
           console.log(body);
           this.yearamtReviewList = body;
+          this.isYearamtReviewLoading = true;
         },
         (err)=>{
           console.log(err);
@@ -226,6 +235,9 @@ export default {
     this.$emit("setLayout", title, options);
     this.getComapnyJipyoData();
     this.getCompanyInfo();
+    this.getCompanyReviewList();
+    this.getInterviewReviewList();
+    this.getYearamtReviewList();
   },
 };
 </script>

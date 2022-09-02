@@ -5,7 +5,7 @@
     <br/>
 
     <ul class="search-wrap">
-        <li v-for="n in 20" :key="n" class="search-item" @click="selectCompany(45208, '고양시립원흥어린이집', '인천시 계양구', '국공립')"><span class="search-item-left">고양시립원흥어린이집</span><span class="search-item-right">경기도 고양시 덕양구</span></li>
+        <li v-for="n in 20" :key="n" class="search-item" @click="selectCompany(85262, 'ECO한빛어린이집', '인천시 계양구', '국공립')"><span class="search-item-left">ECO한빛어린이집</span><span class="search-item-right">경기도 고양시 덕양구</span></li>
     </ul>
 
     

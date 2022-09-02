@@ -1,8 +1,9 @@
 <template>
-  <div class="page-wrap">
+<div>
+  <div class="page-wrap" v-if="isLoading">
     <div class="mb-2 card-wrap" style="">
       <p class="ma-0" style="text-align:center;">
-        원앤집 지표<span style="color:red">81점</span>입니다.
+        원앤집 지표<span style="color:red">{{jipyoData.jipyoScore}}점</span>입니다.
       </p>
       <p style="color: #999;font-size: 12px;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
         <span @click="detailJipyo">자세히보기</span><v-icon style="font-size: 18px;">mdi-chevron-right</v-icon>
@@ -126,30 +127,50 @@
     </div>
   </div>
   <!--END item-wrap --> 
+  <LoadingItem isLoading="true" v-else></LoadingItem>
+</div>
+
 </template>
 
 <script>
 //import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import companyApi from "@/api/company";
+import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "CompanyDetailView",
-  components: {},
-  props: [],
+  components: {LoadingItem},
+  props: ['jipyoData'],
   data() {
     return {
       id:null,
       companyId:null,
+      isLoading:false,
+      data:{},
     };
   },
   methods: {
     detailJipyo(){
       const URI = `/review/reviewDetail/${this.id}/jipyo`;
       this.$router.push(URI);
-    }
+    },
+    getCompanyDetailInfo(){
+      companyApi.getCompanyDetailInfo(
+        {companyId:this.companyId,id:this.id}, 
+        (body)=>{
+          this.data = body;
+          this.isLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+    },
   },
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
+    this.getCompanyDetailInfo();
   }
 };
 </script>

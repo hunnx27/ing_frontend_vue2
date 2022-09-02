@@ -126,7 +126,7 @@
       <p style="margin:0;padding:15px 10px;font-size:13px;color:red;font-weight:bolder">면접리뷰쓰기</p>
     </div>
     <div>
-      <InterviewReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></InterviewReviewItem>
+      <InterviewReviewItem uid="id" :data="item" :jipyoData="jipyoData" v-for="item in data" :key="item.id" @detailReview="detailReview(item.id)"></InterviewReviewItem>
     </div>
   </div>
   <!--END item-wrap -->    
@@ -138,7 +138,7 @@ import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
 export default {
   name: "ReviewTabItem",
   components: {InterviewReviewItem},
-  props: [],
+  props: ['data', 'jipyoData'],
   data() {
     return {
       companyId: null,
@@ -167,13 +167,14 @@ export default {
   },
   methods: {
     detailReview(id){
+      console.log(id);
       const URI = `/review/reviewDetail/${this.companyId}/interviewReview/${id}`;
       this.$router.push(URI);
     }
   },
   created(){
-    console.log(this.$route.params.id);
-    this.companyId = this.$route.params.id;
+    console.log(this.$route.params.companyId);
+    this.companyId = this.$route.params.companyId;
   }
 };
 </script>

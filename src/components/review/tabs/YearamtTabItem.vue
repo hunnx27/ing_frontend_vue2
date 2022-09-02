@@ -66,7 +66,7 @@
       <p style="margin:0;padding:15px 10px;font-size:13px;color:red;font-weight:bolder">연봉리뷰쓰기</p>
     </div>
     <div>
-      <YearamtReviewItem uid="id" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></YearamtReviewItem>
+      <YearamtReviewItem uid="id" :data="item" :jipyoData="jipyoData" v-for="item in data" :key="item.id" @detailReview="detailReview(item.id)"></YearamtReviewItem>
     </div>
   </div>
   <!--END item-wrap -->    
@@ -78,7 +78,7 @@ import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
 export default {
   name: "ReviewTabItem",
   components: {YearamtReviewItem},
-  props: [],
+  props: ['data', 'jipyoData'],
   data() {
     return {
       input:3000,
@@ -102,8 +102,8 @@ export default {
     }
   },
   created(){
-    console.log(this.$route.params.id);
-    this.companyId = this.$route.params.id;
+    console.log(this.$route.params.companyId);
+    this.companyId = this.$route.params.companyId;
   }
 };
 </script>

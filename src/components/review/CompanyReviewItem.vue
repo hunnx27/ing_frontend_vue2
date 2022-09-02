@@ -3,14 +3,14 @@
         
     <div class="review-item-wrap" @click="detailReview(uid)">
       <div class="review-item-header">
-          <p class="ma-0 review-item-title">열린어린이집</p>
+          <p class="ma-0 review-item-title">{{data.companyName}}</p>
           <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px">
-          <v-icon>mdi-chevron-right</v-icon> 가정 <v-icon>mdi-chevron-right</v-icon> 경기도 화성시
+          <v-icon>mdi-chevron-right</v-icon> {{data.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{data.mapsidogunguName}}
           </p>
       </div>
     
       <div class="review-item-content" style="padding:10px" >
-          <p class="text--primary ma-0" style="font-size: 14px;">{{txt}}</p>
+          <p class="text--primary ma-0" style="font-size: 14px;">{{data.txt}}</p>
       </div>
     
       <div class="review-item-bottom">
@@ -20,25 +20,28 @@
           <div class="review-score">
           <p class="sub-title avg-title ma-0">총 만족도</p>
           <p class="avg-score">
-              3.3
+              {{parseFloat(data.starJumsuTotalAvg).toFixed(1)}}
           </p>
           </div>
           <div class="review-score">
           <p class="sub-title ma-0">업무량</p>
           <p class="star ma-0">
-              <v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon>
+              <v-icon v-for="n in data.starJumsuWorkload" :key="`wla-${n}`">mdi-cards-heart</v-icon>
+              <v-icon v-for="n in 5-data.starJumsuWorkload" :key="`wlb-${n}`">mdi-cards-heart-outline</v-icon>
           </p>
           </div>
           <div class="review-score">
           <p class="sub-title ma-0">직무만족</p>
           <p class="star ma-0">
-              <v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon>
+              <v-icon v-for="n in data.starJumsuJobSatisfaction" :key="`jsa-${n}`">mdi-cards-heart</v-icon>
+              <v-icon v-for="n in 5-data.starJumsuJobSatisfaction" :key="`jsb-${n}`">mdi-cards-heart-outline</v-icon>
           </p>
           </div>
           <div class="review-score">
           <p class="sub-title ma-0">원내분위기</p>
           <p class="star ma-0">
-              <v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon>
+              <v-icon v-for="n in data.starJumsuWorkAtmosphere" :key="`cma-${n}`">mdi-cards-heart</v-icon>
+              <v-icon v-for="n in 5-data.starJumsuWorkAtmosphere" :key="`cmb-${n}`">mdi-cards-heart-outline</v-icon>
           </p>
           </div>
       </div>
@@ -56,7 +59,7 @@ export default {
   props: ["uid", "data"],
   data() {
     return {
-      txt: null,
+      
     };
   },
   methods: {
@@ -66,7 +69,7 @@ export default {
     },
   },
   created(){    
-    this.txt = this.$props.data.txt;
+    
   },
   mounted(){
     

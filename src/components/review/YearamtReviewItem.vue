@@ -4,47 +4,47 @@
     <div class="review-item-wrap" @click="detailReview(uid)">
       <div class="review-item-header">
         <div>
-          <p class="ma-0 review-item-title">열린어린이집</p>
+          <p class="ma-0 review-item-title">{{data.companyName}}</p>
           <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px">
-            <v-icon>mdi-chevron-right</v-icon> 가정 <v-icon>mdi-chevron-right</v-icon> 경기도 화성시
+            <v-icon>mdi-chevron-right</v-icon> {{data.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{data.mapsidogunguName}}
           </p>
         </div>
       </div>
     
       <div class="review-item-content">
           <p class="text--primary">
-            <span>62,208,000<span>만원</span></span>
+            <span>{{numberWithCommas(data.amt)}}<span>만원</span></span>
             <span>(수당미포함)</span>
           </p>
           <p class="text--primary">
-            <span>교사경력3년차 | 1호봉</span>
+            <span>교사경력{{data.workExp}}년차 | 1호봉</span>
           </p>
       </div>
     
       <div class="review-item-bottom">
           <p class="review-prepend ma-0">
             <span>수당</span>
-            <span>77</span>
+            <span>{{data.totalCost!=null?data.totalCost:0}}</span>
             <span>단위:만원</span>
           </p>
           <div class="review-pay-wrap">
             <p>
               <span>처우개선비</span>
-              <span>33</span>
+              <span>{{data.impCost!=null?data.impCost:0}}</span>
             </p>
             <p>
               <span>근무환경개선</span>
-              <span>33</span>
+              <span>{{data.workCost!=null?data.workCost:0}}</span>
             </p>
           </div>
           <div class="review-pay-wrap">
             <p>
               <span>누리과정수당</span>
-              <span>33</span>
+              <span>{{data.addCost!=null?data.addCost:0}}</span>
             </p>
             <p>
               <span>기타</span>
-              <span>33</span>
+              <span>{{data.etcCost!=null?data.etcCost:0}}</span>
             </p>
           </div>
       </div>
@@ -58,7 +58,7 @@
 export default {
   name: "YearamtTabItem",
   components: {},
-  props: ["uid"],
+  props: ["uid","data"],
   data() {
     return {
       
@@ -69,10 +69,13 @@ export default {
       //FIXME 
       this.$emit("detailReview",id);
     },
+    numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
   created(){
     
-  }
+  },
 };
 </script>
 

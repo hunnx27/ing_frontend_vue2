@@ -2,15 +2,15 @@
   <div class="ReviewTabItem-warp" style="background: #f2f2f2;">
     <div class="score-wrap">
       <p>
-        <span>40점</span>
+        <span>{{jipyoData.escore!=null?jipyoData.uscore.scoreTot:'-'}}점</span>
         <span>교사 평가</span>
       </p>
       <p>
-        <span>2.0</span>
+        <span>{{jipyoData!=null ? parseFloat(jipyoData.starAvgJumsu).toFixed(1) : '-'}}</span>
         <span>총 만족도</span>
       </p>
       <p>
-        <span>20%</span>
+        <span>{{jipyoData.escore!=null?jipyoData.uscore.scoreKeepWork:'-'}}%</span>
         <span>계속 근무 희망</span>
       </p>
     </div>
@@ -49,7 +49,7 @@
       <p style="margin:0;padding:15px 10px;font-size:13px;color:red;font-weight:bolder">기관리뷰쓰기</p>
     </div>
     <div>
-      <CompanyReviewItem uid="id" :data="{'txt': '여기 유치원은 절대 오지 마세요....ㅜㅜㅜㅜ'}" v-for="id in 10" :key="id" @detailReview="detailReview(id)"></CompanyReviewItem>
+      <CompanyReviewItem uid="id" :data="item" :jipyoData="jipyoData" v-for="item in data" :key="item.id" @detailReview="detailReview(item.id)"></CompanyReviewItem>
     </div>
   </div>
   <!--END item-wrap -->    
@@ -61,7 +61,7 @@ import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
 export default {
   name: "ReviewTabItem",
   components: {CompanyReviewItem},
-  props: [],
+  props: ['data', 'jipyoData'],
   data() {
     return {
       companyId: null,
@@ -81,8 +81,8 @@ export default {
     }
   },
   created(){
-    console.log(this.$route.params.id);
-    this.companyId = this.$route.params.id;
+    console.log(this.$route.params.companyId);
+    this.companyId = this.$route.params.companyId;
   }
 };
 </script>
