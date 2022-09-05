@@ -4,12 +4,12 @@
     <SelectAddressZone :selected='interestZone' @change="onChangeZone" @sidoChange="onChangeSido" ref="selectAddressZone"></SelectAddressZone>
     <br/>
 
-    <ul v-if="list.length>0" class="search-wrap">
-        <li v-for="item in list" :key="item.id" class="search-item" @click="selectCompany(item)"><span class="search-item-left">{{item.officeName}}</span><span class="search-item-right">{{item.mapsidogunguName}}</span></li>
-        <LoadingItem :isLoading="isLoading"></LoadingItem>
+    <ul v-if="list.length>0" class="search-wrap" v-show="!isLoading">
+        <li v-for="item in list" :key="item.id" class="search-item" @click="selectCompany(item)"><span class="search-item-left">{{item.officeName}}</span><span class="search-item-right">{{item.mapsidogunguName}}</span></li>        
     </ul>
-    <ul v-else-if="!isFirst" class="search-wrap"><li>검색된 기관이 없습니다.</li></ul>
-    <ul v-else class="search-wrap"><li>기관을 검색하세요.</li></ul>
+    <ul v-else-if="!isFirst" class="search-wrap" v-show="!isLoading"><li>검색된 기관이 없습니다.</li></ul>
+    <ul v-else class="search-wrap" v-show="!isLoading"><li>기관을 검색하세요.</li></ul>
+    <LoadingItem :isLoading="isLoading"></LoadingItem>
     
 
     
@@ -62,12 +62,6 @@ export default {
       this.$router.go(-1);      
     },
     doSearch(keyword){
-      this.isFirst = false;
-      this.isLoading = true;
-      console.log(keyword);
-      console.log(this.sidoCode);
-      console.log(this.interestZone);
-      console.log(this.interestCompanyName);
       const name = keyword;
       const sido = this.sidoCode;
       const interestZone = this.interestZone;
@@ -76,6 +70,9 @@ export default {
         alert('기관명을 입력하세요.');
         return false;
       }
+
+      this.isFirst = false;
+      this.isLoading = true;
       companyApi.getCompanySearch(
         {name,sido,interestZone,interestCompany},
         {page:null,size:null,sort:null},
