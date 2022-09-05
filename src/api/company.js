@@ -1,4 +1,5 @@
 import req from './req-wrapper'
+import buildURL from "axios/lib/helpers/buildURL";
 
 const ROOT_URI = {
   COMPANY: '/api/company',
@@ -14,6 +15,29 @@ export default {
 
   getCompanyJipyoById(id, success, fail){
     const URI = `${ROOT_URI.COMPANIES}/${id}/jipyo`
+    req.get(URI, success, fail);
+  },
+
+  getCompanySearch({name,sido,interestZone,interestCompany},{page,size,sort}, success, fail){
+    // 기초파라미터 설정
+    page = page!=null? page : 0;
+    size = size!=null? size : 20;
+    sort = sort!=null? sort : 'officeName,asc';
+    let URI = `${ROOT_URI.COMPANIES}/search?page=${page}&size=${size}&sort=${sort}`;
+
+    // 조건파라미터 설정
+    let code = '';
+    if(interestZone!=null && interestZone!=''){
+      code = interestZone;
+    }else if(sido!=null && sido!=''){
+      code = sido;
+    }
+
+    if(name!=null && ''!=name) URI = buildURL(URI, {name: name});
+    if(code!=null && ''!=code) URI = buildURL(URI, {code: code});
+    if(interestCompany!=null && ''!=interestCompany) URI = buildURL(URI, {interestCompany: interestCompany});
+
+    // API Call!
     req.get(URI, success, fail);
   },
   

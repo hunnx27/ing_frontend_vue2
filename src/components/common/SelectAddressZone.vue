@@ -48,6 +48,7 @@ export default {
     },
     getAddressBySido(){
       if(this.interestSidoCode!=null){
+        this.$emit('sidoChange', this.interestSidoCode)
         accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
           console.log(body);
           this.sigugunList = body;

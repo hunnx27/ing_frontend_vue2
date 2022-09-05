@@ -6,13 +6,13 @@
         <v-icon >mdi-arrow-left</v-icon>
       </v-btn>
       <v-app-bar-title class="search-bar" style="width:100%;position:relative;">
-          <input type="text">
-          <v-icon color="red">mdi-close</v-icon>
+          <input type="text" v-model="keyword">
+          <v-icon color="red" @click="keyword=''">mdi-close</v-icon>
       </v-app-bar-title>
       
       <v-spacer></v-spacer>
       
-      <v-btn icon>
+      <v-btn icon @click="doSearch">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       
@@ -38,7 +38,8 @@ export default {
     title: null,
     isShowCheckBtn: null,
     isShowNextBtn: false,
-    isShowSearchBtn: false
+    isShowSearchBtn: false,
+    keyword: '',
   }),
   watch: {
     group() {
@@ -63,16 +64,10 @@ export default {
       this.isShowNextBtn = isShowNextBtn;
       this.isShowSearchBtn = isShowSearchBtn;
     },
-    doCheck(){
+    doSearch(){
       // ChildrenComponent에 doCheck()메소드 실행
-      if(this.$refs.childForm.doCheck!=null){
-        this.$refs.childForm.doCheck();
-      }
-    },
-    doNext(){
-      // ChildrenComponent에 doNext()메소드 실행
-      if(this.$refs.childForm.doNext!=null){
-        this.$refs.childForm.doNext();
+      if(this.$refs.childForm.doSearch!=null){
+        this.$refs.childForm.doSearch(this.keyword);
       }
     },
     ...mapActions(["logout"]),

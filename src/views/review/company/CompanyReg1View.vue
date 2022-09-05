@@ -63,7 +63,7 @@ export default {
       this.$router.go(-1);
     },
     searchCompany(){
-      this.$router.push('/common/searchCompany')
+      this.$router.push(`/common/searchCompany?interestCompanyName=${this.interestCompanyName}`)
       
     },
     onChangeCompany(value){
