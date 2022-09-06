@@ -2,27 +2,6 @@
   
   <!-- Wrap START -->
   <div class="ReviewDetailView">
-    <div v-if="isJipyoLoading"
-      class="lighten-5 ma-0 block"
-      :style="{backgroundImage: `url('${backgroundUrl}')`}"
-      style="display:flex;height:100%;align-items: stretch;justify-content: center;background-position: center;background-size: cover;padding:10px; flex-direction:column;"
-    >
-      <div style="display:flex;flex-direction:column;align-items:center;padding:10px;">
-        <h3 style="color:white;">{{jipyoData.officeName}}</h3>
-        <p class="ma-0 review-item-address" style="display: flex;align-items: center;justify-content: flex-start;font-size:14px;color:white;">
-          <v-icon >mdi-chevron-right</v-icon> {{jipyoData.establishmentTypeName}} <v-icon>mdi-chevron-right</v-icon> {{jipyoData.mapsidogunguName}}
-        </p>
-      </div>
-      <div style="background-color: #fafafaaa;border-radius: 10px;padding: 10px;">
-        <p class="ma-0" style="text-align:center;">
-          원앤집 지표<span style="color:red">{{jipyoData.jipyoScore}}점</span>입니다.
-        </p>
-        <p @click="detailJipyo" style="font-size: 15px;font-weight: bolder;margin:10px 0 0;display:flex;align-items: center;justify-content: center;text-align:center;">
-          <span>자세히보기</span><v-icon>mdi-chevron-right</v-icon>
-        </p>
-      </div>
-    </div>
-    <LoadingItem isLoading="true" v-else></LoadingItem>
     
     <v-tabs
       centered
@@ -71,6 +50,13 @@ import ReviewTabItem from "@/components/review/tabs/ReviewTabItem.vue"
 import InterviewTabItem from "@/components/review/tabs/InterviewTabItem.vue"
 import YearamtTabItem from "@/components/review/tabs/YearamtTabItem.vue"
 import LoadingItem from "@/components/common/LoadingItem.vue"
+const options = {
+  isShowCheckBtn: false,
+  isShowNextBtn: false,
+  isShowSearchBtn: false,
+  isShowStarBtn: true,
+  isShowChartBoxBtn: false,
+};
 
 export default {
   name: "ReviewDetailView",
@@ -88,12 +74,6 @@ export default {
       txt:null, //한줄평가
       likeCode: null, //좋아요
 
-      backgroundUrls: [
-        '/resources/images/review_bg.jpg',
-        '/resources/images/review_bg_02.jpg',
-        '/resources/images/review_bg_03.jpg'
-      ],
-      backgroundUrl: null,
       isJipyoLoading: false,
       isCompanyLoading: false,
       isInterviewLoading: false,
@@ -124,22 +104,14 @@ export default {
     onChangeLikeCode(value){
       this.likeCode = value;
     },
-    getBackgroundUrl(){
-      const size = this.backgroundUrls.length;
-      const min = 0
-      const max = size-1;
-      const idx = Math.floor(Math.random() * (max - min) + min);
-      const newidx = idx%size;
-      console.log(newidx);
-      console.log(this.backgroundUrls[newidx]);
-      return this.backgroundUrls[newidx];
-    },
     getComapnyJipyoData(){
       companyApi.getCompanyJipyoById(
         this.companyId, 
         (body)=>{
           this.jipyoData = body;
           this.isJipyoLoading = true;
+          this.$emit("setLayout", body.officeName, options);
+          this.$emit("setJipyo", body);
         },
         (err)=>{
           console.log(err);
@@ -163,7 +135,7 @@ export default {
         this.companyId, 
         (body)=>{
           console.log(body);
-          this.companyReviewList = body;
+          this.companyReviewList = body;          
           this.isCompanyReviewLoading = true;
         },
         (err)=>{
@@ -223,10 +195,6 @@ export default {
         }
       )
     },
-    detailJipyo(){
-      const URI = `/review/reviewDetail/${this.companyId}/jipyo`;
-      this.$router.push(URI);
-    },
     setStore(){
       const txt = this.txt;
       const likeCode = this.likeCode
@@ -240,7 +208,6 @@ export default {
   },
   created() {
     this.companyId = this.$route.params.companyId;
-    this.backgroundUrl = this.getBackgroundUrl();
     if (this.reqData != null) {
       const company = this.reqData;
       //if(yearamt.workExpOpenYn) this.workExpOpenYn = yearamt.workExpOpenYn;
@@ -253,13 +220,8 @@ export default {
       if(companySearch.sigugunName) this.sigugunName = companySearch.sigugunName;
       if(companySearch.establishmentTypeName) this.establishmentTypeName = companySearch.establishmentTypeName;
     }
-    const title = this.companyName? this.companyName : "-";
-    const options = {
-      isShowCheckBtn: false,
-      isShowNextBtn: true,
-      isShowSearchBtn: false,
-    };
-    this.$emit("setLayout", title, options);
+    
+    this.$emit("setLayout", null, options);
     // 집계정보
     this.getComapnyJipyoData();
     this.getCompanyInfo();
@@ -269,8 +231,8 @@ export default {
     this.getCompanyReviewList();
     this.getInterviewReviewList();
     this.getYearamtReviewList();
-    
   },
+
 };
 </script>
 

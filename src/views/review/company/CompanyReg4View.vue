@@ -57,6 +57,8 @@ export default {
       isShowCheckBtn: true,
       isShowNextBtn: false,
       isShowSearchBtn: false,
+      isShowStarBtn: false,
+      isShowChartBoxBtn: false,
     };
     if(this.companySearch != null){
       const companySearch = this.companySearch;

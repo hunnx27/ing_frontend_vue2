@@ -348,7 +348,7 @@ const routes = [
   },
   {
     path: "/review/reviewDetail/:companyId/companyReview/:id",
-    component: DetailLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -359,7 +359,7 @@ const routes = [
   },
   {
     path: "/review/reviewDetail/:companyId/jipyo",
-    component: DetailLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -408,7 +408,7 @@ const routes = [
   },
   {
     path: "/review/reviewDetail/:companyId/interviewReview/:id",
-    component: DetailLayout,
+    component: StepLayout,
     children: [
       {
         path: "",
@@ -456,7 +456,7 @@ const routes = [
   },
   {
     path: "/review/reviewDetail/:companyId/yearamtReview/:id",
-    component: DetailLayout,
+    component: StepLayout,
     children: [
       {
         path: "",

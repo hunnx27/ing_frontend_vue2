@@ -34,6 +34,8 @@ const options = {
   isShowCheckBtn: false,
   isShowNextBtn: false,
   isShowSearchBtn: false,
+  isShowStarBtn: false,
+  isShowChartBoxBtn: false,
 };
 
 export default {

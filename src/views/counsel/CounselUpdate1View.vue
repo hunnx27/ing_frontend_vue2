@@ -151,6 +151,8 @@ export default {
       isShowCheckBtn: false,
       isShowNextBtn: true,
       isShowSearchBtn: false,
+      isShowStarBtn: false,
+      isShowChartBoxBtn: false,
     };
     this.$emit("setLayout", title, options);
 

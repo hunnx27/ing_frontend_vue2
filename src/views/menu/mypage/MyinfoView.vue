@@ -127,7 +127,9 @@ export default {
     const options = {
           isShowCheckBtn: true,
           isShowNextBtn: false,
-          isShowSearchBtn: false
+          isShowSearchBtn: false,
+          isShowStarBtn: false,
+          isShowChartBoxBtn: false,
     };
     this.$emit("setLayout", title, options);
     const storedMyinfo = this.user!=null? this.user.myinfo : null;

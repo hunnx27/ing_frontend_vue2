@@ -89,6 +89,13 @@
 import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
 import companyApi from "@/api/company";
 import LoadingItem from "@/components/common/LoadingItem.vue"
+const options = {
+      isShowCheckBtn: false,
+      isShowNextBtn: false,
+      isShowSearchBtn: false,
+      isShowStarBtn: false,
+      isShowChartBoxBtn: true,
+    };
 
 export default {
   name: "CompanyDetailView",
@@ -118,6 +125,7 @@ export default {
         this.companyId, 
         (body)=>{
           this.jipyoData = body;
+          this.$emit("setLayout", body.officeName, options);
           this.isJipyoLoading = true;
         },
         (err)=>{
@@ -141,6 +149,7 @@ export default {
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
+    this.$emit("setLayout", null, options);
     this.getComapnyJipyoData();
     this.getInterviewDetailInfo();
   }

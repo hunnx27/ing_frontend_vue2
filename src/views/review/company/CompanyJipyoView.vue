@@ -83,6 +83,14 @@
 import companyApi from "@/api/company";
 import LoadingItem from "@/components/common/LoadingItem.vue"
 
+const options = {
+  isShowCheckBtn: false,
+  isShowNextBtn: false,
+  isShowSearchBtn: false,
+  isShowStarBtn: true,
+  isShowChartBoxBtn: false,
+};
+
 export default {
   name: "CompanyDetailView",
   components: {LoadingItem},
@@ -96,6 +104,7 @@ export default {
       companyId:null,
       isJipyoLoading: false,
       jipyoData:{},
+      companyName:null,
     };
   },
   methods: {
@@ -104,6 +113,7 @@ export default {
         this.companyId, 
         (body)=>{
           this.jipyoData = body;
+          this.$emit("setLayout", body.officeName, options);
           this.isJipyoLoading = true;
         },
         (err)=>{
@@ -115,13 +125,8 @@ export default {
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
-    const title = this.companyName? this.companyName : "-";
-    const options = {
-      isShowCheckBtn: false,
-      isShowNextBtn: true,
-      isShowSearchBtn: false,
-    };
-    this.$emit("setLayout", title, options);
+    
+    this.$emit("setLayout", null, options);
     this.getComapnyJipyoData();
   }
 };

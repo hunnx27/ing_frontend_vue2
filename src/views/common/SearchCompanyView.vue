@@ -99,6 +99,8 @@ export default {
       isShowCheckBtn: false,
       isShowNextBtn: false,
       isShowSearchBtn: true,
+      isShowStarBtn: false,
+      isShowChartBoxBtn: false,
     };
     this.$emit("setLayout", title, options);
 

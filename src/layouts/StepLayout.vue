@@ -18,6 +18,12 @@
       <v-btn icon v-show="isShowSearchBtn">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
+      <v-btn icon v-show="isShowStarBtn">
+        <v-icon color="orange">mdi-star</v-icon>
+      </v-btn>
+      <v-btn icon v-show="isShowChartBoxBtn">
+        <v-icon>mdi-chart-box</v-icon>
+      </v-btn>
       
     </v-app-bar>
 
@@ -41,7 +47,9 @@ export default {
     title: null,
     isShowCheckBtn: null,
     isShowNextBtn: false,
-    isShowSearchBtn: false
+    isShowSearchBtn: false,
+    isShowStarBtn: false,
+    isShowChartBoxBtn: false,
   }),
   watch: {
     group() {
@@ -59,12 +67,14 @@ export default {
         this.$router.go(-1);
       }
     },
-    setLayout(title, {isShowCheckBtn, isShowNextBtn, isShowSearchBtn}){
-      console.log(title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn);
+    setLayout(title, {isShowCheckBtn, isShowNextBtn, isShowSearchBtn, isShowStarBtn, isShowChartBoxBtn}){
+      console.log(title, isShowCheckBtn, isShowNextBtn, isShowSearchBtn, isShowStarBtn, isShowChartBoxBtn);
       this.title = title;
       this.isShowCheckBtn = isShowCheckBtn;
       this.isShowNextBtn = isShowNextBtn;
       this.isShowSearchBtn = isShowSearchBtn;
+      this.isShowStarBtn = isShowStarBtn;
+      this.isShowChartBoxBtn = isShowChartBoxBtn;
     },
     doCheck(){
       // ChildrenComponent에 doCheck()메소드 실행
