@@ -22,17 +22,13 @@
           <div class="option-item">
             <p>모의수업</p>
             <p>
-              <span>-제작한 교구보여주기</span>
-              <span>-제작한 교구보여주기</span>
-              <span>-제작한 교구보여주기</span>
+              <span v-for="item in data.itemTest1" :key="item">-{{item}}</span>
             </p>
           </div>
           <div class="option-item">
-            <p>모의수업</p>
+            <p>필기시험</p>
             <p>
-              <span>-제작한 교구보여주기</span>
-              <span>-제작한 교구보여주기</span>
-              <span>-제작한 교구보여주기</span>
+              <span>-{{data.itemTest2}}</span>
             </p>
           </div>
         </div>
@@ -41,42 +37,32 @@
           <div class="option-item">
             <p>인적성 검사</p>
             <p>
-              <span>-있어요</span>
+              <span>-{{data.itemTest3}}</span>
             </p>
           </div>
           <div class="option-item">
             <p>면접 결과</p>
             <p>
-              <span>-합격</span>
+              <span>-{{data.item4Goal}}</span>
             </p>
           </div>
           <div class="option-item">
             <p>난이도</p>
             <p>
-              <span>-긴장</span>
+              <span>-{{data.item5Mood}}</span>
             </p>
           </div>
         </div>
         <!--END option-wrap-->
         <div class="step-title">면접질문</div>
-        <div class="question-wrap">
+        <div class="question-wrap" v-for="(item, idx) in data.qna" :key="`qna-${idx}-${item.interviewQ}`">
           <p>
             <span>Q</span>
-            <span>간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하</span>
+            <span>{{item.interviewQ}}</span>
           </p>
           <p>
             <span>A</span>
-            <span>간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하간다라마바사아자차카타파하</span>
-          </p>
-        </div>
-        <div class="question-wrap">
-          <p>
-            <span>Q</span>
-            <span>혼자왔니</span>
-          </p>
-          <p>
-            <span>A</span>
-            <span>결혼했는디유</span>
+            <span>{{item.interviewA}}</span>
           </p>
         </div>
         <!--END question-wrap-->
@@ -100,14 +86,14 @@
 </template>
 
 <script>
-//import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
 import companyApi from "@/api/company";
 import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "CompanyDetailView",
-  components: {LoadingItem},
-  props: ['jipyoData'],
+  components: { LoadingItem},
+  props: [],
   data() {
     return {
       iconMap:{
@@ -118,13 +104,26 @@ export default {
       id:null,
       companyId:null,
       isLoading:false,
+      jipyoData:{},
       data:{},
     };
   },
   methods: {
     detailJipyo(){
-      const URI = `/review/reviewDetail/${this.id}/jipyo`;
+      const URI = `/review/reviewDetail/${this.companyId}/jipyo`;
       this.$router.push(URI);
+    },
+    getComapnyJipyoData(){
+      companyApi.getCompanyJipyoById(
+        this.companyId, 
+        (body)=>{
+          this.jipyoData = body;
+          this.isJipyoLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
     },
     getInterviewDetailInfo(){
       companyApi.getInterviewDetailInfo(
@@ -142,6 +141,7 @@ export default {
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
+    this.getComapnyJipyoData();
     this.getInterviewDetailInfo();
   }
 };

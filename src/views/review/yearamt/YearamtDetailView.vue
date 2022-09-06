@@ -14,28 +14,29 @@
       <div class="review-item-wrap">
         <div class="step-title">연봉리뷰</div>
         <div class="exp-wrap" style="">
-          <p style="margin:0;color:#999"><img :src="iconMap.blue"/><span>교사경력 3년차</span>|<span>16호봉</span></p>
+          <p style="margin:0;color:#999"><img :src="iconMap.blue"/><span>교사경력 {{data.workExp}}년차</span>|<span>16호봉</span></p>
         </div>
 
         <div class="amt-wrap">
           <div>
-            <p><span>3,000</span><span>만원</span></p>
+            <p><span>{{numberWithCommas(data.amt)}}</span><span>만원</span></p>
             <p>(수당미포함)</p>
           </div>
           <div class="item-wrap">
             <div class="item-row">
-              <p>수당</p><p>8만원</p>
+              <p>수당</p><p>{{data.totalCost!=null?data.totalCost:'-'}}만원</p>
             </div>
             <div class="item-row">
               <p>항목</p>
               <p>
-                <span>처우개선비 3</span>
-                <span>처우개선비 3</span>
-                <span>처우개선비 3</span>
+                <span v-show="data.impCost!=null">처우개선비 {{data.impCost}}</span>
+                <span v-show="data.workCost!=null">누리과정수당 {{data.workCost}}</span>
+                <span v-show="data.addCost!=null">근무환경개선 {{data.addCost}}</span>
+                <span v-show="data.etcCost!=null">기타 {{data.etcCost}}</span>
               </p>
             </div>
             <div class="item-row">
-              <p>퇴직금</p><p>있음</p>
+              <p>퇴직금</p><p>{{data.endAtmYn}}</p>
             </div>
           </div>
         </div>
@@ -62,14 +63,14 @@
 </template>
 
 <script>
-//import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
 import companyApi from "@/api/company";
 import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "CompanyDetailView",
   components: {LoadingItem},
-  props: ['jipyoData'],
+  props: [],
   data() {
     return {
       iconMap:{
@@ -80,13 +81,26 @@ export default {
       id:null,
       companyId:null,
       isLoading:false,
+      jipyoData:{},
       data:{},
     };
   },
   methods: {
     detailJipyo(){
-      const URI = `/review/reviewDetail/${this.id}/jipyo`;
+      const URI = `/review/reviewDetail/${this.companyId}/jipyo`;
       this.$router.push(URI);
+    },
+    getComapnyJipyoData(){
+      companyApi.getCompanyJipyoById(
+        this.companyId, 
+        (body)=>{
+          this.jipyoData = body;
+          this.isJipyoLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
     },
     getAmtDetailInfo(){
       companyApi.getAmtDetailInfo(
@@ -100,10 +114,14 @@ export default {
         }
       )
     },
+    numberWithCommas(x) {
+      return x!=null? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '-';
+    },
   },
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
+    this.getComapnyJipyoData();
     this.getAmtDetailInfo();
   }
 };

@@ -11,49 +11,14 @@
     </div>
     
     <div class="review-wrap mb-2 card-wrap pa-0">
-      <div class="review-item-wrap">
+      <div class="review-item-wrap detail">
         <div class="step-title">기관리뷰</div>
     
-        <div class="review-item-content" style="padding:10px" >
-          <p class="text--primary ma-0" style="font-size: 15px;">
-          애기 혼자놀다 다쳐도 교사탓 원장 참견심하고 교사컴퓨터1대로 3명돌아가면서 씀<br/>
-          원장이 기분파라 기분 맞추기 힘듬
-          </p>
-        </div>
-    
-        <div class="review-item-bottom">
-          <p class="review-score-prepend ma-0">
-          <v-icon>mdi-face-man</v-icon>
-          </p>
-          <div class="review-score">
-          <p class="sub-title avg-title ma-0">총 만족도</p>
-          <p class="avg-score">
-              3.3
-          </p>
-          </div>
-          <div class="review-score">
-          <p class="sub-title ma-0">업무량</p>
-          <p class="star ma-0">
-              <v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon>
-          </p>
-          </div>
-          <div class="review-score">
-          <p class="sub-title ma-0">직무만족</p>
-          <p class="star ma-0">
-              <v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon>
-          </p>
-          </div>
-          <div class="review-score">
-          <p class="sub-title ma-0">원내분위기</p>
-          <p class="star ma-0">
-              <v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart</v-icon><v-icon>mdi-cards-heart-outline</v-icon>
-          </p>
-          </div>
-        </div>
+        <CompanyReviewItem uid="id" :data="data"></CompanyReviewItem>
 
         <div style="display: flex;justify-content: space-between;align-items: center;padding:10px 0;font-size:14px;">
-          <p style="margin:0;color:#999">교사경력 3년차</p>
-          <p style="margin:0;color:#999">2022-07-11</p>
+          <p style="margin:0;color:#999">교사경력 {{data.workExp}}년차</p>
+          <p style="margin:0;color:#999">{{data.createDate}}</p>
         </div>
       </div>
     </div>
@@ -65,7 +30,7 @@
           <img src="/resources/images/teacher_face.png" style="height:100%;max-height:100px;"/>
         </p>
         <div style="position:relative;margin:0;flex:1 0;display:flex;align-items:center;justify-content: center;font-weight:bolder;background-color:#efefef;">
-          <span style="z-index:1;font-size:15px;font-weight:bolder;">계속근무, 싫어요</span>
+          <span style="z-index:1;font-size:15px;font-weight:bolder;">{{data.keepWork}}</span>
           <div style="position: absolute;left:-27px;z-index:0;top:-29px;width: 0px;height: 0px;border-width: 40px;border-style: solid solid solid solid;border-color: #ffffff00 #ffffff00 #efefef #ffffff00;"></div>
         </div>
       </div>
@@ -75,13 +40,13 @@
       <div class="step-title">업무량</div>
       <div class="item-wrap">
         <div class="item-row">
-          <p>행사횟수</p><p>연 5~10회</p>
+          <p>행사횟수</p><p>{{data.eventCntJumsu}}</p>
         </div>
         <div class="item-row">
-          <p>서류업무</p><p>적당해요</p>
+          <p>서류업무</p><p>{{data.docWrokJumsu}}</p>
         </div>
         <div class="item-row">
-          <p>수업준비시간</p><p>1~2시간 미만</p>
+          <p>수업준비시간</p><p>{{data.readyClassJumsu}}</p>
         </div>
       </div>
     </div>
@@ -90,13 +55,13 @@
       <div class="step-title">직무만족</div>
       <div class="item-wrap">
         <div class="item-row">
-          <p>개인PC</p><p>함께써요</p>
+          <p>개인PC</p><p>{{data.personalPcJumsu}}</p>
         </div>
         <div class="item-row">
-          <p>자기개발</p><p>대학원 진학 허용해요</p>
+          <p>자기개발</p><p>{{data.selfDevJumsu}}</p>
         </div>
         <div class="item-row">
-          <p>육아 휴직 허용 분위기</p><p>육아사용 교사 2명 이하</p>
+          <p>육아 휴직 허용 분위기</p><p>{{data.kizRestJumsu}}</p>
         </div>
       </div>
     </div>
@@ -105,10 +70,10 @@
       <div class="step-title">원내분위기</div>
       <div class="item-wrap">
         <div class="item-row">
-          <p>동료관계</p><p>상호격려 및 협동</p>
+          <p>동료관계</p><p>{{data.partnershipJumsu}}</p>
         </div>
         <div class="item-row">
-          <p>원장리더쉽</p><p>권위</p>
+          <p>원장리더쉽</p><p>{{data.ownerLeadershipJumsu}}</p>
         </div>
       </div>
     </div>
@@ -133,26 +98,39 @@
 </template>
 
 <script>
-//import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
 import companyApi from "@/api/company";
 import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "CompanyDetailView",
-  components: {LoadingItem},
-  props: ['jipyoData'],
+  components: {CompanyReviewItem, LoadingItem},
+  props: [],
   data() {
     return {
       id:null,
       companyId:null,
       isLoading:false,
+      jipyoData:{},
       data:{},
     };
   },
   methods: {
     detailJipyo(){
-      const URI = `/review/reviewDetail/${this.id}/jipyo`;
+      const URI = `/review/reviewDetail/${this.companyId}/jipyo`;
       this.$router.push(URI);
+    },
+    getComapnyJipyoData(){
+      companyApi.getCompanyJipyoById(
+        this.companyId, 
+        (body)=>{
+          this.jipyoData = body;
+          this.isJipyoLoading = true;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
     },
     getCompanyDetailInfo(){
       companyApi.getCompanyDetailInfo(
@@ -170,6 +148,7 @@ export default {
   created(){
     this.companyId = this.$route.params.companyId;
     this.id = this.$route.params.id;
+    this.getComapnyJipyoData();
     this.getCompanyDetailInfo();
   }
 };
@@ -194,42 +173,9 @@ export default {
 .review-wrap{
   .review-item-wrap{
     background: white;padding: 10px;border-radius:2px;margin: 0;padding: 10px;
-    .review-item-content{
-      padding:10px;
-    }
-    .review-item-bottom{
-      display:flex;padding:10px;border:1px solid #aaa;border-radius:10px;align-items: center;
-      .review-score-prepend{
-        flex-basis:14%;display: flex;justify-content: center;align-items: center;
-        .v-icon{
-          color:black;
-        }
-      }
-      .review-score{
-        flex-basis:25%;text-align: center;
-        .sub-title{      
-          font-size:11px;
-          font-weight:bolder;
-        }
-        .sub-title.avg-title{
-          font-size:12px;
-          color:#999;
-        }
-        .avg-score{
-          font-size: 11px;
-          background: orange;
-          color: white;
-          border-radius: 10px;
-          width: 90%;
-          max-width: 80px;
-          margin: 2px auto;
-          padding: 2px 0;
-        }
-        .star .v-icon{
-          font-size:10px;
-          color: orange;
-        }
-      }
+    ::v-deep .review-wrap .review-item-wrap{
+      margin:0;
+      padding:0;
     }
   }
 }
