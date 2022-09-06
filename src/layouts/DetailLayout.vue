@@ -199,6 +199,12 @@ export default {
   .v-toolbar__content{
     height:56px !important;
   }
+  .v-app-bar-title__content{display:none;}
+  .v-app-bar-title__content{display:none;}
+  .v-app-bar--is-scrolled{
+    .v-app-bar-title__content{display:block;}
+    .v-app-bar-title__content{display:block;}
+  }
 }
 .v-main__wrap {
   background: #f2f2f2;
