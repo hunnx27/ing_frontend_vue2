@@ -42,7 +42,7 @@ export default {
     getAddressSido(){
       accountApi.getAddressSido((body)=>{
         console.log(body);
-        this.sidoList = body;
+        this.sidoList = body.data;
         this.getAddressBySido();
       });
     },
@@ -51,7 +51,7 @@ export default {
         this.$emit('sidoChange', this.interestSidoCode)
         accountApi.getAddressBySido(this.interestSidoCode, (body)=>{
           console.log(body);
-          this.sigugunList = body;
+          this.sigugunList = body.data;
         });
       }
       

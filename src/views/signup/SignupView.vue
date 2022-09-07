@@ -123,9 +123,9 @@ export default {
         (body) => {
           console.log("succss.body : ", body);
           console.log("signup data Clear!");
-          if (body.accessToken != null) {
+          if (body.data.accessToken != null) {
             this.clearSignup();
-            this.setToken(body.accessToken);
+            this.setToken(body.data.accessToken);
             this.fetchUser();
             this.currentStep++;
           } else {

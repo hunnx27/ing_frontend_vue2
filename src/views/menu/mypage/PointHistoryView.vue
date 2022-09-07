@@ -35,7 +35,7 @@ export default {
             return;
           }
           console.log(body);
-          this.pointHistories = body.content;
+          this.pointHistories = body.data.content;
         },
         (err) => {
           if (err.response.data.status === 500) {

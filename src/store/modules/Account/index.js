@@ -77,15 +77,15 @@ export const Account = {
       state.user
         ? callback && callback(state.user)
         : accountApi.getUser(res => {
-            commit('setUser', res)
-            callback && callback(res)
+            commit('setUser', res.data)
+            callback && callback(res.data)
           }
         )
     },
     refreshUser ({state, commit}, callback) {
       accountApi.getUser(
         res => {
-          commit('setUser', res)
+          commit('setUser', res.data)
           callback && callback()
         }
       )

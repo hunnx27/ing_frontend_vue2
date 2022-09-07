@@ -98,15 +98,15 @@ export default {
           password: this.password,
           socialType: 'LOCAL'
         },
-        body => {
-          this.setToken(body.token)
+        (body) => {
+          this.setToken(body.data.token)
           this.id = this.password = ''
           this.isProcess = false
           this.fetchUser(() => {
             this.$emit('onCloseModal')
           })
         },
-        err => {
+        (err) => {
           if (err.response.data.status === 401) {
             this.isLoginFailed = true
           }

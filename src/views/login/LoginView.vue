@@ -129,7 +129,7 @@ export default {
             alert("계정정보가 일치하지 않습니다. 계정정보를 확인하세요.");
             return;
           }
-          const token = body;
+          const token = body.data;
           this.setToken(token); // TODO 기능 확인 필요
           this.user.name = this.user.password = "";
           this.isProcess = false;

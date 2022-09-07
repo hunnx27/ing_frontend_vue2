@@ -211,7 +211,7 @@ export default {
     getFindAddressSido(relatedZone){
       accountApi.getAddressSido((body)=>{
         if(body == null) return;
-        const findZone = body.find((sido) =>{
+        const findZone = body.data.find((sido) =>{
           const findCode = relatedZone!=null && relatedZone!='' ? relatedZone.substr(0, 2) : null;
           return sido.sidoCode == findCode;
         })
