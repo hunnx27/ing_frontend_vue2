@@ -12,6 +12,7 @@
         :src="`${backgroundUrl}`"
         class="flex-grow-0"
         style="font-size: inherit;"
+        v-if="isLoading"
       >
 
         <template v-slot:img="{ props }">
@@ -64,6 +65,7 @@
         </v-btn>
         
       </v-app-bar>
+      <LoadingItem isLoading="true" v-else/>
       
       <!-- Main Section -->
       <v-sheet
@@ -80,14 +82,19 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import LoadingItem from "@/components/common/LoadingItem.vue"
 
 export default {
   name: "MenuLayout",
+  components:{
+    LoadingItem
+  },
   data: () => ({
     companyId: null,
     drawer: false,
     group: null,
     title: null,
+    isLoading: false,
     isShowCheckBtn: null,
     isShowNextBtn: false,
     isShowSearchBtn: false,
@@ -137,6 +144,7 @@ export default {
       this.isShowChartBoxBtn = isShowChartBoxBtn;
     },
     setJipyo(data){
+      this.isLoading =  true;
       this.jipyoData = data;
     },
     doCheck(){

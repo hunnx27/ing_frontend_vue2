@@ -111,7 +111,7 @@ export default {
           this.jipyoData = body.data;
           this.isJipyoLoading = true;
           this.$emit("setLayout", body.data.officeName, options);
-          this.$emit("setJipyo", body);
+          this.$emit("setJipyo", body.data);
         },
         (err)=>{
           console.log(err);
