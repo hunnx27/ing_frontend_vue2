@@ -146,8 +146,8 @@ export default {
           if(body==null) 
             return;
 
-          this.txt = body.txt;
-          this.previews = body.images;
+          this.txt = body.data.txt;
+          this.previews = body.data.images;
         },
         (err)=>{
           console.log(err);

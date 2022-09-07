@@ -163,9 +163,9 @@ export default {
       }
       counselApi.getCounselAll(param,
       (body)=>{
-        if(body!=null && body.length>0){
+        if(body.data!=null && body.data.length>0){
           //this.list = body!=null? body : [];
-          this.list = this.list.concat(body);
+          this.list = this.list.concat(body.data);
           this.curpage = reqpage;
         }
         this.isLoading=false;
@@ -181,7 +181,7 @@ export default {
         size: 1,
       }
       counselApi.getCounselAll(param,(body)=>{
-        this.item = body!=null&&body.length>0? body[0] : [];
+        this.item = body!=null&&body.data.length>0? body.data[0] : [];
       })
     },
     getBackgroundUrl(idx){

@@ -136,7 +136,7 @@ export default {
       this.isLoading = true;
       counselApi.getCommentByAnswerId(this.parentCounselId,
         (body) => {
-          this.commentList = body;
+          this.commentList = body.data;
           this.isLoading = false;
           setTimeout(()=>{this.scrollToElement();}, 0);
         },

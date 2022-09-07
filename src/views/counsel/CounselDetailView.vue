@@ -158,14 +158,14 @@ export default {
       this.clearReq();
       counselApi.getCounselInfo(this.id,
         (body)=>{
-          console.log('body');
           if(body==null) 
             return;
 
-          this.item = body!=null? body : {};
+          this.item = body!=null? body.data : {};
+          const res = body.data;
           const addedTagData = [];
-          if(body.addedTagData!=null){
-            const inputTagArr = body.addedTagData.split(" ");
+          if(res.addedTagData!=null){
+            const inputTagArr = res.addedTagData.split(" ");
             inputTagArr.forEach(inputTag => {
               const tags = inputTag.split("#");
                 if(tags.length>1){
@@ -173,12 +173,12 @@ export default {
                 }
             })
           }
-          const id = body.id;
-          const interestCompanyName = body.interestCompanyName;
-          const relatedZone = body.relatedZone;
-          const qnaItem = body.qnaItem;
-          const txt = body.txt;
-          const shortOpenYn = body.shortOpenYn;
+          const id = res.id;
+          const interestCompanyName = res.interestCompanyName;
+          const relatedZone = res.relatedZone;
+          const qnaItem = res.qnaItem;
+          const txt = res.txt;
+          const shortOpenYn = res.shortOpenYn;
           this.setReqAll({id, addedTagData,interestCompanyName,relatedZone,qnaItem,txt,shortOpenYn});
           this.getFindAddressSido(relatedZone);
           this.getAnswerList();
@@ -194,7 +194,7 @@ export default {
       counselApi.getAnswerAll(param,
         (body)=>{
           console.log(body);
-          this.answerList = body;
+          this.answerList = body.data;
         },
         (err)=>{
           console.log(err);
