@@ -18,10 +18,10 @@
       <v-btn icon v-show="isShowSearchBtn">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
-      <v-btn icon v-show="isShowStarBtn">
+      <v-btn icon v-show="isShowStarBtn" @click="doStar">
         <v-icon color="orange">mdi-star</v-icon>
       </v-btn>
-      <v-btn icon v-show="isShowChartBoxBtn">
+      <v-btn icon v-show="isShowChartBoxBtn" @click="doChartBox">
         <v-icon>mdi-chart-box</v-icon>
       </v-btn>
       
@@ -86,6 +86,16 @@ export default {
       // ChildrenComponent에 doNext()메소드 실행
       if(this.$refs.childForm.doNext!=null){
         this.$refs.childForm.doNext();
+      }
+    },
+    doStar(){
+      if(this.$refs.childForm.doStar!=null){
+        this.$refs.childForm.doStar();
+      }
+    },
+    doChartBox(){
+      if(this.$refs.childForm.doChartBox!=null){
+        this.$refs.childForm.doChartBox();
       }
     },
     ...mapActions(["logout"]),

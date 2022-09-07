@@ -123,6 +123,9 @@ export default {
     };
   },
   methods: {
+    doChartBox(){
+      this.detailJipyo();
+    },
     detailJipyo(){
       const URI = `/review/reviewDetail/${this.companyId}/jipyo`;
       this.$router.push(URI);
