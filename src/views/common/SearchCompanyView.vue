@@ -1,93 +1,32 @@
 <template>
   <!-- Wrap START -->
-  <div class="TempView page-wrap">
-    <SelectAddressZone :selected='interestZone' @change="onChangeZone" @sidoChange="onChangeSido" ref="selectAddressZone"></SelectAddressZone>
-    <br/>
-
-    <ul v-if="list.length>0" class="search-wrap" v-show="!isLoading">
-        <li v-for="item in list" :key="item.id" class="search-item" @click="selectCompany(item)"><span class="search-item-left">{{item.officeName}}</span><span class="search-item-right">{{item.mapsidogunguName}}</span></li>        
-    </ul>
-    <ul v-else-if="!isFirst" class="search-wrap" v-show="!isLoading"><li>검색된 기관이 없습니다.</li></ul>
-    <ul v-else class="search-wrap" v-show="!isLoading"><li>기관을 검색하세요.</li></ul>
-    <LoadingItem :isLoading="isLoading"></LoadingItem>
-    
-
-    
+  <div class="TempView">
+    <SearchCompanyItem ref="searchForm"/>
   </div>
   <!-- Wrap END -->
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import companyApi from "@/api/company";
-import SelectAddressZone from "@/components/common/SelectAddressZone.vue";
-import LoadingItem from "@/components/common/LoadingItem.vue"
+import SearchCompanyItem from "@/components/company/SearchCompanyItem"
 
 export default {
   name: "TempView",
   data() {
     return {
-      isFirst:true,
-      prevRoute:null,
-      interestCompanyName:null,
-      sidoCode: null,
-      interestZone: null,
-      list:[],
-      isLoading:false,
     };
   },
   components:{
-    SelectAddressZone, LoadingItem
+    SearchCompanyItem
   },
   methods: {
-    ...mapActions(["logout"]),
-    ...mapActions('CompanySearch',{setReq:'setReq'}),
-    searchCompany(){
-      this.$router.push('/searchCompany')
-    },
-    onChangeSido(value){
-      console.log(value);
-      this.sidoCode = value;
-    },
-    onChangeZone(value){
-      console.log(value);
-      this.interestZone = value;
-    },
-    selectCompany(item){
-      this.setReq({
-        companyId: item.id, 
-        companyName: item.officeName, 
-        sigugunName: item.mapsidogunguName, 
-        establishmentTypeName: item.establishName})
-      this.$router.go(-1);      
-    },
-    doSearch(keyword){
-      const name = keyword;
-      const sido = this.sidoCode;
-      const interestZone = this.interestZone;
-      const interestCompany = this.interestCompanyName;
-      if(keyword==null || ''==keyword){
-        alert('기관명을 입력하세요.');
-        return false;
-      }
 
-      this.isFirst = false;
-      this.isLoading = true;
-      companyApi.getCompanySearch(
-        {name,sido,interestZone,interestCompany},
-        {page:null,size:null,sort:null},
-        (body)=>{
-          this.isLoading = false;
-          console.log(body);
-          this.list = body.data;
-          
-        },
-        (err)=>{
-          this.isLoading = false;
-          console.log(err);
-        }
-      );
+    doSearch(keyword){
+      if(this.$refs.searchForm.doSearch!=null){
+        this.$refs.searchForm.doSearch(keyword);
+      }
     },
+
     
   },
   computed: {
@@ -103,14 +42,12 @@ export default {
       isShowChartBoxBtn: false,
     };
     this.$emit("setLayout", title, options);
-
-    this.interestCompanyName = this.$route.query.interestCompanyName!=null?this.$route.query.interestCompanyName:'kindergarten';
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.prevRoute = from
     })
-},
+  },
 };
 </script>
 
