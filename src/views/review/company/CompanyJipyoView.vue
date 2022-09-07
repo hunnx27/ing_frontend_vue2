@@ -112,8 +112,8 @@ export default {
       companyApi.getCompanyJipyoById(
         this.companyId, 
         (body)=>{
-          this.jipyoData = body;
-          this.$emit("setLayout", body.officeName, options);
+          this.jipyoData = body.data;
+          this.$emit("setLayout", body.data.officeName, options);
           this.isJipyoLoading = true;
         },
         (err)=>{

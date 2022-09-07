@@ -108,9 +108,9 @@ export default {
       companyApi.getCompanyJipyoById(
         this.companyId, 
         (body)=>{
-          this.jipyoData = body;
+          this.jipyoData = body.data;
           this.isJipyoLoading = true;
-          this.$emit("setLayout", body.officeName, options);
+          this.$emit("setLayout", body.data.officeName, options);
           this.$emit("setJipyo", body);
         },
         (err)=>{
@@ -122,7 +122,7 @@ export default {
       companyApi.getCompanyInfo(
         this.companyId, 
         (body)=>{
-          this.companyInfo = body;
+          this.companyInfo = body.data;
           this.isCompanyLoading = true;
         },
         (err)=>{
@@ -135,7 +135,7 @@ export default {
         this.companyId, 
         (body)=>{
           console.log(body);
-          this.companyReviewList = body;          
+          this.companyReviewList = body.data;          
           this.isCompanyReviewLoading = true;
         },
         (err)=>{
@@ -148,7 +148,7 @@ export default {
         this.companyId, 
         (body)=>{
           console.log(body);
-          this.interviewReviewList = body;
+          this.interviewReviewList = body.data;
           this.isInterviewReviewLoading = true;
         },
         (err)=>{
@@ -161,7 +161,7 @@ export default {
         this.companyId, 
         (body)=>{
           console.log(body);
-          this.yearamtReviewList = body;
+          this.yearamtReviewList = body.data;
           this.isYearamtReviewLoading = true;
         },
         (err)=>{
@@ -174,7 +174,7 @@ export default {
         this.companyId, 
         (body)=>{
           console.log(body);
-          this.interviewInfo = body;
+          this.interviewInfo = body.data;
           this.isInterviewLoading = true;
         },
         (err)=>{
@@ -187,7 +187,7 @@ export default {
         this.companyId, 
         (body)=>{
           console.log(body);
-          this.amtInfo = body;
+          this.amtInfo = body.data;
           this.amtLoading = true;
         },
         (err)=>{

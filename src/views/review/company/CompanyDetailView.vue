@@ -134,8 +134,8 @@ export default {
       companyApi.getCompanyJipyoById(
         this.companyId, 
         (body)=>{
-          this.jipyoData = body;
-          this.$emit("setLayout", body.officeName, options);
+          this.jipyoData = body.data;
+          this.$emit("setLayout", body.data.officeName, options);
           this.isJipyoLoading = true;
         },
         (err)=>{
@@ -147,7 +147,7 @@ export default {
       companyApi.getCompanyDetailInfo(
         {companyId:this.companyId,id:this.id}, 
         (body)=>{
-          this.data = body;
+          this.data = body.data;
           this.isLoading = true;
         },
         (err)=>{

@@ -79,7 +79,7 @@ export default {
         (body)=>{
           this.isLoading = false;
           console.log(body);
-          this.list = body;
+          this.list = body.data;
           
         },
         (err)=>{
