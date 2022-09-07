@@ -4,7 +4,7 @@
     <div class="step-title">상담분류</div>
     <div class="column">
       <select class="line" v-model="qnaItem">
-        <option v-for="(item) in qnaItemList" :key="item.code" :value="item.code">{{item.name}}</option>
+        <option v-for="(item) in getQnaItemList()" :key="item.code" :value="item.code">{{item.name}}</option>
       </select>
     </div>
 
@@ -93,14 +93,22 @@ export default {
       txt:null,
       shortOpenYn:'N',
       qnaItem: null,
-      qnaItemList: [
-        {code:"Q1", name:"고민상담"},
-        {code:"Q2", name:"우리반아이"},
-        {code:"Q3", name:"휴가/휴직"},
-        {code:"Q4", name:"호봉/수당"},
-        {code:"Q5", name:"승급/임용"},
-        {code:"Q6", name:"동료/보조/대체"},
-        {code:"Q7", name:"기관문의"},
+      qnaSItemList: [
+        {code:"QS01", name:"고민상담"},
+        {code:"QS02", name:"우리반아이"},
+        {code:"QS03", name:"휴가/휴직"},
+        {code:"QS04", name:"호봉/수당"},
+        {code:"QS05", name:"승급/임용"},
+        {code:"QS06", name:"동료/보조/대체"},
+        {code:"QS07", name:"기관문의"},
+      ],
+      qnaIItemList: [
+        {code:"QI01", name:"고민상담"},
+        {code:"QI02", name:"자격증"},
+        {code:"QI03", name:"실습/자원봉사"},
+        {code:"QI04", name:"취업/진로/임용"},
+        {code:"QI05", name:"교사월급"},
+        {code:"QI06", name:"기관문의"},
       ],
       // images: '',
       url: null,
@@ -148,9 +156,24 @@ export default {
     onChangeOpenYn(value){
       this.shortOpenYn = value=='Y'?'N':'Y';
     },
+    getQnaItemList(){
+      debugger;
+      let list = [];
+      if(this.user!=null){
+        const gubn = this.user.gubn;
+        if('TEACHER' == gubn){
+          // gubn : TEACHER
+          list = this.qnaSItemList;
+        }else{
+          // gubn : PARENT
+          list = this.qnaIItemList;
+        }
+      }
+      return list;
+    }
   },
   computed: {
-    ...mapGetters(["user"]),//TODO 확인필요 사용하는지..
+    ...mapGetters(["user"]),
     ...mapGetters('Counsel',['reqData']),
   },
   created() {
