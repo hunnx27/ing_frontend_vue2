@@ -8,7 +8,7 @@
       height="170"
       hide-delimiter-background
       >
-      <v-carousel-item v-for="(item,idx) in sliedeitems" :key="idx">
+      <v-carousel-item v-for="(item,idx) in sliedeitems" :key="item.id">
         
           <div
             class="lighten-5 pa-0 ma-0 block"
@@ -16,16 +16,16 @@
             style="display:flex;height:100%;align-items: end;justify-content: center;"
           >
             <div class="text-center">
-              <h3>{{item.name}}</h3>
+              <h3>{{item.officeName}}</h3>
               <div style="background-color: #fafafaaa;border-radius: 10px;padding: 5px 15px;">
                 <p class="ma-0">
                   원앤집 지표점수는?
                 </p>
                 <p class="ma-0" style="color:red; font-weight:bolder">
-                  {{item.score}}점
+                  {{item.jipyoScore}}점
                 </p>
               </div>
-              <p style="font-size: 15px;font-weight: bolder;margin:10px 0 5px;display:flex;align-items: center;justify-content: center;">
+              <p @click="detailReview(item.id)" style="cursor:pointer;font-size: 15px;font-weight: bolder;margin:10px 0 5px;display:flex;align-items: center;justify-content: center;">
                 <v-icon>mdi-chevron-right</v-icon><span>기관 정보보기</span>
               </p>
             </div>
@@ -131,6 +131,158 @@
   <!-- Wrap END -->
 
 </template>
+
+<script>
+import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
+import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
+import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
+import LoadingItem from "@/components/common/LoadingItem.vue"
+import reviewApi from "@/api/review";
+import companyApi from "@/api/company";
+
+export default {
+  name: 'ReviewItem',
+  components:{
+    CompanyReviewItem, InterviewReviewItem, YearamtReviewItem, LoadingItem
+    
+  },
+  data(){
+    return{
+      selectedMenu1: '전체리뷰보기',
+      selectedMenu2: '기관/지역순',
+      dialog1: false,
+      backgroundUrls: [
+        'https://appstage.oneandzip.com/test/banner_bg_00.jpg',
+        'https://appstage.oneandzip.com/test/banner_bg_01.jpg',
+        'https://appstage.oneandzip.com/test/banner_bg_02.jpg',
+        'https://appstage.oneandzip.com/test/banner_bg_03.jpg',
+      ],
+      sliedeitems: [
+        {
+          id: 1,
+          name: '송파유정유치원',
+          score: 68,
+        },
+        {
+          id: 2,
+          name: '오창과학 미래어린이집',
+          score: 52,
+        },
+        {
+          id: 3,
+          name: '하나유치원',
+          score: 44,
+        },
+      ],
+      menu1Items: [
+        { title: '전체리뷰보기' },
+        { title: '기관리뷰만보기' },
+        { title: '면접리뷰만보기' },
+        { title: '연봉리뷰만보기' },
+      ],
+      menu2_items1:["전체", "국롱립", "사회복지법인"],
+      menu2_items2:["전체", "서울특별시"],
+      menu2_items3:["전체", "강남구"],
+      item: {},
+      list: [],
+      curpage:-1,
+      size:5,
+      isLoading: false,
+      lastScrollY: 0
+    }
+  },
+  methods:{
+    selectMenu1(val){
+      this.selectedMenu1 = val;
+    },
+    selectMenu2(val){
+      this.selectedMenu2 = val;
+    },
+    searchDetailSearch(){
+      console.log('FIXME! Search!!');
+    },
+    getBackgroundUrl(idx){
+      const size = this.backgroundUrls.length;
+      const newidx = idx%size;
+      return this.backgroundUrls[newidx];
+    },
+    detailReview(companyId){
+      const URI = `/review/reviewDetail/companies/${companyId}`;
+      this.$router.push(URI);
+    },
+    getCompanyJipyos(){
+      companyApi.getCompanyJipyos({page:0,size:4},
+      (body)=>{
+        this.sliedeitems = body.data;
+      },
+      (err)=>{
+        console.log(err);
+      })
+    },
+    searchAllList(){
+      this.isLoading=true;
+      const reqpage = this.curpage+1;
+      console.log('START searchAllList ' + `req:${reqpage}, cur:${this.curpage}`);
+      var param = {
+        page: reqpage,
+        size: this.size
+      }
+      reviewApi.getReviewAll(param,
+      (body)=>{
+        if(body!=null && body.data.length>0){
+          //this.list = body!=null? body : [];
+          this.list = this.list.concat(body.data);
+          this.curpage = reqpage;
+        }
+        this.isLoading=false;
+      },
+      (err)=>{
+        console.log(err);
+        this.isLoading=false;
+      })
+    },
+    
+    handleScroll(e){
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
+        if(this.lastScrollY != window.scrollY){
+          this.lastScrollY = window.scrollY;
+          this.searchAllList();
+        }else{
+          this.lastScrollY = 0;
+        }
+      }
+    },
+    getComponentName(type){
+      var componentName = 'CompanyReviewItem'
+      switch(type){
+        case 'COMPANY':
+          componentName = 'CompanyReviewItem';
+        break;
+        case 'INTERVIEW':
+          componentName = 'InterviewReviewItem';
+        break;
+        case 'AMT':
+          componentName = 'YearamtReviewItem';
+        break;
+      }
+      return componentName;
+    }
+  },
+  created(){
+    this.curpage=-1;
+    this.list=[];
+    this.getCompanyJipyos();
+    this.searchAllList();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    console.log('destroyed');
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+}
+</script>
+
 <style>
 .v-carousel__controls{
   top:0
@@ -233,151 +385,3 @@
   border: 1px solid #b5b5b5;
 }
 </style>
-<script>
-import CompanyReviewItem from "@/components/review/CompanyReviewItem.vue"
-import InterviewReviewItem from "@/components/review/InterviewReviewItem.vue"
-import YearamtReviewItem from "@/components/review/YearamtReviewItem.vue"
-import LoadingItem from "@/components/common/LoadingItem.vue"
-import reviewApi from "@/api/review";
-
-export default {
-  name: 'ReviewItem',
-  components:{
-    CompanyReviewItem, InterviewReviewItem, YearamtReviewItem, LoadingItem
-    
-  },
-  data(){
-    return{
-      selectedMenu1: '전체리뷰보기',
-      selectedMenu2: '기관/지역순',
-      dialog1: false,
-      backgroundUrls: [
-        'https://appstage.oneandzip.com/test/banner_bg_00.jpg',
-        'https://appstage.oneandzip.com/test/banner_bg_01.jpg',
-        'https://appstage.oneandzip.com/test/banner_bg_02.jpg',
-        'https://appstage.oneandzip.com/test/banner_bg_03.jpg',
-      ],
-      sliedeitems: [
-        {
-          id: 1,
-          name: '송파유정유치원',
-          score: 68,
-        },
-        {
-          id: 2,
-          name: '오창과학 미래어린이집',
-          score: 52,
-        },
-        {
-          id: 3,
-          name: '하나유치원',
-          score: 44,
-        },
-      ],
-      menu1Items: [
-        { title: '전체리뷰보기' },
-        { title: '기관리뷰만보기' },
-        { title: '면접리뷰만보기' },
-        { title: '연봉리뷰만보기' },
-      ],
-      menu2_items1:["전체", "국롱립", "사회복지법인"],
-      menu2_items2:["전체", "서울특별시"],
-      menu2_items3:["전체", "강남구"],
-      item: {},
-      list: [],
-      curpage:-1,
-      size:5,
-      isLoading: false,
-      lastScrollY: 0
-    }
-  },
-  methods:{
-    selectMenu1(val){
-      this.selectedMenu1 = val;
-    },
-    selectMenu2(val){
-      this.selectedMenu2 = val;
-    },
-    searchDetailSearch(){
-      console.log('FIXME! Search!!');
-    },
-    getBackgroundUrl(idx){
-      const size = this.backgroundUrls.length;
-      const newidx = idx%size;
-      return this.backgroundUrls[newidx];
-    },
-    detailReview(companyId){
-      const URI = `/review/reviewDetail/companies/${companyId}`;
-      this.$router.push(URI);
-    },
-    searchAllList(){
-      this.isLoading=true;
-      const reqpage = this.curpage+1;
-      console.log('START searchAllList ' + `req:${reqpage}, cur:${this.curpage}`);
-      var param = {
-        page: reqpage,
-        size: this.size
-      }
-      reviewApi.getReviewAll(param,
-      (body)=>{
-        if(body!=null && body.data.length>0){
-          //this.list = body!=null? body : [];
-          this.list = this.list.concat(body.data);
-          this.curpage = reqpage;
-        }
-        this.isLoading=false;
-      },
-      (err)=>{
-        console.log(err);
-        this.isLoading=false;
-      })
-    },
-    searchTopList(){
-      var param = {
-        page: 0,
-        size: 1,
-      }
-      reviewApi.getReviewAll(param,(body)=>{
-        this.item = body!=null&&body.data.length>0? body.data[0] : [];
-      })
-    },
-    handleScroll(e){
-      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
-        if(this.lastScrollY != window.scrollY){
-          this.lastScrollY = window.scrollY;
-          this.searchAllList();
-        }else{
-          this.lastScrollY = 0;
-        }
-      }
-    },
-    getComponentName(type){
-      var componentName = 'CompanyReviewItem'
-      switch(type){
-        case 'COMPANY':
-          componentName = 'CompanyReviewItem';
-        break;
-        case 'INTERVIEW':
-          componentName = 'InterviewReviewItem';
-        break;
-        case 'AMT':
-          componentName = 'YearamtReviewItem';
-        break;
-      }
-      return componentName;
-    }
-  },
-  created(){
-    this.searchTopList();
-    this.curpage=-1;
-    this.list=[];
-    this.searchAllList();
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    console.log('destroyed');
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-}
-</script>

@@ -18,6 +18,15 @@ export default {
     req.get(URI, success, fail);
   },
 
+  getCompanyJipyos({page,size,sort},success, fail){
+    // 기초파라미터 설정
+    page = page!=null? page : 0;
+    size = size!=null? size : 4;
+    sort = sort!=null? sort : 'created_at,desc';
+    const URI = `${ROOT_URI.COMPANIES}/jipyos`
+    req.get(URI, success, fail);
+  },
+
   getCompanySearch({name,sido,interestZone,interestCompany},{page,size,sort}, success, fail){
     // 기초파라미터 설정
     page = page!=null? page : 0;
