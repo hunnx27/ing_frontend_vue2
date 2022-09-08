@@ -195,6 +195,10 @@ export default {
       const URI = `/counsel/counselDetail/${id}`;
       this.$router.push(URI);
     },
+    doSearch(){
+      const URI = `/common/search#tabs-2`;
+      this.$router.push(URI);
+    },
     handleScroll(e){
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
         if(this.lastScrollY != window.scrollY){

@@ -97,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .search-bar input{
   outline: none; 
   border:none; 

@@ -1,7 +1,7 @@
 <template>
   <!-- Wrap START -->
   <div class="TempView">
-    <SearchCompanyItem ref="searchForm"/>
+    <SearchCompanyItem @selectCompany="selectCompany" ref="searchForm"/>
   </div>
   <!-- Wrap END -->
 </template>
@@ -20,11 +20,15 @@ export default {
     SearchCompanyItem
   },
   methods: {
-
+    ...mapActions('CompanySearch',{setReq:'setReq'}),
     doSearch(keyword){
       if(this.$refs.searchForm.doSearch!=null){
         this.$refs.searchForm.doSearch(keyword);
       }
+    },
+    selectCompany(item){
+      this.setReq(item)
+      this.$router.go(-1);      
     },
 
     

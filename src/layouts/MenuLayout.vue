@@ -14,7 +14,7 @@
       <v-app-bar-title>원앤집</v-app-bar-title>
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <v-btn icon @click="doSearch">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -95,7 +95,7 @@
     <!-- Main Section -->
     <v-main>
       <!--<v-content>-->
-      <router-view></router-view>
+      <router-view ref="childForm"></router-view>
       <!--</v-content>-->
     </v-main>
 
@@ -174,6 +174,18 @@ export default {
       }
     },
     ...mapActions(["logout"]),
+    doSearch(){
+      // ChildrenComponent에 doSearch()메소드 실행
+      if(this.$refs.childForm.doSearch!=null){
+        this.$refs.childForm.doSearch();
+      }
+    },
+    doBell(){
+      // ChildrenComponent에 doBell()메소드 실행
+      if(this.$refs.childForm.doBell!=null){
+        this.$refs.childForm.doBell();
+      }
+    },
   },
   computed: {
     ...mapState({

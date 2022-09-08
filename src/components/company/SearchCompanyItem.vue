@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
-    ...mapActions('CompanySearch',{setReq:'setReq'}),
     
     searchCompany(){
       this.$router.push('/searchCompany')
@@ -64,12 +63,13 @@ export default {
       this.interestZone = value;
     },
     selectCompany(item){
-      this.setReq({
+      const param = {
         companyId: item.id, 
         companyName: item.officeName, 
         sigugunName: item.mapsidogunguName, 
-        establishmentTypeName: item.establishName})
-      this.$router.go(-1);      
+        establishmentTypeName: item.establishName
+      }
+      this.$emit('selectCompany', param);
     },
     searchinit(){
       this.curpage = -1;
@@ -142,17 +142,7 @@ export default {
     ...mapGetters(["user"]),
   },
   created() {
-    const title = "";
-    const options = {
-      isShowCheckBtn: false,
-      isShowNextBtn: false,
-      isShowSearchBtn: true,
-      isShowStarBtn: false,
-      isShowChartBoxBtn: false,
-    };
-    this.$emit("setLayout", title, options);
-
-    this.interestCompanyName = this.$route.query.interestCompanyName!=null?this.$route.query.interestCompanyName:'kindergarten';
+    this.interestCompanyName = this.$route.query.interestCompanyName!=null?this.$route.query.interestCompanyName:null;
 
     this.curpage=-1;
     this.list=[];

@@ -241,7 +241,10 @@ export default {
         this.isLoading=false;
       })
     },
-    
+    doSearch(){
+      const URI = `/common/search#tabs-1`;
+      this.$router.push(URI);
+    },
     handleScroll(e){
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && this.isLoading==false) {
         if(this.lastScrollY != window.scrollY){

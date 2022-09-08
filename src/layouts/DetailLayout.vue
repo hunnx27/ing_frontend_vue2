@@ -20,7 +20,7 @@
             v-bind="props"
             gradient="to top right, transparent, rgba(25,32,72,.7)"
           >
-            <div v-if="true"
+            <div
               class="lighten-5 ma-0 block"
               style="display:flex;height:100%;align-items: stretch;justify-content: center;background-position: center;background-size: cover;padding:10px; flex-direction:column;"
             >
@@ -65,7 +65,17 @@
         </v-btn>
         
       </v-app-bar>
-      <LoadingItem isLoading="true" v-else/>
+      <v-app-bar
+        height=110px
+        class="flex-grow-0"
+        v-else
+      >
+        <template v-slot:img="{ props }">
+          <v-img v-bind="props"><LoadingItem isLoading="true" /></v-img>
+        </template>
+        <v-btn icon @click="goBack"><v-icon >mdi-arrow-left</v-icon></v-btn>
+      </v-app-bar>
+      
       
       <!-- Main Section -->
       <v-sheet

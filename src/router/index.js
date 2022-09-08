@@ -55,6 +55,7 @@ import YearamtDetailView from "../views/review/yearamt/YearamtDetailView.vue";
 
 // Common
 import SearchCompanyView from "../views/common/SearchCompanyView.vue";
+import SearchView from "../views/common/SearchView.vue";
 
 // sample loginnpm
 import Main from "@/components/loginExample/MainItem";
@@ -146,6 +147,18 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/common/search",
+    component: StepLayout,
+    children: [
+      {
+        path: "",
+        name: "searchView",
+        component: SearchView,
+      },
+    ],
+  },
+  
   /**
    * Menu.mypage
    */
