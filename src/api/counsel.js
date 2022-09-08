@@ -1,4 +1,5 @@
 import req from './req-wrapper'
+import buildURL from "axios/lib/helpers/buildURL";
 
 const ROOT_URI = {
   COUNSEL: '/api/counsel'
@@ -83,4 +84,17 @@ export default {
     const URI = `${ROOT_URI.COUNSEL}/answer/${id}/notice`
     req.post(URI, {}, success, fail);
   },
+  searchQnaitemCntByGubn(gubn, success, fail){
+    const URI = `${ROOT_URI.COUNSEL}/search/gubn/${gubn}`
+    req.get(URI, success, fail);
+  },
+  searchCounselByTag({keyword,gubn}, success, fail){
+    let URI = `${ROOT_URI.COUNSEL}/search/tag/${keyword}`
+    if(gubn!=null && ''!=gubn) URI = buildURL(URI, {gubn: gubn});
+    req.get(URI, success, fail);
+  },
+  searchCounselByQnaitem(code, success, fail){
+    const URI = `${ROOT_URI.COUNSEL}/search/qnaitem/${code}`
+    req.get(URI, success, fail);
+  }
 }

@@ -1,4 +1,5 @@
 import req from './req-wrapper'
+import buildURL from "axios/lib/helpers/buildURL";
 
 const ROOT_URI = {
   REVIEWS: '/api/reviews',

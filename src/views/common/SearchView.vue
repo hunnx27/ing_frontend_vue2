@@ -34,7 +34,7 @@
               label="#제외한 태그를 입력해 주세요."
               color="orange"
             >
-              <v-icon slot="append" @click="search2">
+              <v-icon slot="append" @click="search2CounselByTag">
                 mdi-magnify
               </v-icon>
             </v-text-field>
@@ -42,11 +42,15 @@
               :items="itemList"
               item-text="name"
               item-value="value"
+              v-model="gubn"
               color="orange"
+              @change="changeGubn"
             />
-            <div>
-
-              
+            <div style="padding:15px;">
+              <p v-for="(item, idx) in search2GroupList" :key="item.code+'-'+idx" @click="search2CounselByCode(item.code)" style="display:flex;justify-content: space-between;align-items: center;border-bottom: 1px solid #dfdfdf;padding-bottom: 10px;">
+                <span style="font-size:15px;">{{item.name}}</span>
+                <span style="background-color: white;padding: 2px 7px;border-radius: 70%;;font-size:13px;">{{item.cnt}}</span>
+              </p>
             </div>
           </div>
         </v-tab-item>
@@ -74,6 +78,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import SearchCompanyItem from "@/components/company/SearchCompanyItem"
+import counselApi from "@/api/counsel";
 
 export default {
   name: "TempView",
@@ -86,8 +91,9 @@ export default {
         {'name':'유아교사', 'value':'S'},
         {'name':'예비교사', 'value':'I'},
       ],
-
-      list2:[
+      keyword2:null,
+      gubn:null,
+      search2GroupList:[
 
       ]
     };
@@ -120,9 +126,49 @@ export default {
       const URI = `/review/reviewDetail/companies/${companyId}`;
       this.$router.push(URI);
     },
-    search2(){
-      alert('준비중입니다.');
+    changeGubn(gubn){
+      counselApi.searchQnaitemCntByGubn(gubn,
+      (body)=>{
+        console.log(body);
+        this.search2GroupList = body.data.qnaList;
+      },
+      (err)=>{
+        console.log(err);
+      })
     },
+    search2CounselByTag(){
+      alert('태그 검색은 준비중입니다.('+this.keyword2, +')');
+      if(this.keyword2==null){
+        alert('태그를 입력하세요.');
+        return;
+      }
+      const gubn = this.gubn;
+      counselApi.searchCounselByTag({keyword:this.keyword2, gubn},
+      (body)=>{
+        console.log(body);
+        //TODO 응답처리 필요
+        //TODO 응답처리 필요
+        //TODO 응답처리 필요
+        //this.search2GroupList = body.data.qnaList;
+      },
+      (err)=>{
+        console.log(err);
+      })
+    },
+    search2CounselByCode(code){
+      alert('코드 검색은 준비중입니다.('+code+')');
+      counselApi.searchCounselByQnaitem(code,
+      (body)=>{
+        console.log(body);
+        //TODO 응답처리 필요
+        //TODO 응답처리 필요
+        //TODO 응답처리 필요
+        //this.search2GroupList = body.data.qnaList;
+      },
+      (err)=>{
+        console.log(err);
+      })
+    }
     
   },
   computed: {
