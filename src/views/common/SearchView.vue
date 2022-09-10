@@ -79,6 +79,7 @@
 import { mapActions, mapGetters } from "vuex";
 import SearchCompanyItem from "@/components/company/SearchCompanyItem"
 import counselApi from "@/api/counsel";
+import buildURL from "axios/lib/helpers/buildURL";
 
 export default {
   name: "TempView",
@@ -88,14 +89,15 @@ export default {
       tab: 'tabs-1',
       itemList:[
         {'name':'전체', 'value':''},
-        {'name':'유아교사', 'value':'S'},
-        {'name':'예비교사', 'value':'I'},
+        {'name':'유아교사', 'value':'TEACHER', 'code':'S'},
+        {'name':'예비교사', 'value':'PARENT', 'code':'I'},
       ],
       keyword2:null,
       gubn:null,
       search2GroupList:[
 
-      ]
+      ],
+      item:{},
     };
   },
   components:{
@@ -137,44 +139,66 @@ export default {
       })
     },
     search2CounselByTag(){
-      alert('태그 검색은 준비중입니다.('+this.keyword2, +')');
       if(this.keyword2==null){
         alert('태그를 입력하세요.');
         return;
       }
+      let URI = `/counsel/counselSearch?type=HASHTAG&keyword=${this.keyword2}`;
       const gubn = this.gubn;
-      counselApi.searchCounselByTag({keyword:this.keyword2, gubn},
-      (body)=>{
-        console.log(body);
-        //TODO 응답처리 필요
-        //TODO 응답처리 필요
-        //TODO 응답처리 필요
-        //this.search2GroupList = body.data.qnaList;
-      },
-      (err)=>{
-        console.log(err);
-      })
+      if(gubn!=null && ''!=gubn) URI = buildURL(URI, {gubn: gubn});
+      this.$router.push(URI);
     },
     search2CounselByCode(code){
-      alert('코드 검색은 준비중입니다.('+code+')');
-      counselApi.searchCounselByQnaitem(code,
+      let URI = `/counsel/counselSearch?type=QNA_ITEM&keyword=${code}`;
+      const gubn = this.gubn;
+      if(gubn!=null && ''!=gubn) URI = buildURL(URI, {gubn: gubn});
+      this.$router.push(URI);
+    },
+    // TODO 삭제
+    // TODO 삭제
+    searchAllList(){
+      this.isLoading=true;
+      const reqpage = this.curpage+1;
+      console.log('START searchAllList ' + `req:${reqpage}, cur:${this.curpage}`);
+      var param = {
+        page: reqpage,
+        size: this.size
+      }
+      counselApi.getCounselAll(param,
       (body)=>{
-        console.log(body);
-        //TODO 응답처리 필요
-        //TODO 응답처리 필요
-        //TODO 응답처리 필요
-        //this.search2GroupList = body.data.qnaList;
+        if(body.data!=null && body.data.length>0){
+          //this.list = body!=null? body : [];
+          this.list = this.list.concat(body.data);
+          this.curpage = reqpage;
+        }
+        this.isLoading=false;
       },
       (err)=>{
         console.log(err);
+        this.isLoading=false;
       })
-    }
+    },
+    // TODO 삭제
+    // TODO 삭제
+    searchFirst(){
+      var param = {
+        page: 0,
+        size: 1,
+      }
+      param['type'] = 'QNA_ITEM';
+      param['keyword'] = 'QS01';
+      param['gubn'] = 'TEACHER';
+      counselApi.getCounselAll(param,(body)=>{
+        this.item = body!=null&&body.data.length>0? body.data[0] : [];
+      })
+    },
     
   },
   computed: {
     ...mapGetters(["user"]),
   },
   created() {
+    this.searchFirst(); // TODO 삭제
     const title = "";
     const options = {
       isShowCheckBtn: false,

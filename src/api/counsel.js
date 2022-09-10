@@ -22,7 +22,10 @@ export default {
     const page = param.page!=null? param.page : 0;
     const size = param.size!=null? param.size : 20;
     const sort = param.sort!=null? param.sort : 'createdAt,desc';
-    const URI = `${ROOT_URI.COUNSEL}?page=${page}&size=${size}&sort=${sort}`
+    let URI = `${ROOT_URI.COUNSEL}?page=${page}&size=${size}&sort=${sort}`
+    if(param.type!=null && ''!=param.type) URI = buildURL(URI, {counselSearchType: param.type});
+    if(param.keyword!=null && ''!=param.keyword) URI = buildURL(URI, {keyword: param.keyword});
+    if(param.gubn!=null && ''!=param.gubn) URI = buildURL(URI, {gubn: param.gubn});
     req.get(URI, success, fail);
   },
   getCounselInfo(id, success, fail){
@@ -88,13 +91,13 @@ export default {
     const URI = `${ROOT_URI.COUNSEL}/search/gubn/${gubn}`
     req.get(URI, success, fail);
   },
-  searchCounselByTag({keyword,gubn}, success, fail){
-    let URI = `${ROOT_URI.COUNSEL}/search/tag/${keyword}`
-    if(gubn!=null && ''!=gubn) URI = buildURL(URI, {gubn: gubn});
-    req.get(URI, success, fail);
-  },
-  searchCounselByQnaitem(code, success, fail){
-    const URI = `${ROOT_URI.COUNSEL}/search/qnaitem/${code}`
-    req.get(URI, success, fail);
-  }
+  // searchCounselByTag({keyword,gubn}, success, fail){
+  //   let URI = `${ROOT_URI.COUNSEL}/search/tag/${keyword}`
+  //   if(gubn!=null && ''!=gubn) URI = buildURL(URI, {gubn: gubn});
+  //   req.get(URI, success, fail);
+  // },
+  // searchCounselByQnaitem(code, success, fail){
+  //   const URI = `${ROOT_URI.COUNSEL}/search/qnaitem/${code}`
+  //   req.get(URI, success, fail);
+  // }
 }
